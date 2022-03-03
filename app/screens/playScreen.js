@@ -1,11 +1,16 @@
+
 import Card from "../components/card"
+import {useState} from "react";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
+
 export default function PlayScreen(props) {
   
     const [isSelected, setSelection] = useState([]);
 
   
-    console.log("This is setup");
-    console.log("This is selected", isSelected);
+
+    console.log("This is the Game" );
+
     const handleBackPress = () => {
       console.log("Go to Welcome");
       props.setCurrentView("WelcomeScreen");
@@ -18,26 +23,46 @@ export default function PlayScreen(props) {
     };
     return (
       <View style={styles.container}>
-        <Text style={styles.greeting}>Setup a New Game!!!</Text>
-        <Text style={styles.selectCat}>Select Categories!!!</Text>
-        <SelectMultiple
-          items={Object.keys(props.categories)}
-          selectedItems={isSelected}
-          onSelectionsChange={setSelection}
-        />
-        <Button
-          onPress={handleBackPress}
-          title="RETURN TO WELCOME SCREEN"
-          color="#841584"
-          accessibilityLabel="GO BACK!"
-        />
-  
+        <Text style={styles.title}>Play GAme!!!</Text>
+       
         <Button
           onPress={handleStartGamePress}
           title="Start the Game"
           color="#841584"
           accessibilityLabel="Questions"
         />
+        <Button
+          onPress={handleBackPress}
+          title="RETURN TO HOME SCREEN"
+          color="#841584"
+          accessibilityLabel="GO BACK!"
+        />
+  
+      
       </View>
     );
   }
+
+
+  const styles = StyleSheet.create({
+    container: {
+      // flex: 1,
+      //backgroundColor: "#ddf",
+    },
+    title: {
+      fontSize: 60,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    teams: {
+      fontSize: 20,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    button: {
+      fontSize: 40,
+      paddingBottom: 20,
+       alignItems: "center",
+      justifyContent: "center",
+    },
+  });
