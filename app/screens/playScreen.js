@@ -1,11 +1,14 @@
+
+import Card from "../components/card"
 import {useState} from "react";
 import { StatusBar, StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-elements";
+
 export default function PlayScreen(props) {
   
     const [isSelected, setSelection] = useState([]);
 
   
+
     console.log("This is the Game" );
 
     const handleBackPress = () => {
