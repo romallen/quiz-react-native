@@ -1,9 +1,10 @@
+import Card from "../components/card"
 export default function PlayScreen(props) {
   
     const [isSelected, setSelection] = useState([]);
 
   
-    console.log("This is setup", Object.keys(props.categories));
+    console.log("This is setup");
     console.log("This is selected", isSelected);
     const handleBackPress = () => {
       console.log("Go to Welcome");
