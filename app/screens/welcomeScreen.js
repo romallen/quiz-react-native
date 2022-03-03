@@ -4,10 +4,10 @@ import { Button } from "react-native-elements";
 
 
 export default function WelcomeScreen(props) {
-  const handlePlayGamePress = () => {
+  const handlePlayPress = () => {
     console.log("Go to handlePlayGamePress");
-    //props.setCurrentView("GameSetup")
-    props.setCurrentView("PlayGame");
+    props.setCurrentView("SetupScreen")
+    //props.setCurrentView("PlayGame");
   };
   const handleQuestionBankPress = () => {
     console.log("Go to QuestionBankPress");
@@ -20,7 +20,7 @@ export default function WelcomeScreen(props) {
 
       <Button
         style={styles.button}
-        onPress={handlePlayGamePress}
+        onPress={handlePlayPress}
         title="PLAY"
         color="#841584"
         accessibilityLabel="Setup the game!"
