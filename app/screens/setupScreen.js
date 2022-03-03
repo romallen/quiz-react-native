@@ -22,12 +22,20 @@ export default function SetupScreen(props) {
     return (
       <View style={styles.container}>
         <Text style={styles.greeting}>Setup a New Game!!!</Text>
+        <Text style={styles.selectCat}>Teams:</Text>
+        <Text style={styles.selectCat}></Text>
+        <Text style={styles.selectCat}>Select Categories!!!</Text>
         <Text style={styles.selectCat}>Select Categories!!!</Text>
         {/* <SelectMultiple
           items={Object.keys(props.categories)}
           selectedItems={isSelected}
           onSelectionsChange={setSelection}
         /> */}
+        
+        
+        
+        
+        
         <Button
           onPress={handleBackPress}
           title="RETURN TO WELCOME SCREEN"
