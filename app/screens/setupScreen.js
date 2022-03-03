@@ -1,11 +1,13 @@
+import {useState} from "react";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { Button } from "react-native-elements";
 
-
-export default function GameSetup(props) {
+export default function SetupScreen(props) {
   
     const [isSelected, setSelection] = useState([]);
 
   
-    console.log("This is setup", Object.keys(props.categories));
+    console.log("This is setup", );
     console.log("This is selected", isSelected);
     const handleBackPress = () => {
       console.log("Go to Welcome");
@@ -20,12 +22,20 @@ export default function GameSetup(props) {
     return (
       <View style={styles.container}>
         <Text style={styles.greeting}>Setup a New Game!!!</Text>
+        <Text style={styles.selectCat}>Teams:</Text>
+        <Text style={styles.selectCat}></Text>
         <Text style={styles.selectCat}>Select Categories!!!</Text>
-        <SelectMultiple
+        <Text style={styles.selectCat}>Select Categories!!!</Text>
+        {/* <SelectMultiple
           items={Object.keys(props.categories)}
           selectedItems={isSelected}
           onSelectionsChange={setSelection}
-        />
+        /> */}
+        
+        
+        
+        
+        
         <Button
           onPress={handleBackPress}
           title="RETURN TO WELCOME SCREEN"
@@ -42,3 +52,22 @@ export default function GameSetup(props) {
       </View>
     );
   }
+
+  const styles = StyleSheet.create({
+    container: {
+      // flex: 1,
+      //backgroundColor: "#ddf",
+    },
+    greeting: {
+      flex: 1,
+      fontSize: 60,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    button: {
+      fontSize: 40,
+      paddingBottom: 20,
+       alignItems: "center",
+      justifyContent: "center",
+    },
+  });
