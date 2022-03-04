@@ -4,18 +4,18 @@
 import Card from "../components/Cards"
 import Header from "../components/headers"
 import {useState,createRef, useEffect} from "react";
-import { SectionList, StatusBar, StyleSheet, Text, View,useWindowDimensions } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, View,useWindowDimensions } from "react-native";
 import { Button } from "react-native-elements";
-import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import { FlatGrid } from 'react-native-super-grid';
 
 let w,h
 export default function PlayScreen(props) {
     const { height, width } = useWindowDimensions();
     const [isSelected, setSelection] = useState([]);
     const [cards, setCards] = useState([]);
-    const [headerHeight, setHeaderHeight] = useState(0);
-    const [cardWidth, setCardWidth] = useState(0);
-    const [cardHeight, setCardHeight] = useState(0);
+   // const [headerHeight, setHeaderHeight] = useState(0);
+    const [cardWidth, setCardWidthh] = useState(0);
+    //const [cardHeight, setCardHeight] = useState(0);
 
     const [gState, setGState] = useState({windowWidth: width, windowHeight: height, data:[]})
 let data1 = [
@@ -129,11 +129,7 @@ let data1 = [
     gState.rows = gState.data[0].questions.length
     gState.cols = data1.length
    
-    useEffect(()=>{
-    //setGState({data: data, rows: rows, cols: data.length});
-  
-    
-    },[cardHeight])
+
 
 
 
@@ -151,14 +147,32 @@ let data1 = [
     let headerHeight = (gState.windowWidth  / gState.cols);
     let cardWidth = (gState.windowWidth / gState.cols);
     let cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
-
-    setCardWidth((gState.windowWidth / gState.cols))
+let card = []
+    setCardWidthh((gState.windowWidth / gState.cols))
     gState.data.forEach((category, categoryIndex) => {
       let left = categoryIndex * cardWidth;
+      let column = []
       category.questions.forEach((question, questionIndex) => {
-         cards.push( <Card left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points} key={categoryIndex + '-' + questionIndex}/>)
-      })
+         column.push(<Card height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points} key={categoryIndex + '-' + questionIndex}/>)
+      
+        })
+      card.push(column)
     });
+setCards(card)
+      //  style={{}} left={left} top={questionIndex * cardHeight + headerHeight}
+      // for(let i = 0; i< 4; i++){
+      //   let categoryIndex = i
+      //   let left = i * cardWidth;
+      //   let column = []
+      //   for(let j =0; j<4;j++){
+      //     let question = gState.data[j]["questions"][i]
+      //     let questionIndex = j
+      //     column.push( <Card style={{}} left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points} key={categoryIndex + '-' + questionIndex}/>)
+      //     console.log( gState.data[j]["questions"][i])
+      //   }
+      //   cards.push(column)
+
+      // }
 
 }
 
@@ -168,9 +182,23 @@ let data1 = [
     return (
       <View style={{flex: 1,  backgroundColor: '#fff' }}> 
         <Header data={gState.data} headerWidth={cardWidth}/>
-          <div>
-              {cards}  
-          </div> 
+        {/* <View>
+        {cards}  
+        </View> */}
+
+        <FlatGrid
+          //itemDimension={cardWidth}
+          data={cards}
+          style={styles.gridView}
+          // staticDimension={300}
+          // fixed
+          spacing={10}
+          renderItem={({ item }) => (
+            <View style={[styles.itemContainer]}>
+              <Text style={styles.itemName}>{item}</Text>
+            </View>
+          )}
+        />
       </View>
     );
   }
