@@ -1,7 +1,7 @@
 
 // import Card from "../components/card"
 
-import Card from "../components/Card"
+import Card from "../components/Cards"
 import Header from "../components/headers"
 import {useState,createRef, useEffect} from "react";
 import { SectionList, StatusBar, StyleSheet, Text, View,useWindowDimensions } from "react-native";
@@ -13,9 +13,9 @@ export default function PlayScreen(props) {
     const { height, width } = useWindowDimensions();
     const [isSelected, setSelection] = useState([]);
     const [cards, setCards] = useState([]);
-    const [headerHeight, setHeaderHeight] = useState([]);
-    const [cardWidth, setCardWidth] = useState([]);
-    const [cardHeight, setCardHeight] = useState([]);
+    const [headerHeight, setHeaderHeight] = useState(0);
+    const [cardWidth, setCardWidth] = useState(0);
+    const [cardHeight, setCardHeight] = useState(0);
 
     const [gState, setGState] = useState({windowWidth: width, windowHeight: height, data:[]})
 let data1 = [
@@ -121,51 +121,53 @@ let data1 = [
       }
     ];
      
- w =width
- h=height
+  w =width
+  h=height
     const state = createRef(null)
 
-  useEffect(()=>{
     gState.data  = data1
     gState.rows = gState.data[0].questions.length
     gState.cols = data1.length
+   
+    useEffect(()=>{
     //setGState({data: data, rows: rows, cols: data.length});
-    handleResize()
-  },[])
+  
+    
+    },[cardHeight])
 
 
 
   useEffect(()=>{
   //  console.log(width,height)
-   
+  handleResize()
     
-  },[width,height])
+  },[width, height])
 
   let handleResize = () =>{
     gState.windowWidth= width
     gState.windowHeight= height
 
-    console.log("cards", gState.cols, gState.rows)
-    setHeaderHeight(gState.windowWidth  / gState.cols);
-    setCardWidth(gState.windowWidth / gState.cols);
-    setCardHeight((gState.windowHeight - headerHeight) / gState.rows);
-  
-  
-  gState.data.forEach((category, categoryIndex) => {
-    let left = categoryIndex * cardWidth;
-    console.log(categoryIndex)
-    category.questions.forEach((question, questionIndex) => {
-       cards.push( <Card left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points} key={categoryIndex + '-' + questionIndex}/>)
-    })
-  });
+    console.log("cards",cardHeight, cardWidth)
+    let headerHeight = (gState.windowWidth  / gState.cols);
+    let cardWidth = (gState.windowWidth / gState.cols);
+    let cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
+
+    setCardWidth((gState.windowWidth / gState.cols))
+    gState.data.forEach((category, categoryIndex) => {
+      let left = categoryIndex * cardWidth;
+      category.questions.forEach((question, questionIndex) => {
+         cards.push( <Card left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points} key={categoryIndex + '-' + questionIndex}/>)
+      })
+    });
+
 }
 
 
  
  
     return (
-      <View style={{flex: 1, flexDirection: "column", backgroundColor: '#fff' }}> 
-        <Header style={styles.head} data={gState.data} headerWidth={cardWidth}/>
+      <View style={{flex: 1,  backgroundColor: '#fff' }}> 
+        <Header data={gState.data} headerWidth={cardWidth}/>
           <div>
               {cards}  
           </div> 
@@ -176,15 +178,7 @@ let data1 = [
 
   const styles = StyleSheet.create({
   
-    head: {  flex:1, 
-            flexDirection: "row",
-          backgroundColor: '#31f8ff' },
-    // text: { margin: 6 },
-    title: {
-      fontSize: 60,
-      alignItems: "center",
-      justifyContent: "center",
-    },
+
     button: {
       fontSize: 40,
       paddingBottom: 20,

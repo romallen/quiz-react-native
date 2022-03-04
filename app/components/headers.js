@@ -4,8 +4,12 @@ import { Button } from "react-native-elements";
 
 let w
 export default function Header(props) {
-    w =props.headerWidth
-    let headers = props.data.map((category, index) => <Text style={styles.text} key={index}>{category.category}</Text>)
+  
+    let headers = props.data.map((category, index) => <Text style={{
+        padding: 10,
+        fontSize: 40,
+        width: props.headerWidth,
+    }} key={index}>{category.category}</Text>)
   return (
     <View className='headers' style={styles.headers}>
         {headers}
@@ -14,8 +18,9 @@ export default function Header(props) {
 }
 
 const styles = StyleSheet.create({
-    text: {
-        width: w,
-        fontSize: 40,
-    }
-    })
+    headers: {  
+     flexDirection: "row",
+      backgroundColor: '#51f8ff',
+    // padding: 10,
+}
+})
