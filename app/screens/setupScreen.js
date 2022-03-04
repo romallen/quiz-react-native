@@ -8,7 +8,7 @@ import {Picker} from '@react-native-picker/picker';
 export default function SetupScreen(props) {
   
     const [isSelected, setSelection] = useState([]);
-    const [teamNum,setTeamNum] = useState(1)
+    const [teamnum,setTeamNum] = useState(1)
   
     console.log("This is setup", );
     console.log("This is selected", isSelected);
@@ -28,7 +28,7 @@ export default function SetupScreen(props) {
         <div >
           <Text>Teams:</Text>
           <Picker
-            teamNum={teamNum}
+            teamnum={teamnum}
             onValueChange={(itemValue, itemIndex) =>
               setTeamNum(Number(itemValue))
             }>

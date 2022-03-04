@@ -1,61 +1,187 @@
 
-import Card from "../components/card"
-import {useState} from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+// import Card from "../components/card"
 
+import Card from "../components/Card"
+import Header from "../components/headers"
+import {useState,createRef, useEffect} from "react";
+import { SectionList, StatusBar, StyleSheet, Text, View,useWindowDimensions } from "react-native";
+import { Button } from "react-native-elements";
+import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+
+let w,h
 export default function PlayScreen(props) {
-  
+    const { height, width } = useWindowDimensions();
     const [isSelected, setSelection] = useState([]);
+    const [cards, setCards] = useState([]);
+    const [headerHeight, setHeaderHeight] = useState([]);
+    const [cardWidth, setCardWidth] = useState([]);
+    const [cardHeight, setCardHeight] = useState([]);
 
+    const [gState, setGState] = useState({windowWidth: width, windowHeight: height, data:[]})
+let data1 = [
+      {
+        "category": "React 101",
+        "questions": [
+          {
+            "points": 100,
+            "question": "<p>What part of your application does React focus on?</p><ol><li>The Model</li><li>The View</li><li>The Controller</li><li>All of the above</li></ol>",
+            "answer": "B. The View"
+          },
+          {
+            "points": 200,
+            "question": "_____ lets you create JavaScript objects using HTML syntax",
+            "answer": "JSX"
+          },
+          {
+            "points": 300,
+            "question": "What tool can you use to transpile JSX?",
+            "answer": "Babel"
+          },
+          {
+            "points": 400,
+            "question": "React uses a _____________ to limit direct manipulation of the DOM and improve performance",
+            "answer": "Virtual DOM"
+          }
+        ]
+      },
+      {
+        "category": "React 201",
+        "questions": [
+          {
+            "points": 100,
+            "question": "<p>Where can you define a component's initial state when you use the ES6 Class syntax?</p><ol><li>getInitialState()</li><li>getInitialProps()</li><li>The component's constructor</li></ol>",
+            "answer": "C. The component's constructor"
+          },
+          {
+            "points": 200,
+            "question": "Using npm, which package should you require/import in addition to 'react' to render a React component in an existing DOM element of your HTML file?",
+            "answer": "react-dom"
+          },
+          {
+            "points": 300,
+            "question": "<p>Which lifecycle function should you use to set default property values?</p><ol><li>getInitialState</li><li>getInitialProps</li><li>getDefaultProps</li></ol>",
+            "answer": "C. getDefaultProps"
+          },
+          {
+            "points": 400,
+            "question": "Which lifecycle method is invoked once, immediately after the initial rendering occurs?",
+            "answer": "componentDidMount"
+          }
+        ]
+      },
+      {
+        "category": "ES 2015",
+        "questions": [
+          {
+            "points": 100,
+            "question": "<p>Constants (const) are:</p><ol><li>Block scoped</li><li>Function scoped</li><li>Global</li></ol>",
+            "answer": "A. Block scoped"
+          },
+          {
+            "points": 200,
+            "question": "Name 3 new collection classes in ES2015",
+            "answer": "<ul><li>Map</li><li>WeakMap</li><li>Set</li><li>WeakSet</li></ul>"
+          },
+          {
+            "points": 300,
+            "question": "<p>What's being logged and how is this new ES6 feature called?</p><code>var colors = ['red', 'blue', 'green'];<br/>var [primary, secondary, tertiary] = colors;<br/>console.log(secondary);</code>",
+            "answer": "<ul><li>blue</li><li>Array destructuring</li></ul>"
+          },
+          {
+            "points": 400,
+            "question": "<p>What's being logged and name 4 new features of ES6 used in this code snippet?</p><code>let greeting = (name, msg='Hello') => `${msg}, ${name}`;<br/>console.log(greeting('Christophe');</code>",
+            "answer": "<p>Hello, Christophe</p><ul><li>let variables</li><li>Arrow functions</li><li>Default parameters</li><li>Template strings</li></ul>"
+          }
+        ]
+      },
+      {
+        "category": "Feeling Lucky",
+        "questions": [
+          {
+            "points": 100,
+            "question": "Using the proposed ECMAScript module syntax, how do you load the Mortgage.js module from the current directory and make all its members available in an object named mortgage?",
+            "answer": "<code>import * as mortgage from './Mortgage';</code>"
+          },
+          {
+            "points": 200,
+            "question": "What are the colors of the olympic rings?",
+            "answer": "<img src='assets/img/olympic_rings.png'/>"
+          },
+          {
+            "points": 300,
+            "question": "What's the date of the first React commit on GitHub?",
+            "answer": "May 26th, 2013"
+          },
+          {
+            "points": 400,
+            "question": "What's the hex color of the React logo?",
+            "answer": "#61DAFB"
+          }
+        ]
+      }
+    ];
+     
+ w =width
+ h=height
+    const state = createRef(null)
+
+  useEffect(()=>{
+    gState.data  = data1
+    gState.rows = gState.data[0].questions.length
+    gState.cols = data1.length
+    //setGState({data: data, rows: rows, cols: data.length});
+    handleResize()
+  },[])
+
+
+
+  useEffect(()=>{
+  //  console.log(width,height)
+   
+    
+  },[width,height])
+
+  let handleResize = () =>{
+    gState.windowWidth= width
+    gState.windowHeight= height
+
+    console.log("cards", gState.cols, gState.rows)
+    setHeaderHeight(gState.windowWidth  / gState.cols);
+    setCardWidth(gState.windowWidth / gState.cols);
+    setCardHeight((gState.windowHeight - headerHeight) / gState.rows);
   
-
-    console.log("This is the Game" );
-
-    const handleBackPress = () => {
-      console.log("Go to Welcome");
-      props.setCurrentView("WelcomeScreen");
-    };
-    const handleStartGamePress = () => {
-      console.log("Start the Game");
   
-      props.setGameSettings({ categories: isSelected.map((sel) => sel.value) });
-      props.setCurrentView("PlayGame");
-    };
+  gState.data.forEach((category, categoryIndex) => {
+    let left = categoryIndex * cardWidth;
+    console.log(categoryIndex)
+    category.questions.forEach((question, questionIndex) => {
+       cards.push( <Card left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points} key={categoryIndex + '-' + questionIndex}/>)
+    })
+  });
+}
+
+
+ 
+ 
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Play GAme!!!</Text>
-       
-        <Button
-          onPress={handleStartGamePress}
-          title="Start the Game"
-          color="#841584"
-          accessibilityLabel="Questions"
-        />
-        <Button
-          onPress={handleBackPress}
-          title="RETURN TO HOME SCREEN"
-          color="#841584"
-          accessibilityLabel="GO BACK!"
-        />
-  
-      
+      <View style={{flex: 1, flexDirection: "column", backgroundColor: '#fff' }}> 
+        <Header style={styles.head} data={gState.data} headerWidth={cardWidth}/>
+          <div>
+              {cards}  
+          </div> 
       </View>
     );
   }
 
 
   const styles = StyleSheet.create({
-    container: {
-      // flex: 1,
-      //backgroundColor: "#ddf",
-    },
+  
+    head: {  flex:1, 
+            flexDirection: "row",
+          backgroundColor: '#31f8ff' },
+    // text: { margin: 6 },
     title: {
       fontSize: 60,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    teams: {
-      fontSize: 20,
       alignItems: "center",
       justifyContent: "center",
     },
@@ -65,4 +191,5 @@ export default function PlayScreen(props) {
        alignItems: "center",
       justifyContent: "center",
     },
+
   });
