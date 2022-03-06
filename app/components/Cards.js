@@ -47,14 +47,14 @@ export default function Card(props) {
             // setCardState({flipping: false});
         }
     }
-    console.log(props)
- let style = {width: props.width, 
+    console.log(props.width)
+    let style = {width: props.width, 
                 height: props.height, 
-    transform:[{translateX:props.left}, {translateY:props.top}]}
+                transform:[{translateX:props.left}, {translateY:props.top}]}
   
      
 
-        let front = cardState.completed ? <img src={image}/> : <Text style= {{fontSize: 30, flexDirection: "row"}} className='points'>{props.points}</Text>;
+        let front = cardState.completed ? <img src={image}/> : <Text style= {{fontSize: 30}} nativeIDs='points'>{props.points}</Text>;
         let className = 'flipper';
 
         if (cardState.view !== 'points') {
@@ -63,21 +63,19 @@ export default function Card(props) {
         if (cardState.flipping) {
             className = className + ' flipping';
         }
-        //
+       
         return (
-            <TouchableOpacity  style= {{width: props.width,  height: props.height}} className={className} onPress={handleClick}>
-                <div className='card'>
-                    <View className='front'>
+            <TouchableOpacity  style= {{width: props.width,  height: props.height}} key={props.key} onPress={handleClick}>
+                <View nativeID='card'>
+                    <View nativeID='front'>
                     {front}
                     </View>
-                    <View className='back'>
+                    <View nativeID='back'>
                         {getLabelBack}
                         <img src={image}/>
                     </View>
-                </div>
-
+                </View>
             </TouchableOpacity>
-
         );
     }
 

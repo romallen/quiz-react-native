@@ -13,9 +13,9 @@ export default function PlayScreen(props) {
     const { height, width } = useWindowDimensions();
     const [isSelected, setSelection] = useState([]);
     const [cards, setCards] = useState([]);
-   // const [headerHeight, setHeaderHeight] = useState(0);
-    const [cardWidth, setCardWidthh] = useState(0);
-    //const [cardHeight, setCardHeight] = useState(0);
+    const [headerHeight, setHeaderHeight] = useState(0);
+    const [cardWidth, setCardWidth] = useState(0);
+    const [cardHeight, setCardHeight] = useState(0);
 
     const [gState, setGState] = useState({windowWidth: width, windowHeight: height, data:[]})
 let data1 = [
@@ -135,20 +135,21 @@ let data1 = [
 
   useEffect(()=>{
   //  console.log(width,height)
+  gState.windowWidth= width
+  gState.windowHeight= height
+
+  console.log("cards",cardHeight, cardWidth)
+  setHeaderHeight(gState.windowWidth  / gState.cols);
+  setCardWidth(gState.windowWidth / gState.cols);
+  setCardHeight((gState.windowHeight - headerHeight) / gState.rows);
   handleResize()
     
   },[width, height])
 
   let handleResize = () =>{
-    gState.windowWidth= width
-    gState.windowHeight= height
 
-    console.log("cards",cardHeight, cardWidth)
-    let headerHeight = (gState.windowWidth  / gState.cols);
-    let cardWidth = (gState.windowWidth / gState.cols);
-    let cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
-let card = []
-    setCardWidthh((gState.windowWidth / gState.cols))
+    let card = []
+  
     gState.data.forEach((category, categoryIndex) => {
       let left = categoryIndex * cardWidth;
       let column = []
@@ -158,7 +159,7 @@ let card = []
         })
       card.push(column)
     });
-setCards(card)
+    setCards(card)
       //  style={{}} left={left} top={questionIndex * cardHeight + headerHeight}
       // for(let i = 0; i< 4; i++){
       //   let categoryIndex = i
@@ -182,9 +183,7 @@ setCards(card)
     return (
       <View style={{flex: 1,  backgroundColor: '#fff' }}> 
         <Header data={gState.data} headerWidth={cardWidth}/>
-        {/* <View>
-        {cards}  
-        </View> */}
+     
 
         <FlatGrid
           //itemDimension={cardWidth}
