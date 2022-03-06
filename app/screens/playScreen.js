@@ -13,9 +13,9 @@ export default function PlayScreen(props) {
     const { height, width } = useWindowDimensions();
     const [isSelected, setSelection] = useState([]);
     const [cards, setCards] = useState([]);
-    const [headerHeight, setHeaderHeight] = useState(0);
-    const [cardWidth, setCardWidth] = useState(0);
-    const [cardHeight, setCardHeight] = useState(0);
+    // const [headerHeight, setHeaderHeight] = useState(0);
+    // const [cardWidth, setCardWidth] = useState(0);
+    // const [cardHeight, setCardHeight] = useState(0);
 
     const [gState, setGState] = useState({windowWidth: width, windowHeight: height, data:[]})
 let data1 = [
@@ -121,8 +121,8 @@ let data1 = [
       }
     ];
      
-  w =width
-  h=height
+    w =width
+    h=height
     const state = createRef(null)
 
     gState.data  = data1
@@ -131,70 +131,59 @@ let data1 = [
    
 
 
-
-
+    let cardWidth;
+    let boardHeight;
+    let cardHeight
   useEffect(()=>{
-  //  console.log(width,height)
-  gState.windowWidth= width
-  gState.windowHeight= height
+    gState.windowWidth= width
+    gState.windowHeight= height
+    
+    // setHeaderHeight(gState.windowWidth  / gState.cols);
+    // setCardWidth(gState.windowWidth / gState.cols);
+    // setCardHeight((gState.windowHeight - headerHeight) / gState.rows);
 
-  console.log("cards",cardHeight, cardWidth)
-  setHeaderHeight(gState.windowWidth  / gState.cols);
-  setCardWidth(gState.windowWidth / gState.cols);
-  setCardHeight((gState.windowHeight - headerHeight) / gState.rows);
-  handleResize()
+    const headerHeight = (gState.windowWidth  > 640 ? 60 : 32);
+    boardHeight = height-headerHeight
+    cardWidth = (gState.windowWidth / gState.cols);
+    cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
+    console.log(width,gState.windowWidth)
+    handleResize(headerHeight, cardHeight, cardWidth)
     
   },[width, height])
-
-  let handleResize = () =>{
-
-    let card = []
   
+  let handleResize = (headerHeight, cardHeight, cardWidth) =>{
+    
+    let card = []
+
     gState.data.forEach((category, categoryIndex) => {
-      let left = categoryIndex * cardWidth;
       let column = []
       category.questions.forEach((question, questionIndex) => {
-         column.push(<Card height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points} key={categoryIndex + '-' + questionIndex}/>)
-      
+        console.log("cards",cardHeight, cardWidth)
+        let keys = categoryIndex + '-' + questionIndex
+         column.push(<Card   keys={keys} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points}/>)
+  
         })
       card.push(column)
     });
     setCards(card)
-      //  style={{}} left={left} top={questionIndex * cardHeight + headerHeight}
-      // for(let i = 0; i< 4; i++){
-      //   let categoryIndex = i
-      //   let left = i * cardWidth;
-      //   let column = []
-      //   for(let j =0; j<4;j++){
-      //     let question = gState.data[j]["questions"][i]
-      //     let questionIndex = j
-      //     column.push( <Card style={{}} left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points} key={categoryIndex + '-' + questionIndex}/>)
-      //     console.log( gState.data[j]["questions"][i])
-      //   }
-      //   cards.push(column)
-
-      // }
 
 }
 
-
- 
  
     return (
-      <View style={{flex: 1,  backgroundColor: '#fff' }}> 
-        <Header data={gState.data} headerWidth={cardWidth}/>
-     
-
-        <FlatGrid
-          //itemDimension={cardWidth}
+      <View style={{ backgroundColor: '#fff' }}> 
+        <Header windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
+        <FlatGrid 
+          itemDimension={(gState.windowWidth / gState.cols)-20}
           data={cards}
           style={styles.gridView}
-          // staticDimension={300}
+          // staticDimension={30}
           // fixed
-          spacing={10}
+          // spacing={0}
           renderItem={({ item }) => (
-            <View style={[styles.itemContainer]}>
-              <Text style={styles.itemName}>{item}</Text>
+            <View >
+              {item}
+              {/* <Text style={styles.itemName}>{item}</Text> */}
             </View>
           )}
         />
@@ -204,7 +193,9 @@ let data1 = [
 
 
   const styles = StyleSheet.create({
-  
+    gridView: {
+      height: h-50
+    },
 
     button: {
       fontSize: 40,

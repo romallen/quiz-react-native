@@ -12,28 +12,28 @@ export default function Card(props) {
     const handleClick= () => {
         console.log("card Pressed");
    
-        if (cardState.view === 'points') {
-            audio.play("flip");
-            setTimeout(() => {
-                if (cardState.view === "question") {
-                    audio.play("countdown");
-                }
-            }, 1800);
-            cardState.view = 'question'
-            cardState.flipping = true
-            // setCardState({view: 'question', flipping: true});
-        } 
-        else if (cardState.view === 'question') {
-            audio.stop("countdown");
-            cardState.view = 'answer'
-            // setCardState({view: 'answer'});
-        } else {
-            audio.play("flipBack");
-            cardState.view = 'points'
-            cardState.flipping = true
-            cardState.completed =true
-            // setCardState({view: 'points', completed: true, flipping: true});
-        }
+        // if (cardState.view === 'points') {
+        //     audio.play("flip");
+        //     setTimeout(() => {
+        //         if (cardState.view === "question") {
+        //             audio.play("countdown");
+        //         }
+        //     }, 1800);
+        //     cardState.view = 'question'
+        //     cardState.flipping = true
+        //     // setCardState({view: 'question', flipping: true});
+        // } 
+        // else if (cardState.view === 'question') {
+        //     audio.stop("countdown");
+        //     cardState.view = 'answer'
+        //     // setCardState({view: 'answer'});
+        // } else {
+        //     audio.play("flipBack");
+        //     cardState.view = 'points'
+        //     cardState.flipping = true
+        //     cardState.completed =true
+        //     // setCardState({view: 'points', completed: true, flipping: true});
+        //  }
     };
 
     let getLabelBack = () => {
@@ -47,14 +47,15 @@ export default function Card(props) {
             // setCardState({flipping: false});
         }
     }
-    console.log(props.width)
-    let style = {width: props.width, 
+    //console.log(props)
+    let styles = {width: props.width, 
                 height: props.height, 
-                transform:[{translateX:props.left}, {translateY:props.top}]}
+                // transform:[{translateX:props.left}, {translateY:props.top}]
+            }
   
      
 
-        let front = cardState.completed ? <img src={image}/> : <Text style= {{fontSize: 30}} nativeIDs='points'>{props.points}</Text>;
+        let front = cardState.completed ? <img src={image}/> : <Text adjustsFontSizeToFit={true} numberOfLines={1}  style= {{fontSize: 35, textAlignVertical: 'center', textAlign:'center'}} nativeIDs='points'>{props.points}</Text>;
         let className = 'flipper';
 
         if (cardState.view !== 'points') {
@@ -63,19 +64,19 @@ export default function Card(props) {
         if (cardState.flipping) {
             className = className + ' flipping';
         }
-       
+        //
         return (
-            <TouchableOpacity  style= {{width: props.width,  height: props.height}} key={props.key} onPress={handleClick}>
-                <View nativeID='card'>
-                    <View nativeID='front'>
+           <TouchableOpacity  style= {{justifyContent: "center",alignItems: "center", height: props.height}}   nativeID='card' key={props.keys} onPress={handleClick}>
+               {/* <View >
+                    <View nativeID='front'> */}
                     {front}
-                    </View>
-                    <View nativeID='back'>
-                        {getLabelBack}
+                    {/* </View>
+                 <View nativeID='back'>
+                     {getLabelBack}
                         <img src={image}/>
-                    </View>
-                </View>
-            </TouchableOpacity>
+                     </View>
+                </View> */}
+           </TouchableOpacity>
         );
     }
 

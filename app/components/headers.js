@@ -5,13 +5,18 @@ import { Button } from "react-native-elements";
 let w
 export default function Header(props) {
   
-    let headers = props.data.map((category, index) => <Text style={{
+    let headers = props.data.map((category, index) => <Text adjustsFontSizeToFit={true} style={{
         padding: 10,
-        fontSize: 40,
-        width: props.headerWidth,
+        border: 1,
+        width:1000,
+        textAlignVertical: "center",
+        // fontSize: 40,
+        textAlign:'center',
+        alignItems: 'center'
     }} key={index}>{category.category}</Text>)
-  return (
-    <View className='headers' style={styles.headers}>
+  
+    return (
+    <View className='headers' style={[styles.headers, {width: props.windowWidth, justifyContent: "center",alignItems: "center"}]}>
         {headers}
     </View>
   );
