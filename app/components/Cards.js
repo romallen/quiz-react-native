@@ -1,7 +1,7 @@
 import * as audio from './audio';
 import image from "../assets/img/react.svg"
 import {React, useState, createRef} from "react";
-import { Animated, Easing, Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions  } from "react-native";
+import { Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions  } from "react-native";
 import { Button, Overlay } from "react-native-elements";
 import QuestionOverlay from '../components/questionOverlay';
 
@@ -11,59 +11,21 @@ export default function Card(props) {
     const { height, width } = useWindowDimensions();
     const [visible, setVisible] = useState(false);
 
-    const animation = new Animated.Value(0);
-    const inputRange = [0, 1];
-    const outputRange = [1, 0];
-    const scale = animation.interpolate({inputRange, outputRange});
 
     const handleClick= () => {
         console.log("card Pressed", cardState.completed );
         if(!cardState.completed ) {
-            Animated.timing(animation, {
-                toValue: 1,
-                duration: 500,
-                easing: Easing.ease,
-                useNativeDriver: true,
-              }).start();
               cardState.completed =true
-              props.setVisible
-              setVisible(!visible);
+             
+              setTimeout(() => {
+                setVisible(!visible);
+            }, 550);
+            
               props.setCardOverlay({isVisible: true, question: props.question, answer: props.answer})
         }
   
     };
 
-    //console.log(props)
-    let style = {width: props.width, 
-                height: props.height, 
-                justifyContent: "center",
-                transform: [
-                    // {
-                    //     translateX: animation.interpolate({
-                    //         inputRange: [0, 1],
-                    //         outputRange: [0, 120]
-                    //     })
-                    // },
-                    // {
-                    //     translateY: animation.interpolate({
-                    //         inputRange: [0, 1],
-                    //         outputRange: [0, 25]
-                    //     })
-                    // },
-                    // {
-                    //     scaleX: animation.interpolate({
-                    //         inputRange: [0, 1],
-                    //         outputRange: [1, 150]
-                    //     })
-                    // },
-                    // {
-                    //     scaleY: animation.interpolate({
-                    //         inputRange: [0, 1],
-                    //         outputRange: [1, 120.5]
-                    //     })
-                    // }
-                ]
-            }
   
             const handleCorrectPress = () => {
                 console.log("CORRECT");
@@ -83,12 +45,12 @@ export default function Card(props) {
         if (cardState.flipping) {
             className = className + ' flipping';
         }
-        //
+
         return (
             <TouchableOpacity ref={cardRef} disabled={cardState.completed}  nativeID='card' key={props.keys} onPress={handleClick}>
-                <Animated.View style={[styles.card, style, {transform: [{scale}], height: props.height}]}>
+                <View style={[styles.card,  { width: props.width, height: props.height, justifyContent: "center",}]}>
                         {front}
-                </Animated.View>
+                </View>
 
                 <Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={handleClick}>
                     <QuestionOverlay style={styles.overlay} question = {props.question} answer = {props.answer} width={"90%"}/>
