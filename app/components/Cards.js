@@ -15,13 +15,10 @@ export default function Card(props) {
     const handleClick= () => {
         console.log("card Pressed", cardState.completed );
         if(!cardState.completed ) {
-              cardState.completed =true
-             
+              cardState.completed =true  
               setTimeout(() => {
                 setVisible(!visible);
-            }, 550);
-            
-              props.setCardOverlay({isVisible: true, question: props.question, answer: props.answer})
+            }, 500);
         }
   
     };
@@ -37,14 +34,7 @@ export default function Card(props) {
               };
 
         let front = cardState.completed ? <img src={image}/> : <Text adjustsFontSizeToFit={true} numberOfLines={1}  style= {{fontSize: 50, textAlignVertical: 'center', textAlign:'center'}} nativeIDs='points'>{props.points}</Text>;
-        let className = 'flipper';
 
-        if (cardState.view !== 'points') {
-            className = className + ' flipped';
-        }
-        if (cardState.flipping) {
-            className = className + ' flipping';
-        }
 
         return (
             <TouchableOpacity ref={cardRef} disabled={cardState.completed}  nativeID='card' key={props.keys} onPress={handleClick}>
@@ -53,7 +43,7 @@ export default function Card(props) {
                 </View>
 
                 <Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={handleClick}>
-                    <QuestionOverlay style={styles.overlay} question = {props.question} answer = {props.answer} width={"90%"}/>
+                    <QuestionOverlay style={styles.overlay} question = {props.question} answer = {props.answer} width={"100%"}/>
                     <Button
                         style={styles.button}
                         onPress={handleIncorrectPress}
