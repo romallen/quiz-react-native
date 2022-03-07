@@ -30,46 +30,13 @@ export default function Card(props) {
               setVisible(!visible);
               props.setCardOverlay({isVisible: true, question: props.question, answer: props.answer})
         }
-       
-        //  props.setCurrentView("QuestionCardScreen");
-        // if (cardState.view === 'points') {
-        //     audio.play("flip");
-        //     setTimeout(() => {
-        //         if (cardState.view === "question") {
-        //             audio.play("countdown");
-        //         }
-        //     }, 1800);
-        //     cardState.view = 'question'
-        //     cardState.flipping = true
-        //     // setCardState({view: 'question', flipping: true});
-        // } 
-        // else if (cardState.view === 'question') {
-        //     audio.stop("countdown");
-        //     cardState.view = 'answer'
-        //     // setCardState({view: 'answer'});
-        // } else {
-        //     audio.play("flipBack");
-        //     cardState.view = 'points'
-        //     cardState.flipping = true
-        //     cardState.completed =true
-        //     // setCardState({view: 'points', completed: true, flipping: true});
-        //  }
+  
     };
 
-    let getLabelBack = () => {
-        let label = cardState.view === 'question' ? <Text>{props.question}</Text> : <Text>{props.answer}</Text>
-        return label;
-    }
-
-    let transitionEndHandler = (e) => {
-        if (e.propertyName === 'width') {
-            cardState.flipping = false
-            // setCardState({flipping: false});
-        }
-    }
     //console.log(props)
     let styles = {width: props.width, 
                 height: props.height, 
+                justifyContent: "center",
                 transform: [
                     // {
                     //     translateX: animation.interpolate({
@@ -118,37 +85,29 @@ export default function Card(props) {
         }
         //
         return (
-            <TouchableOpacity ref={cardRef} disabled={cardState.completed} ref={card => (cardRef.current = card)} style= {{justifyContent: "center",alignItems: "center", height: props.height}}   nativeID='card' key={props.keys} onPress={handleClick}>
+            <TouchableOpacity ref={cardRef} disabled={cardState.completed} style= {{justifyContent: "center", alignItems: "center", height: props.height}}   nativeID='card' key={props.keys} onPress={handleClick}>
                 <Animated.View style={[styles.button, styles, {transform: [{scale}]}]}>
-                {/* <View >
-                        <View nativeID='front'> */}
                         {front}
-                        {/* </View>
-                    <View nativeID='back'>
-                        {getLabelBack}
-                            <img src={image}/>
-                        </View>
-                    </View> */}
                 </Animated.View>
 
                 <Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={handleClick}>
-                <QuestionOverlay style={styles.overlay} question = {props.question} answer = {props.answer} width={"90%"}/>
-                <Button
-        style={styles.button}
-        onPress={handleIncorrectPress}
-        title="INCORRECT"
-        color="#841584"
-        accessibilityLabel="Setup the game!"
-      />
+                    <QuestionOverlay style={styles.overlay} question = {props.question} answer = {props.answer} width={"90%"}/>
+                    <Button
+                        style={styles.button}
+                        onPress={handleIncorrectPress}
+                        title="INCORRECT"
+                        color="#841584"
+                        accessibilityLabel="Setup the game!"
+                    />
 
-      <Button
-        style={styles.button}
-        onPress={handleCorrectPress}
-        title="CORRECT"
-        color="#841584"
-        accessibilityLabel="Get, delete, edit and create questions"
-      />
-            </Overlay>
+                    <Button
+                        style={styles.button}
+                        onPress={handleCorrectPress}
+                        title="CORRECT"
+                        color="#841584"
+                        accessibilityLabel="Get, delete, edit and create questions"
+                    />
+                </Overlay>
             </TouchableOpacity>
         );
     }

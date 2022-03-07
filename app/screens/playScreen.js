@@ -177,25 +177,18 @@ const toggleOverlay = () => {
     return (
       <View style={{ backgroundColor: '#fff'}}> 
      
-   
-      <Header windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
-          <FlatGrid 
-            itemDimension={(gState.windowWidth / gState.cols)-20}
-            data={cards}
-            style={styles.gridView}
-            renderItem={({ item }) => (
-              <View >
-                {item}
-              </View>
-            )}
+        <Header windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
+            <FlatGrid 
+              itemDimension={(gState.windowWidth / gState.cols)-20}
+              data={cards}
+              style={styles.gridView}
+              renderItem={({ item }) => (
+                <View >
+                  {item}
+                </View>
+              )}
             />
-            {/* {cardOverlay.isVisible === true ? <QuestionOverlay style={styles.overlay} question = {cardOverlay.question} answer = {cardOverlay.answer} setCardOverlay={setCardOverlay} width={"90%"}/>: null} */}
-             {/* <Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={toggleOverlay}>
-                  <Text style={styles.textPrimary}>Hello!</Text>
-              <Text style={styles.textSecondary}>
-                Welcome to React Native Elements
-              </Text>
-            </Overlay> */}
+
       </View>
       
      

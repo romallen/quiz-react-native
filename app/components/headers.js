@@ -10,7 +10,7 @@ export default function Header(props) {
         border: 1,
         width:1000,
         textAlignVertical: "center",
-        // fontSize: 40,
+        fontSize: 40,
         textAlign:'center',
         alignItems: 'center'
     }} key={index}>{category.category}</Text>)
