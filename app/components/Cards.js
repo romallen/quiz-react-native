@@ -34,7 +34,7 @@ export default function Card(props) {
     };
 
     //console.log(props)
-    let styles = {width: props.width, 
+    let style = {width: props.width, 
                 height: props.height, 
                 justifyContent: "center",
                 transform: [
@@ -74,7 +74,7 @@ export default function Card(props) {
                 setVisible(!visible);
               };
 
-        let front = cardState.completed ? <img src={image}/> : <Text adjustsFontSizeToFit={true} numberOfLines={1}  style= {{fontSize: 35, textAlignVertical: 'center', textAlign:'center'}} nativeIDs='points'>{props.points}</Text>;
+        let front = cardState.completed ? <img src={image}/> : <Text adjustsFontSizeToFit={true} numberOfLines={1}  style= {{fontSize: 50, textAlignVertical: 'center', textAlign:'center'}} nativeIDs='points'>{props.points}</Text>;
         let className = 'flipper';
 
         if (cardState.view !== 'points') {
@@ -85,8 +85,8 @@ export default function Card(props) {
         }
         //
         return (
-            <TouchableOpacity ref={cardRef} disabled={cardState.completed} style= {{justifyContent: "center", alignItems: "center", height: props.height}}   nativeID='card' key={props.keys} onPress={handleClick}>
-                <Animated.View style={[styles.button, styles, {transform: [{scale}]}]}>
+            <TouchableOpacity ref={cardRef} disabled={cardState.completed}  nativeID='card' key={props.keys} onPress={handleClick}>
+                <Animated.View style={[styles.card, style, {transform: [{scale}], height: props.height}]}>
                         {front}
                 </Animated.View>
 
@@ -113,11 +113,17 @@ export default function Card(props) {
     }
 
 
-    // const styles = StyleSheet.create({ 
-    //     container: {
-    //         flex:1,
-    //     width: props.width ,
-    //     height: props.height,
-    //     transform: 'translate3d(' + props.left + 'px,' + props.top + 'px,0)',
-    //     WebkitTransform: 'translate3d(' + props.left + 'px,' + props.top + 'px,0)'
-    // }});
+    const styles = StyleSheet.create({ 
+        card: {
+            justifyContent: "center", 
+            alignItems: "center",
+            overflow: "hidden",
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
+            border: "solid 2px #000000",
+            borderRadius: "6px",
+            backgroundColor: "#009CDF",
+            fontSize: "54px"
+    }
+
+});

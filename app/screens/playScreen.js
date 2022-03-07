@@ -179,6 +179,7 @@ const toggleOverlay = () => {
      
         <Header windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
             <FlatGrid 
+            spacing={0}
               itemDimension={(gState.windowWidth / gState.cols)-20}
               data={cards}
               style={styles.gridView}
@@ -188,7 +189,6 @@ const toggleOverlay = () => {
                 </View>
               )}
             />
-
       </View>
       
      
@@ -202,18 +202,12 @@ const toggleOverlay = () => {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#F5FCFF',
+      padding: 0,
+      margin: 0,
     },
     gridView: {
-      // height: h-10
-    },
-    overlay: {
-      flex: 1,
-      position: 'absolute',
-      left: 0,
-      top: 0,
-      opacity: 0.5,
-      backgroundColor: 'black',
-
+      padding: 0,
+      margin: 0,
     },
     button: {
       fontSize: 40,
