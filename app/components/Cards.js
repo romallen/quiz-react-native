@@ -72,9 +72,9 @@ export default function Card(props) {
             overflow: "hidden",
             backgroundSize: "100% 100%",
             backgroundRepeat: "no-repeat",
-            border: "solid 2px #000000",
+            border: "solid 3px #ECECEC",
             borderRadius: "6px",
-            backgroundColor: "#009CDF",
+            backgroundColor: "#5463FF",
             fontSize: "54px"
     }
 

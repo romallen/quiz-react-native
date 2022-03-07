@@ -25,7 +25,7 @@ export default function Header(props) {
 const styles = StyleSheet.create({
     headers: {  
      flexDirection: "row",
-      backgroundColor: '#51f8ff',
+      backgroundColor: 'FFC300',
     // padding: 10,
 }
 })

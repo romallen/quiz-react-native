@@ -171,11 +171,9 @@ let data1 = [
 
 }
 
-const toggleOverlay = () => {
-  setVisible(!visible);
-};
+
     return (
-      <View style={{ backgroundColor: '#fff'}}> 
+      <View style={styles.container}> 
      
         <Header windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
             <FlatGrid 
@@ -201,7 +199,7 @@ const toggleOverlay = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F5FCFF',
+      backgroundColor: '#FFC300',
       padding: 0,
       margin: 0,
     },
