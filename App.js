@@ -17,6 +17,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
        {currentView === "WelcomeScreen" ? (
         <WelcomeScreen currentView={currentView} setCurrentView={setCurrentView} />
       ) : null}
@@ -29,7 +30,6 @@ export default function App() {
       {currentView === "QuestionBankScreen" ? (
         <QuestionBankScreen currentView={currentView} setCurrentView={setCurrentView} />
       ) : null}
-      <StatusBar style="auto" />
     </View>
     
   );

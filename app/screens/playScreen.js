@@ -1,18 +1,20 @@
-
-// import Card from "../components/card"
-
 import Card from "../components/Cards"
+import QuestionOverlay from '../components/questionOverlay';
 import Header from "../components/headers"
 import {useState,createRef, useEffect} from "react";
-import { FlatList, StatusBar, StyleSheet, Text, View,useWindowDimensions } from "react-native";
-import { Button } from "react-native-elements";
+import { FlatList,Modal, StatusBar, StyleSheet, Text, View,useWindowDimensions } from "react-native";
+import { Button, Overlay } from "react-native-elements";
 import { FlatGrid } from 'react-native-super-grid';
+
 
 let w,h
 export default function PlayScreen(props) {
     const { height, width } = useWindowDimensions();
     const [isSelected, setSelection] = useState([]);
     const [cards, setCards] = useState([]);
+    const [cardOverlay, setCardOverlay] = useState({isVisible: false})
+    const [visible, setVisible] = useState(false);
+
     // const [headerHeight, setHeaderHeight] = useState(0);
     // const [cardWidth, setCardWidth] = useState(0);
     // const [cardHeight, setCardHeight] = useState(0);
@@ -146,7 +148,7 @@ let data1 = [
     boardHeight = height-headerHeight
     cardWidth = (gState.windowWidth / gState.cols);
     cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
-    console.log(width,gState.windowWidth)
+    // console.log(width,gState.windowWidth)
     handleResize(headerHeight, cardHeight, cardWidth)
     
   },[width, height])
@@ -158,9 +160,9 @@ let data1 = [
     gState.data.forEach((category, categoryIndex) => {
       let column = []
       category.questions.forEach((question, questionIndex) => {
-        console.log("cards",cardHeight, cardWidth)
+        // console.log("cards",cardHeight, cardWidth)
         let keys = categoryIndex + '-' + questionIndex
-         column.push(<Card   keys={keys} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points}/>)
+         column.push(<Card setCardOverlay={setCardOverlay} keys={keys} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points}/>)
   
         })
       card.push(column)
@@ -169,34 +171,57 @@ let data1 = [
 
 }
 
- 
+const toggleOverlay = () => {
+  setVisible(!visible);
+};
     return (
-      <View style={{ backgroundColor: '#fff' }}> 
-        <Header windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
-        <FlatGrid 
-          itemDimension={(gState.windowWidth / gState.cols)-20}
-          data={cards}
-          style={styles.gridView}
-          // staticDimension={30}
-          // fixed
-          // spacing={0}
-          renderItem={({ item }) => (
-            <View >
-              {item}
-              {/* <Text style={styles.itemName}>{item}</Text> */}
-            </View>
-          )}
-        />
+      <View style={{ backgroundColor: '#fff'}}> 
+     
+   
+      <Header windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
+          <FlatGrid 
+            itemDimension={(gState.windowWidth / gState.cols)-20}
+            data={cards}
+            style={styles.gridView}
+            renderItem={({ item }) => (
+              <View >
+                {item}
+              </View>
+            )}
+            />
+            {/* {cardOverlay.isVisible === true ? <QuestionOverlay style={styles.overlay} question = {cardOverlay.question} answer = {cardOverlay.answer} setCardOverlay={setCardOverlay} width={"90%"}/>: null} */}
+             {/* <Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={toggleOverlay}>
+                  <Text style={styles.textPrimary}>Hello!</Text>
+              <Text style={styles.textSecondary}>
+                Welcome to React Native Elements
+              </Text>
+            </Overlay> */}
       </View>
+      
+     
     );
   }
 
 
   const styles = StyleSheet.create({
-    gridView: {
-      height: h-50
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#F5FCFF',
     },
+    gridView: {
+      // height: h-10
+    },
+    overlay: {
+      flex: 1,
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      opacity: 0.5,
+      backgroundColor: 'black',
 
+    },
     button: {
       fontSize: 40,
       paddingBottom: 20,
