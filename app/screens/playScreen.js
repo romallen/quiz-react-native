@@ -1,6 +1,7 @@
 import Card from "../components/Cards"
 import QuestionOverlay from '../components/questionOverlay';
 import Header from "../components/headers"
+import Scoreboard from "../components/scoreboard"
 import {useState,createRef, useEffect} from "react";
 import { FlatList,Modal, StatusBar, StyleSheet, Text, View,useWindowDimensions } from "react-native";
 import { Button, Overlay } from "react-native-elements";
@@ -187,6 +188,7 @@ let data1 = [
                 </View>
               )}
             />
+          <Scoreboard windowWidth={gState.windowWidth} teamNum={props.teamNum}/>
       </View>
       
      
@@ -210,7 +212,7 @@ let data1 = [
     button: {
       fontSize: 40,
       paddingBottom: 20,
-       alignItems: "center",
+      alignItems: "center",
       justifyContent: "center",
     },
 

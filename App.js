@@ -11,8 +11,8 @@ export default function App() {
   const [currentView, setCurrentView] = useState("WelcomeScreen");
   const [categories, setCategories] = useState({});
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [gameSettings, setGameSettings] = useState({});
-
+  const [gameSettings, setGameSettings] = useState({team: 1, categories: []});
+  const [teamNum, setTeamNum] = useState(1)
 
 
   return (
@@ -22,10 +22,10 @@ export default function App() {
         <WelcomeScreen currentView={currentView} setCurrentView={setCurrentView} />
       ) : null}
       {currentView === "SetupScreen" ? (
-        <SetupScreen currentView={currentView} setCurrentView={setCurrentView} />
+        <SetupScreen currentView={currentView} setCurrentView={setCurrentView}  teamNum={teamNum} setTeamNum = {setTeamNum} />
       ) : null}
       {currentView === "PlayScreen" ? (
-        <PlayScreen currentView={currentView} setCurrentView={setCurrentView} />
+        <PlayScreen currentView={currentView} setCurrentView={setCurrentView}  teamNum={teamNum}/>
       ) : null}
       {currentView === "QuestionBankScreen" ? (
         <QuestionBankScreen currentView={currentView} setCurrentView={setCurrentView} />

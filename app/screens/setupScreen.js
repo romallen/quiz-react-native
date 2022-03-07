@@ -8,7 +8,7 @@ import {Picker} from '@react-native-picker/picker';
 export default function SetupScreen(props) {
   
     const [isSelected, setSelection] = useState([]);
-    const [teamnum,setTeamNum] = useState(1)
+    const [teamNum,setTeamNum] = useState(1)
   
     console.log("This is setup", );
     console.log("This is selected", isSelected);
@@ -18,7 +18,7 @@ export default function SetupScreen(props) {
     };
     const handleStartGamePress = () => {
       console.log("Start the Game");
-  
+     // props.setTeamNum(teamNum)
       // props.setGameSettings({ categories: isSelected.map((sel) => sel.value) });
       props.setCurrentView("PlayScreen");
     };
@@ -28,14 +28,16 @@ export default function SetupScreen(props) {
         <div >
           <Text>Teams:</Text>
           <Picker
-            teamnum={teamnum}
+            teamnum={props.teamNum}
             onValueChange={(itemValue, itemIndex) =>
-              setTeamNum(Number(itemValue))
+              props.setTeamNum(Number(itemValue))
             }>
             <Picker.Item label="1" value= "1" />
             <Picker.Item label="2" value="2" />
             <Picker.Item label="3" value= "3" />
             <Picker.Item label="4" value="4" />
+            <Picker.Item label="5" value= "5" />
+            <Picker.Item label="6" value="6" />
           </Picker>
         </div>
        <div style={styles.selectTime}>
