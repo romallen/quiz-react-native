@@ -15,14 +15,14 @@ export default function PlayScreen(props) {
     const [isSelected, setSelection] = useState([]);
     const [cards, setCards] = useState([]);
     const [cardOverlay, setCardOverlay] = useState({isVisible: false})
-    const [score, setScore] = useState(0);
+  
 
     // const [headerHeight, setHeaderHeight] = useState(0);
     // const [cardWidth, setCardWidth] = useState(0);
     // const [cardHeight, setCardHeight] = useState(0);
 
     const [gState, setGState] = useState({windowWidth: width, windowHeight: height, data:[]})
-    const count = useSelector(state => state.teams.value)
+  
     w =width
     h=height
     const state = createRef(null)
@@ -31,11 +31,10 @@ export default function PlayScreen(props) {
     gState.rows = gState.data[0].questions.length
     gState.cols = data1.length
    
-console.log("count of teams: ",count)
+
 
     let cardWidth;
-    // let boardHeight;
-    // let cardHeight
+ 
   useEffect(()=>{
     gState.windowWidth= width
     gState.windowHeight= height

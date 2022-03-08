@@ -1,13 +1,14 @@
 import React from "react";
 import { StatusBar, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
+import { useSelector, useDispatch } from 'react-redux' 
 
-let w
+
 export default function Scoreboard(props) {
-    console.log("team:" ,props.teamNum)
-  
+    const teamsStore = useSelector(state => state.teams.value)
     let teams = []
-    for(let i= 0; i < props.teamNum; i++){
+  
+    for(let team in teamsStore){
      teams.push(<Text adjustsFontSizeToFit={true} style={{
         padding: 10,
         border: 1,
@@ -16,7 +17,7 @@ export default function Scoreboard(props) {
         fontSize: 30,
         textAlign:'center',
         alignItems: 'center'
-    }} key={i}>{"TEAM " + (i+1) + " : "}</Text>)
+    }} key={team}>{team  + " "+ teamsStore[team] }</Text>)
 }
     return (
     <View className='teams' style={[styles.headers, {width: props.windowWidth, justifyContent: "center",alignItems: "center"}]}>
