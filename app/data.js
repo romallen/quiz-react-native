@@ -1,102 +1,197 @@
-data = [
+const data1 = [
   {
-    "category": "React 101",
-    "questions": [
-      {
-        "points": 100,
-        "question": "<p>What part of your application does React focus on?</p><ol><li>The Model</li><li>The View</li><li>The Controller</li><li>All of the above</li></ol>",
-        "answer": "B. The View"
+      "category": "SPORTS",
+      "questions": [
+      { 
+          "question": "The Urawa Reds plays this sport",
+          "answer": "Soccer",
+          "points": 100,
+          "difficulty": 1,                     
+      },
+    {
+          
+          "question": "This is a Japanese sport. You use bamboo swords to hit your opponent.",
+          "answer": "Kendo",
+          "points": 200,
+          "difficulty": 1,                     
       },
       {
-        "points": 200,
-        "question": "_____ lets you create JavaScript objects using HTML syntax",
-        "answer": "JSX"
+          
+          "question": "This sport is played in a pool.",
+          "answer": "Swimming",
+          "points": 300,
+          "difficulty": 1,                     
       },
       {
-        "points": 300,
-        "question": "What tool can you use to transpile JSX?",
-        "answer": "Babel"
+          
+          "question": "This sport is played by firing arrows at a target.",
+          "answer": "Archery",
+          "points": 400,
+          "difficulty": 1,                     
       },
       {
-        "points": 400,
-        "question": "React uses a _____________ to limit direct manipulation of the DOM and improve performance",
-        "answer": "Virtual DOM"
+          
+          "question": "This sport is played by hitting a small ball into a hole.",
+          "answer": "Golf",
+          "points": 500,
+          "difficulty": 1,                     
       }
-    ]
-  },
-  {
-    "category": "React 201",
-    "questions": [
-      {
-        "points": 100,
-        "question": "<p>Where can you define a component's initial state when you use the ES6 Class syntax?</p><ol><li>getInitialState()</li><li>getInitialProps()</li><li>The component's constructor</li></ol>",
-        "answer": "C. The component's constructor"
-      },
-      {
-        "points": 200,
-        "question": "Using npm, which package should you require/import in addition to 'react' to render a React component in an existing DOM element of your HTML file?",
-        "answer": "react-dom"
-      },
-      {
-        "points": 300,
-        "question": "<p>Which lifecycle function should you use to set default property values?</p><ol><li>getInitialState</li><li>getInitialProps</li><li>getDefaultProps</li></ol>",
-        "answer": "C. getDefaultProps"
-      },
-      {
-        "points": 400,
-        "question": "Which lifecycle method is invoked once, immediately after the initial rendering occurs?",
-        "answer": "componentDidMount"
-      }
-    ]
-  },
-  {
-    "category": "ES 2015",
-    "questions": [
-      {
-        "points": 100,
-        "question": "<p>Constants (const) are:</p><ol><li>Block scoped</li><li>Function scoped</li><li>Global</li></ol>",
-        "answer": "A. Block scoped"
-      },
-      {
-        "points": 200,
-        "question": "Name 3 new collection classes in ES2015",
-        "answer": "<ul><li>Map</li><li>WeakMap</li><li>Set</li><li>WeakSet</li></ul>"
-      },
-      {
-        "points": 300,
-        "question": "<p>What's being logged and how is this new ES6 feature called?</p><code>var colors = ['red', 'blue', 'green'];<br/>var [primary, secondary, tertiary] = colors;<br/>console.log(secondary);</code>",
-        "answer": "<ul><li>blue</li><li>Array destructuring</li></ul>"
-      },
-      {
-        "points": 400,
-        "question": "<p>What's being logged and name 4 new features of ES6 used in this code snippet?</p><code>let greeting = (name, msg='Hello') => `${msg}, ${name}`;<br/>console.log(greeting('Christophe');</code>",
-        "answer": "<p>Hello, Christophe</p><ul><li>let variables</li><li>Arrow functions</li><li>Default parameters</li><li>Template strings</li></ul>"
-      }
-    ]
-  },
-  {
-    "category": "Feeling Lucky",
-    "questions": [
-      {
-        "points": 100,
-        "question": "Using the proposed ECMAScript module syntax, how do you load the Mortgage.js module from the current directory and make all its members available in an object named mortgage?",
-        "answer": "<code>import * as mortgage from './Mortgage';</code>"
-      },
-      {
-        "points": 200,
-        "question": "What are the colors of the olympic rings?",
-        "answer": "<img src='assets/img/olympic_rings.png'/>"
-      },
-      {
-        "points": 300,
-        "question": "What's the date of the first React commit on GitHub?",
-        "answer": "May 26th, 2013"
-      },
-      {
-        "points": 400,
-        "question": "What's the hex color of the React logo?",
-        "answer": "#61DAFB"
-      }
-    ]
+  ]
   }
+ ,
+  {
+      "category": "AT SCHOOL",
+      "questions": [
+          {
+              "question": "This is what the teachers write on in the classroom.",
+              "answer": "Blackboard",
+              "points": 100,
+              "difficulty": 1,                     
+          },
+          {   
+              "question": "This room has many books. You can go there to study.",
+              "answer": "Library",
+              "points": 200,
+              "difficulty": 1,                     
+          },
+          {              
+              "question": "This is where you go to buy food.",
+              "answer": "Cafeteria",
+              "points": 300,
+              "difficulty": 1,                     
+          },
+          {               
+              "question": "This is where you go to play sports outdoors.",
+              "answer": "Field/Grounds",
+              "points": 400,
+              "difficulty": 1,                     
+          },
+          {          
+              "question": "This is where you go to play sports indoors and have ceremonies. ",
+              "answer": "Gymnasium",
+              "points": 500,
+              "difficulty": 1,                     
+          }
+      ]
+  }
+    ,
+    {
+      "category": "SCHOOL SUBJECTS",
+      "questions": [
+          {         
+              "question": "You learn how to do calculations in this subject.",
+              "answer": "Math",               
+              "points": 100,
+              "difficulty": 1,                     
+          },
+          {
+              
+              "question": "You learn about and play sports in this subject.",
+              "answer": "Physical Education",
+              "points": 200,
+              "difficulty": 1,                     
+          },
+          {
+              
+              "question": "You learn about the past in this subject.",
+              "answer": "History",
+              "points": 300,
+              "difficulty": 1,                     
+          },
+          {
+              
+              "question": "You learn about the human body and other living things in this subject.",
+              "answer": "Biology",
+              "points": 400,
+              "difficulty": 1,                     
+          },
+          {
+              
+              "question": "You learn about maps in this subject.",
+              "answer": "Geography",
+              "points": 500,
+              "difficulty": 1,                     
+          }
+      ]
+    }
+  ,
+    {
+      "category": "JOBS",
+      "questions": [
+          {
+        
+              "question": "This person helps students to learn.",
+              "answer": "Teacher",
+              "points": 100,
+              "difficulty": 1,                     
+          },
+          {
+              
+              "question": "This person makes food.",
+              "answer": "Cook/Chef",
+              "points": 200,
+              "difficulty": 1,                     
+          },
+          {
+              
+              "question": "This person performs in movies.",
+              "answer": "Actor/Actress",
+              "points": 300,
+              "difficulty": 1,                     
+          },
+          {
+              
+              "question": "This person is a doctor for animals.",
+              "answer": "Veterinarian",
+              "points": 400,
+              "difficulty": 1,                     
+          },
+          {
+              
+              "question": "This person fixes cars.",
+              "answer": "Mechanic",
+              "points": 500,
+              "difficulty": 1,                     
+          }
+      ]
+    }
+  
+  ,
+    {
+      "category": "FOOD",
+      "questions": [
+          {        
+              "question": "This is a fruit. It is long and yellow. It tastes sweet.",
+              "answer": "Banana",
+              "points": 100,
+              "difficulty": 1,                     
+          },
+          {    
+              "question": "The meat comes from cows.",
+              "answer": "Beef",
+              "points": 200,
+              "difficulty": 1,                     
+          },
+          {           
+              "question": "This is a popular food for Japanese people around Christmas time.",
+              "answer": "Fried Chicken/KFC",
+              "points": 300,
+              "difficulty": 1,                     
+          },
+          {              
+              "question": "This is a popular breakfast food. They are white or brown. You crack it to cook it.",
+              "answer": "Egg",
+              "points": 400,
+              "difficulty": 1,                     
+          },
+          {           
+              "question": "It is usually made of meat in between two buns. You can buy it at McDonald's.",
+              "answer": "Hamburger",
+              "points": 500,
+              "difficulty": 1,                     
+          },
+      ]
+    } 
 ];
+
+export default data1;

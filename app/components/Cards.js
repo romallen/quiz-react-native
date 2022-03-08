@@ -49,7 +49,7 @@ export default function Card(props) {
                         onPress={handleIncorrectPress}
                         title="INCORRECT"
                         color="#841584"
-                        accessibilityLabel="Setup the game!"
+                        accessibilityLabel="INCORRECT"
                     />
 
                     <Button
@@ -57,7 +57,7 @@ export default function Card(props) {
                         onPress={handleCorrectPress}
                         title="CORRECT"
                         color="#841584"
-                        accessibilityLabel="Get, delete, edit and create questions"
+                        accessibilityLabel="CORRECT"
                     />
                 </Overlay>
             </TouchableOpacity>

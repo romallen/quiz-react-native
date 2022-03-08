@@ -6,6 +6,8 @@ import PlayScreen from './app/screens/playScreen'
 import SetupScreen from './app/screens/setupScreen'
 import QuestionBankScreen from './app/screens/QuestionBankScreen'
 
+import { Provider } from 'react-redux'
+import store from './app/redux/store'
 
 export default function App() {
   const [currentView, setCurrentView] = useState("WelcomeScreen");
@@ -13,9 +15,11 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [gameSettings, setGameSettings] = useState({team: 1, categories: []});
   const [teamNum, setTeamNum] = useState(1)
+  
 
 
   return (
+    <Provider store={store}>
     <View style={styles.container}>
       <StatusBar style="auto" />
        {currentView === "WelcomeScreen" ? (
@@ -31,6 +35,7 @@ export default function App() {
         <QuestionBankScreen currentView={currentView} setCurrentView={setCurrentView} />
       ) : null}
     </View>
+    </Provider>
     
   );
 }

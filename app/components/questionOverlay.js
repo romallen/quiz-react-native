@@ -1,11 +1,8 @@
-
-import * as audio from './audio';
 import {React, useState, createRef} from "react";
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import CardFlip from 'react-native-card-flip';
 
 export default function QuestionOverlay(props) {
-    const [cardState, setCardState] = useState({view: 'points', completed: false})
     const cardRef = createRef(null)
   
     const handleClick= () => {
@@ -16,7 +13,6 @@ export default function QuestionOverlay(props) {
 
 
   return (
-    // <View style={styles.container}>
       
       <CardFlip style={styles.cardContainer} ref={card => (cardRef.current = card)}>
         <TouchableOpacity
@@ -33,21 +29,19 @@ export default function QuestionOverlay(props) {
           <Text style={styles.label}>{props.answer}</Text>
         </TouchableOpacity>
       </CardFlip>
-   
-    // {/* </View> */}
   )
 }
 
 const styles = StyleSheet.create({
     // container: {
-    //   flex: 1,
-    //   justifyContent: 'center',
-    //   alignItems: 'center',
+      
     //   backgroundColor: '#F5FCFF',
     // },
     cardContainer: {
       width: 730,
       height: 550,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     card: {
       width: 730,
@@ -70,7 +64,9 @@ const styles = StyleSheet.create({
     label: {
       lineHeight: 47,
       textAlign: 'center',
-      fontSize: 15,
+      justifyContent: "center", 
+      alignItems: "center",
+      fontSize: 50,
       fontFamily: 'System',
       color: '#ffffff',
       backgroundColor: 'transparent',
