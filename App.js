@@ -11,10 +11,6 @@ import store from './app/redux/store'
 
 export default function App() {
   const [currentView, setCurrentView] = useState("WelcomeScreen");
-  const [categories, setCategories] = useState({});
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [gameSettings, setGameSettings] = useState({team: 1, categories: []});
-  const [teamNum, setTeamNum] = useState(1)
   
 
 
@@ -26,10 +22,10 @@ export default function App() {
         <WelcomeScreen currentView={currentView} setCurrentView={setCurrentView} />
       ) : null}
       {currentView === "SetupScreen" ? (
-        <SetupScreen currentView={currentView} setCurrentView={setCurrentView}  teamNum={teamNum} setTeamNum = {setTeamNum} />
+        <SetupScreen currentView={currentView} setCurrentView={setCurrentView}/>
       ) : null}
       {currentView === "PlayScreen" ? (
-        <PlayScreen currentView={currentView} setCurrentView={setCurrentView}  teamNum={teamNum}/>
+        <PlayScreen currentView={currentView} setCurrentView={setCurrentView}/>
       ) : null}
       {currentView === "QuestionBankScreen" ? (
         <QuestionBankScreen currentView={currentView} setCurrentView={setCurrentView} />

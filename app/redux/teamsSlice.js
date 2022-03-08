@@ -11,7 +11,6 @@ export const teamsSlice = createSlice({
         console.log("action.payload",action)
       for(let i=0; i< action.payload;i++){
         state.value["Team " + (i+1)+ ":"] = 0
-         // state.value.push("Team " + (i+1)+ ": ")
       }
     },
     incrementScore: (state, action) => {

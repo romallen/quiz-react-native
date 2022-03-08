@@ -4,9 +4,8 @@ import { Button } from "react-native-elements";
 import {Picker} from '@react-native-picker/picker';
 import { useSelector, useDispatch } from 'react-redux'
 import {createTeams} from "../redux/teamsSlice";
+
 export default function SetupScreen(props) {
-  
-  
     const [teamNum,setTeamNum] = useState(1)
     const dispatch = useDispatch()
 
@@ -16,9 +15,7 @@ export default function SetupScreen(props) {
     };
 
     const handleStartGamePress = () => {
-
       dispatch(createTeams(teamNum))
-     // props.setTeamNum(teamNum)
       props.setCurrentView("PlayScreen");
     };
 

@@ -1,8 +1,7 @@
 import React from "react";
 import { StatusBar, StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-elements";
 
-let w
+
 export default function Header(props) {
   
     let headers = props.data.map((category, index) => <Text adjustsFontSizeToFit={true} style={{

@@ -17,8 +17,7 @@ export default function Scoreboard(props) {
         fontSize: 30,
         textAlign:'center',
         alignItems: 'center'
-    }} key={team}>{team  + " "+ teamsStore[team] }</Text>)
-}
+    }} key={team}>{team  + " "+ teamsStore[team] }</Text>)}
     return (
     <View className='teams' style={[styles.headers, {width: props.windowWidth, justifyContent: "center",alignItems: "center"}]}>
         {teams}

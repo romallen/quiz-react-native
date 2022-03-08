@@ -33,10 +33,6 @@ export default function QuestionOverlay(props) {
 }
 
 const styles = StyleSheet.create({
-    // container: {
-      
-    //   backgroundColor: '#F5FCFF',
-    // },
     cardContainer: {
       width: 730,
       height: 550,

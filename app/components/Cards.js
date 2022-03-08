@@ -12,7 +12,6 @@ import {incrementTurn} from "../redux/scoreSlice";
 export default function Card(props) {
     const [cardState, setCardState] = useState({view: 'points', completed: false})
     const cardRef = createRef(null)
-    const { height, width } = useWindowDimensions();
     const [visible, setVisible] = useState(false);
     const teamNumber = Object.keys(useSelector(state => state.teams.value)).length
     const turn = useSelector(state => state.score.value)
@@ -29,53 +28,49 @@ export default function Card(props) {
   
     };
 
-  
-            const handleCorrectPress = () => {
-                console.log("CORRECT");
-                let team = (turn% teamNumber) + 1
-                dispatch(incrementScore({team: team, points: props.points}))
-             
-                dispatch(incrementTurn())
-                console.log(props.turn)
-            
-                setVisible(!visible);
-              };
-              const handleIncorrectPress = () => {
-                console.log("INCORRECT");
-                dispatch(incrementTurn())
-                setVisible(!visible);
-              };
+    const handleCorrectPress = () => {
+        console.log("CORRECT");
+        let team = (turn% teamNumber) + 1
+        dispatch(incrementScore({team: team, points: props.points}))   
+        dispatch(incrementTurn())  
+        setVisible(!visible);
+    };
 
-        let front = cardState.completed ? <img src={image}/> : <Text adjustsFontSizeToFit={true} numberOfLines={1}  style= {{fontSize: 50, textAlignVertical: 'center', textAlign:'center'}} nativeIDs='points'>{props.points}</Text>;
+    const handleIncorrectPress = () => {
+        console.log("INCORRECT");
+        dispatch(incrementTurn())
+        setVisible(!visible);
+    };
+
+    let front = cardState.completed ? <img src={image}/> : <Text adjustsFontSizeToFit={true} numberOfLines={1}  style= {{fontSize: 50, textAlignVertical: 'center', textAlign:'center'}} nativeIDs='points'>{props.points}</Text>;
 
 
-        return (
-            <TouchableOpacity ref={cardRef} disabled={cardState.completed}  nativeID='card' key={props.keys} onPress={handleClick}>
-                <View style={[styles.card,  { width: props.width, height: props.height, justifyContent: "center",}]}>
-                        {front}
-                </View>
+return (
+    <TouchableOpacity ref={cardRef} disabled={cardState.completed}  nativeID='card' key={props.keys} onPress={handleClick}>
+        <View style={[styles.card,  { width: props.width, height: props.height, justifyContent: "center",}]}>
+                {front}
+        </View>
 
-                <Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={handleClick}>
-                    <QuestionOverlay style={styles.overlay} question = {props.question} answer = {props.answer} width={"100%"}/>
-                    <Button
-                        style={styles.button}
-                        onPress={handleIncorrectPress}
-                        title="INCORRECT"
-                        color="#841584"
-                        accessibilityLabel="INCORRECT"
-                    />
+        <Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={handleClick}>
+            <QuestionOverlay style={styles.overlay} question = {props.question} answer = {props.answer} width={"100%"}/>
+            <Button
+                style={styles.button}
+                onPress={handleIncorrectPress}
+                title="INCORRECT"
+                color="#841584"
+                accessibilityLabel="INCORRECT"
+            />
 
-                    <Button
-                        style={styles.button}
-                        onPress={handleCorrectPress}
-                        title="CORRECT"
-                        color="#841584"
-                        accessibilityLabel="CORRECT"
-                    />
-                </Overlay>
-            </TouchableOpacity>
-        );
-    }
+            <Button
+                style={styles.button}
+                onPress={handleCorrectPress}
+                title="CORRECT"
+                color="#841584"
+                accessibilityLabel="CORRECT"
+            />
+        </Overlay>
+    </TouchableOpacity>
+)}
 
 
     const styles = StyleSheet.create({ 
