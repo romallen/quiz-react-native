@@ -9,22 +9,18 @@ import { FlatGrid } from 'react-native-super-grid';
 import data1 from "../data";
 import { useSelector, useDispatch } from 'react-redux'
 
-let w,h
+
 export default function PlayScreen(props) {
     const { height, width } = useWindowDimensions();
     const [isSelected, setSelection] = useState([]);
     const [cards, setCards] = useState([]);
     const [cardOverlay, setCardOverlay] = useState({isVisible: false})
-  
 
     // const [headerHeight, setHeaderHeight] = useState(0);
     // const [cardWidth, setCardWidth] = useState(0);
     // const [cardHeight, setCardHeight] = useState(0);
 
     const [gState, setGState] = useState({windowWidth: width, windowHeight: height, data:[]})
-  
-    w =width
-    h=height
     const state = createRef(null)
 
     gState.data  = data1
@@ -38,16 +34,12 @@ export default function PlayScreen(props) {
   useEffect(()=>{
     gState.windowWidth= width
     gState.windowHeight= height
-    
-    // setHeaderHeight(gState.windowWidth  / gState.cols);
-    // setCardWidth(gState.windowWidth / gState.cols);
-    // setCardHeight((gState.windowHeight - headerHeight) / gState.rows);
+
 
     const headerHeight = (gState.windowWidth  > 640 ? 60 : 32);
-    //boardHeight = height-headerHeight
     cardWidth = (gState.windowWidth / gState.cols);
-  //  let cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
-  let cardHeight = ((gState.windowHeight - 169) / gState.rows);
+    //  let cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
+    let cardHeight = ((gState.windowHeight - 169) / gState.rows);
     console.log(headerHeight)
     handleResize(cardHeight, cardWidth)
     
@@ -62,7 +54,7 @@ export default function PlayScreen(props) {
       category.questions.forEach((question, questionIndex) => {
         // console.log("cards",cardHeight, cardWidth)
         let keys = categoryIndex + '-' + questionIndex
-         column.push(<Card setCardOverlay={setCardOverlay} keys={keys} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points}/>)
+         column.push(<Card keys={keys} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points}/>)
   
         })
       card.push(column)

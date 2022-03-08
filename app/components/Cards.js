@@ -4,13 +4,19 @@ import {React, useState, createRef} from "react";
 import { Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions  } from "react-native";
 import { Button, Overlay } from "react-native-elements";
 import QuestionOverlay from '../components/questionOverlay';
+import { useSelector, useDispatch } from 'react-redux' 
+import {incrementScore} from "../redux/teamsSlice";
+import {incrementTurn} from "../redux/scoreSlice";
+
 
 export default function Card(props) {
     const [cardState, setCardState] = useState({view: 'points', completed: false})
     const cardRef = createRef(null)
     const { height, width } = useWindowDimensions();
     const [visible, setVisible] = useState(false);
-
+    const teamNumber = Object.keys(useSelector(state => state.teams.value)).length
+    const turn = useSelector(state => state.score.value)
+    const dispatch = useDispatch()
 
     const handleClick= () => {
         console.log("card Pressed", cardState.completed );
@@ -18,7 +24,7 @@ export default function Card(props) {
               cardState.completed =true  
               setTimeout(() => {
                 setVisible(!visible);
-            }, 500);
+            }, 400);
         }
   
     };
@@ -26,10 +32,17 @@ export default function Card(props) {
   
             const handleCorrectPress = () => {
                 console.log("CORRECT");
+                let team = (turn% teamNumber) + 1
+                dispatch(incrementScore({team: team, points: props.points}))
+             
+                dispatch(incrementTurn())
+                console.log(props.turn)
+            
                 setVisible(!visible);
               };
               const handleIncorrectPress = () => {
                 console.log("INCORRECT");
+                dispatch(incrementTurn())
                 setVisible(!visible);
               };
 

@@ -13,11 +13,14 @@ export const teamsSlice = createSlice({
         state.value["Team " + (i+1)+ ":"] = 0
          // state.value.push("Team " + (i+1)+ ": ")
       }
-    }
+    },
+    incrementScore: (state, action) => {
+      state.value["Team " + (action.payload.team)+ ":"] += action.payload.points
+    },
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { createTeams } = teamsSlice.actions
+export const { createTeams, incrementScore } = teamsSlice.actions
 
 export default teamsSlice.reducer

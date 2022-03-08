@@ -3,17 +3,16 @@ import { createSlice } from '@reduxjs/toolkit'
 export const scoreSlice = createSlice({
   name: 'score',
   initialState: {
-    value: {}
+    value: 0
   },
   reducers: {
- 
-    incrementScore: (state, action) => {
-      state.value += action.payload
-    }
+   incrementTurn: (state, action) => {
+        state.value+= 1
+      }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementScore } = scoreSlice.actions
+export const { incrementTurn } = scoreSlice.actions
 
 export default scoreSlice.reducer
