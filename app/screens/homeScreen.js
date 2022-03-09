@@ -1,17 +1,18 @@
 import React from "react";
 import { StatusBar, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
-export default function WelcomeScreen(props) {
+export default function HomeScreen({ navigation }) {
   const handlePlayPress = () => {
     console.log("Go to handlePlayGamePress");
-    props.setCurrentView("SetupScreen")
+    navigation.navigate("SetupScreen")
     //props.setCurrentView("PlayGame");
   };
   const handleQuestionBankPress = () => {
     console.log("Go to QuestionBankPress");
-    props.setCurrentView("QuestionBank");
+    navigation.navigate("QuestionBankScreen");
   };
 
   return (

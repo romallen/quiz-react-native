@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from 'react-native';
-import WelcomeScreen from './app/screens/welcomeScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './app/screens/homeScreen';
 import PlayScreen from './app/screens/playScreen'
 import SetupScreen from './app/screens/setupScreen'
 import QuestionBankScreen from './app/screens/QuestionBankScreen'
@@ -9,30 +11,25 @@ import QuestionBankScreen from './app/screens/QuestionBankScreen'
 import { Provider } from 'react-redux'
 import store from './app/redux/store'
 
+
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   const [currentView, setCurrentView] = useState("WelcomeScreen");
   
 
 
   return (
-    <Provider store={store}>
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-       {currentView === "WelcomeScreen" ? (
-        <WelcomeScreen currentView={currentView} setCurrentView={setCurrentView} />
-      ) : null}
-      {currentView === "SetupScreen" ? (
-        <SetupScreen currentView={currentView} setCurrentView={setCurrentView}/>
-      ) : null}
-      {currentView === "PlayScreen" ? (
-        <PlayScreen currentView={currentView} setCurrentView={setCurrentView}/>
-      ) : null}
-      {currentView === "QuestionBankScreen" ? (
-        <QuestionBankScreen currentView={currentView} setCurrentView={setCurrentView} />
-      ) : null}
-    </View>
-    </Provider>
-    
+    <NavigationContainer>
+      <Provider store={store}>
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="SetupScreen" component={SetupScreen} />
+        <Stack.Screen name="PlayScreen" component={PlayScreen} />
+        <Stack.Screen name="QuestionBankScreen" component={QuestionBankScreen} />
+      </Stack.Navigator>
+      </Provider>
+    </NavigationContainer>
   );
 }
 

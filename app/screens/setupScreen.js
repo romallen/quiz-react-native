@@ -4,19 +4,21 @@ import { Button } from "react-native-elements";
 import {Picker} from '@react-native-picker/picker';
 import { useSelector, useDispatch } from 'react-redux'
 import {createTeams} from "../redux/teamsSlice";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function SetupScreen(props) {
+export default function SetupScreen({ navigation }) {
     const [teamNum,setTeamNum] = useState(1)
     const dispatch = useDispatch()
 
     const handleBackPress = () => {
       console.log("Go to Welcome");
-      props.setCurrentView("WelcomeScreen");
+      navigation.navigate("HomeScreen");
     };
 
     const handleStartGamePress = () => {
       dispatch(createTeams(teamNum))
-      props.setCurrentView("PlayScreen");
+      navigation.navigate("PlayScreen");
     };
 
     return (
@@ -25,7 +27,7 @@ export default function SetupScreen(props) {
         <div >
           <Text>Teams:</Text>
           <Picker
-            teamnum={props.teamNum}
+            teamnum={teamNum}
             onValueChange={(itemValue, itemIndex) =>
               setTeamNum(Number(itemValue))
             }>

@@ -8,7 +8,7 @@ import data1 from "../data";
 import { useSelector, useDispatch } from 'react-redux'
 
 
-export default function PlayScreen(props) {
+export default function PlayScreen({ navigation }) {
     const { height, width } = useWindowDimensions();
     const [cards, setCards] = useState([]);
 
@@ -65,7 +65,7 @@ return (
             {item}
           </View>
       )}/>
-    <Scoreboard windowWidth={gState.windowWidth} teamNum={props.teamNum}/>
+    <Scoreboard windowWidth={gState.windowWidth}/>
   </View>    
 )}
 
