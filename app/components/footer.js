@@ -4,7 +4,7 @@ import { Button } from "react-native-elements";
 import { useSelector, useDispatch } from 'react-redux' 
 
 
-export default function Scoreboard(props) {
+export default function Footer(props) {
     const teamsStore = useSelector(state => state.teams.value)
     let teams = []
   
@@ -12,23 +12,30 @@ export default function Scoreboard(props) {
      teams.push(<Text adjustsFontSizeToFit={true} style={{
         padding: 10,
         border: 1,
-        width: 1000,
+        //width: 1000,
         textAlignVertical: "center",
-        fontSize: 30,
+        fontSize: 20,
         textAlign:'center',
         alignItems: 'center'
     }} key={team}>{team  + " "+ teamsStore[team] }</Text>)}
     return (
-    <View className='teams' style={[styles.headers, {width: props.windowWidth, justifyContent: "center",alignItems: "center"}]}>
-        {teams}
+    <View  style={[styles.container, {width: props.windowWidth}]}>
+        <View  style={styles.menu}>
+          {"MENU"}
+        </View>
+        <View  style={styles.scores}>
+          {teams}
+        </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-    headers: {  
+    scores: {  
      flexDirection: "row",
       backgroundColor: 'FFC300',
+      alignItems: 'right',
+      justifyContent: "right",
     // padding: 10,
 }
 })

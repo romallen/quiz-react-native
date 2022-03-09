@@ -1,6 +1,6 @@
 import Card from "../components/Cards"
 import Header from "../components/headers"
-import Scoreboard from "../components/scoreboard"
+import Footer from "../components/footer"
 import {useState, useEffect} from "react";
 import {StyleSheet, View, useWindowDimensions } from "react-native";
 import { FlatGrid } from 'react-native-super-grid';
@@ -21,15 +21,16 @@ export default function PlayScreen({ navigation }) {
 
 
     let cardWidth;
- 
+    let footerHeight;
   useEffect(()=>{
     gState.windowWidth= width
     gState.windowHeight= height
 
-    const headerHeight = (gState.windowWidth  > 640 ? 60 : 32);
+    const headerHeight = (gState.windowHeight * .15);
+    footerHeight = (gState.windowHeight * .1);
     cardWidth = (gState.windowWidth / gState.cols);
     //  let cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
-    let cardHeight = ((gState.windowHeight - 169) / gState.rows);
+    let cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
     
     handleResize(cardHeight, cardWidth)
     
@@ -49,30 +50,33 @@ export default function PlayScreen({ navigation }) {
       card.push(column)
     });
     setCards(card)  
+ 
+   
   }
 
 
 return (
   <View style={styles.container}> 
-    <Header windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
-      <FlatGrid 
-        spacing={0}
-        itemDimension={(gState.windowWidth / gState.cols)-20}
-        data={cards}
-        style={styles.gridView}
-        renderItem={({ item }) => (
-          <View >
-            {item}
-          </View>
-      )}/>
-    <Scoreboard windowWidth={gState.windowWidth}/>
+    <Header style={styles.header} windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
+    <FlatGrid 
+      spacing={1}
+      itemDimension={(gState.windowWidth / gState.cols)-25}
+      data={cards}
+      style={styles.gridView}
+      renderItem={({ item }) => (
+        <View >
+          {item}
+        </View>
+    )}/>
+    <Footer style={styles.footer} windowWidth={gState.windowWidth} />
   </View>    
 )}
 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    height:"100%",
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFC300',
@@ -80,13 +84,12 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   gridView: {
-    padding: 0,
-    margin: 0,
+    height:"75%",
   },
-  button: {
-    fontSize: 40,
-    paddingBottom: 20,
-    alignItems: "center",
-    justifyContent: "center",
+  header: {
+    height:"15%",
+  },
+  footer: {
+    height:"10%",
   },
 });

@@ -4,12 +4,12 @@ import { StatusBar, StyleSheet, Text, View } from "react-native";
 
 export default function Header(props) {
   
-    let headers = props.data.map((category, index) => <Text adjustsFontSizeToFit={true} style={{
-        padding: 10,
-        border: 1,
-        width:1000,
+    let headers = props.data.map((category, index) => <Text adjustsFontSizeToFit numberOfLines={2} style={{
+        padding: 1,
+        border: 0,
+        width: props.windowWidth,
         textAlignVertical: "center",
-        fontSize: 40,
+        fontSize: 20,
         textAlign:'center',
         alignItems: 'center'
     }} key={index}>{category.category}</Text>)

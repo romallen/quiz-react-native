@@ -53,12 +53,14 @@ export default function SetupScreen({ navigation }) {
      
   
         <Button
+          style = {styles.button}
           onPress={handleStartGamePress}
           title="Start the Game"
           color="#841584"
           accessibilityLabel="Questions"
         />
         <Button
+          style = {styles.button}
           onPress={handleBackPress}
           title="RETURN TO WELCOME SCREEN"
           color="#841584"

@@ -23,10 +23,10 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
       <Stack.Navigator initialRouteName="HomeScreen">
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="SetupScreen" component={SetupScreen} />
-        <Stack.Screen name="PlayScreen" component={PlayScreen} />
-        <Stack.Screen name="QuestionBankScreen" component={QuestionBankScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="SetupScreen" component={SetupScreen} options={{ title: 'Setup' }}/>
+        <Stack.Screen name="PlayScreen" component={PlayScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="QuestionBankScreen" component={QuestionBankScreen} options={{title: 'Question Bank' }}/>
       </Stack.Navigator>
       </Provider>
     </NavigationContainer>

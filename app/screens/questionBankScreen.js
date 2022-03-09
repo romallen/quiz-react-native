@@ -116,7 +116,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   button: {
-    fontSize: 20,
+    fontSize: 40,
     paddingBottom: 20,
+     alignItems: "center",
+    justifyContent: "center",
   },
 });

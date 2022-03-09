@@ -8,7 +8,6 @@ export default function HomeScreen({ navigation }) {
   const handlePlayPress = () => {
     console.log("Go to handlePlayGamePress");
     navigation.navigate("SetupScreen")
-    //props.setCurrentView("PlayGame");
   };
   const handleQuestionBankPress = () => {
     console.log("Go to QuestionBankPress");
