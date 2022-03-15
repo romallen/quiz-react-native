@@ -6,7 +6,7 @@ import {StyleSheet, View, useWindowDimensions } from "react-native";
 import { FlatGrid } from 'react-native-super-grid';
 import data1 from "../data";
 import { useSelector, useDispatch } from 'react-redux'
-
+import { Text, Box, Button, Container,Slider, VStack } from 'native-base';
 
 export default function PlayScreen({ navigation }) {
     const { height, width } = useWindowDimensions();
@@ -56,7 +56,7 @@ export default function PlayScreen({ navigation }) {
 
 
 return (
-  <View style={styles.container}> 
+  <Container alignItems="center"> 
     <Header style={styles.header} windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
     <FlatGrid 
       spacing={1}
@@ -69,7 +69,7 @@ return (
         </View>
     )}/>
     <Footer style={styles.footer} windowWidth={gState.windowWidth} />
-  </View>    
+  </Container>    
 )}
 
 

@@ -1,8 +1,9 @@
 import React from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-elements";
+import { StatusBar, StyleSheet, View } from "react-native";
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, Box, Button, Container } from 'native-base';
 
 export default function HomeScreen({ navigation }) {
   const handlePlayPress = () => {
@@ -15,25 +16,18 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.greeting}>Welcome to Quiz React!!!</Text>
+    <Container alignItems="center">
+    
+      <Text fontSize="6xl">Welcome to Quiz React!!!</Text>
 
-      <Button
-        style={styles.button}
-        onPress={handlePlayPress}
-        title="PLAY"
-        color="#841584"
-        accessibilityLabel="Setup the game!"
-      />
+      <Button onPress={handlePlayPress} size="lg"  > 
+      PLAY
+       </Button>
 
-      <Button
-        style={styles.button}
-        onPress={handleQuestionBankPress}
-        title="Question Bank"
-        color="#841584"
-        accessibilityLabel="Get, delete, edit and create questions"
-      />
-    </View>
+      <Button  onPress={handleQuestionBankPress} size="lg" >
+         Question Bank
+         </Button>
+  </Container>
   );
 }
 

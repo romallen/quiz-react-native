@@ -1,14 +1,17 @@
 import {useState} from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-elements";
+import { StatusBar, StyleSheet, View } from "react-native";
+
 import {Picker} from '@react-native-picker/picker';
 import { useSelector, useDispatch } from 'react-redux'
 import {createTeams} from "../redux/teamsSlice";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Text, Box, Button, Container,Slider, VStack } from 'native-base';
 
 export default function SetupScreen({ navigation }) {
-    const [teamNum,setTeamNum] = useState(1)
+
+    const [onSlChangeValue, setOnSlChangeValue] = useState(1);
+    const [onSlChangeEndValue, setOnSlChangeEndValue] = useState(1);
     const dispatch = useDispatch()
 
     const handleBackPress = () => {
@@ -17,56 +20,43 @@ export default function SetupScreen({ navigation }) {
     };
 
     const handleStartGamePress = () => {
-      dispatch(createTeams(teamNum))
+      dispatch(createTeams(onSlChangeEndValue))
       navigation.navigate("PlayScreen");
     };
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Setup a New Game!!!</Text>
-        <div >
-          <Text>Teams:</Text>
-          <Picker
-            teamnum={teamNum}
-            onValueChange={(itemValue, itemIndex) =>
-              setTeamNum(Number(itemValue))
-            }>
-            <Picker.Item label="1" value= "1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value= "3" />
-            <Picker.Item label="4" value="4" />
-            <Picker.Item label="5" value= "5" />
-            <Picker.Item label="6" value="6" />
-          </Picker>
-        </div>
-       <div style={styles.selectTime}>
-       <Text>Timer:</Text>
-       </div>
+
+        <Container alignItems="center">
+        <Text fontSize="6xl">Setup a New Game!!!</Text>
+        
+        <VStack space={2} alignItems="left">
+          <Box >
+            <Text fontSize="3xl" >Teams:  {onSlChangeValue}</Text>
+            <Slider defaultValue={1} minValue={1} maxValue={6} colorScheme="cyan" 
+            onChange={v => {setOnSlChangeValue(Math.floor(v));}} 
+            onChangeEnd={v => {v && setOnSlChangeEndValue(Math.floor(v))}}>
+          <Slider.Track>
+            <Slider.FilledTrack />
+          </Slider.Track>
+          <Slider.Thumb />
+        </Slider>
+          </Box>
+         </VStack>
+       
+       <Box style={styles.selectTime}>
+       {/* <Text>Timer:</Text> */}
+       </Box>
           
-          {/* <Text style={styles.selectCat}>Select Categories!!!</Text>
-          <Text style={styles.selectCat}>Select Categories!!!</Text> */}
-        {/* <SelectMultiple
-          items={Object.keys(props.categories)}
-          selectedItems={isSelected}
-          onSelectionsChange={setSelection}
-        /> */}
      
-  
-        <Button
-          style = {styles.button}
-          onPress={handleStartGamePress}
-          title="Start the Game"
-          color="#841584"
-          accessibilityLabel="Questions"
-        />
-        <Button
-          style = {styles.button}
-          onPress={handleBackPress}
-          title="RETURN TO WELCOME SCREEN"
-          color="#841584"
-          accessibilityLabel="GO BACK!"
-        />
-      </View>
+    
+      <Button onPress={handleStartGamePress} size="lg"  > 
+      Start the Game
+       </Button>
+       <Button onPress={handleBackPress} size="lg"  > 
+       RETURN TO HOME SCREEN
+       </Button>
+ 
+    </Container>
     );
   }
 

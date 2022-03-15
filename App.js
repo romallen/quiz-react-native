@@ -1,8 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NativeBaseProvider, Text, Box, Container } from 'native-base';
+
 import HomeScreen from './app/screens/homeScreen';
 import PlayScreen from './app/screens/playScreen'
 import SetupScreen from './app/screens/setupScreen'
@@ -20,16 +21,23 @@ export default function App() {
 
 
   return (
-    <NavigationContainer>
+    <NativeBaseProvider>
+       {/* <Container> */}
       <Provider store={store}>
-      <Stack.Navigator initialRouteName="HomeScreen">
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="PlayScreen">
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="SetupScreen" component={SetupScreen} options={{ title: 'Setup' }}/>
         <Stack.Screen name="PlayScreen" component={PlayScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="QuestionBankScreen" component={QuestionBankScreen} options={{title: 'Question Bank' }}/>
       </Stack.Navigator>
+          
+          
+      </NavigationContainer>
       </Provider>
-    </NavigationContainer>
+       
+        {/* </Container> */}
+    </NativeBaseProvider>
   );
 }
 

@@ -21,7 +21,7 @@ export default function Footer(props) {
     return (
     <View  style={[styles.container, {width: props.windowWidth}]}>
         <View  style={styles.menu}>
-          {"MENU"}
+          {/* {"MENU"} */}
         </View>
         <View  style={styles.scores}>
           {teams}
