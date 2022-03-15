@@ -37,11 +37,9 @@ export default function QuestionBankScreen(props) {
     return await axios.post("", {});
   };
 
-  const handleClick= () => {
+  const handleClick = () => {
     setVisible(!visible);
-  
-
-};
+  };
   const categoryName = data1.map((el) => el.category);
 
   console.log(categoryName);
@@ -55,7 +53,7 @@ export default function QuestionBankScreen(props) {
             bottomDivider
             Component={TouchableHighlight}
             onPress={() => {
-             handleClick(l)
+              handleClick(l);
             }}
           >
             <ListItem.Content>
@@ -91,9 +89,13 @@ export default function QuestionBankScreen(props) {
         accessibilityLabel="GO BACK!"
       />
 
-<Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={handleClick}>
-    {/* <ViewCategoryOverlay/> */}
-  </Overlay>
+      <Overlay
+        ModalComponent={Modal}
+        isVisible={visible}
+        onBackdropPress={handleClick}
+      >
+        {/* <ViewCategoryOverlay/> */}
+      </Overlay>
     </View>
   );
 }
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
   button: {
     fontSize: 40,
     paddingBottom: 20,
-     alignItems: "center",
+    alignItems: "center",
     justifyContent: "center",
   },
 });
