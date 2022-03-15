@@ -16,7 +16,7 @@ import store from './app/redux/store'
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [currentView, setCurrentView] = useState("WelcomeScreen");
+
   
 
 

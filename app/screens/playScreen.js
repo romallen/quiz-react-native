@@ -6,7 +6,7 @@ import {StyleSheet, View, useWindowDimensions } from "react-native";
 import { FlatGrid } from 'react-native-super-grid';
 import data1 from "../data";
 import { useSelector, useDispatch } from 'react-redux'
-import { Text, Box, Button, Container,Slider, VStack } from 'native-base';
+import { Text, Box, Button, Container,Pressable, Slider, HStack, VStack } from 'native-base';
 
 export default function PlayScreen({ navigation }) {
     const { height, width } = useWindowDimensions();
@@ -40,15 +40,27 @@ export default function PlayScreen({ navigation }) {
     
   let card = []
 
+  // gState.data.forEach((category, categoryIndex) => {
+  //   let column = []
+  //   category.questions.forEach((question, questionIndex) => {
+  //       // console.log("cards",cardHeight, cardWidth)
+  //     let keys = categoryIndex + '-' + questionIndex
+  //     column.push(<Card keys={keys} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points}/>)
+  //   })
+  //     card.push(column)
+  //   });
+
   gState.data.forEach((category, categoryIndex) => {
     let column = []
     category.questions.forEach((question, questionIndex) => {
         // console.log("cards",cardHeight, cardWidth)
       let keys = categoryIndex + '-' + questionIndex
+  
       column.push(<Card keys={keys} height={cardHeight} width={cardWidth} question={question.question} answer={question.answer} points={question.points}/>)
     })
-      card.push(column)
+      card.push(<VStack>{column}</VStack>)
     });
+
     setCards(card)  
  
    
@@ -56,18 +68,11 @@ export default function PlayScreen({ navigation }) {
 
 
 return (
-  <Container alignItems="center"> 
-    <Header style={styles.header} windowWidth={gState.windowWidth} data={gState.data} headerWidth={cardWidth}/>
-    <FlatGrid 
-      spacing={1}
-      itemDimension={(gState.windowWidth / gState.cols)-25}
-      data={cards}
-      style={styles.gridView}
-      renderItem={({ item }) => (
-        <View >
-          {item}
-        </View>
-    )}/>
+  <Container > 
+    <Header style={styles.header} windowWidth={gState.windowWidth} data={gState.data} headerWidth={gState.windowWidth / gState.cols}/>
+     <HStack space={4} alignItems="center">
+        {cards}
+    </HStack> 
     <Footer style={styles.footer} windowWidth={gState.windowWidth} />
   </Container>    
 )}

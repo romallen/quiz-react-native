@@ -1,13 +1,13 @@
 import * as audio from './audio';
 import image from "../assets/img/react.svg"
 import {React, useState, createRef} from "react";
-import { Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View, useWindowDimensions  } from "react-native";
-import { Button, Overlay } from "react-native-elements";
+import { Modal, StatusBar, StyleSheet, TouchableOpacity, View, useWindowDimensions  } from "react-native";
+import {  Overlay } from "react-native-elements";
 import QuestionOverlay from '../components/questionOverlay';
 import { useSelector, useDispatch } from 'react-redux' 
 import {incrementScore} from "../redux/teamsSlice";
 import {incrementTurn} from "../redux/scoreSlice";
-
+import { Text, Box, Button, Container,Pressable, Center, Slider,Heading, HStack, VStack } from 'native-base';
 
 export default function Card(props) {
     const [cardState, setCardState] = useState({view: 'points', completed: false})
@@ -42,34 +42,32 @@ export default function Card(props) {
         setVisible(!visible);
     };
 
-    let front = cardState.completed ? <img src={image}/> : <Text adjustsFontSizeToFit={true} numberOfLines={1}  style= {{fontSize: 50, textAlignVertical: 'center', textAlign:'center'}} nativeIDs='points'>{props.points}</Text>;
+    let front = cardState.completed ? <img src={image}/> : <Heading size="lg"  bold>{props.points}</Heading>
 
 
 return (
-    <TouchableOpacity ref={cardRef} disabled={cardState.completed}  nativeID='card' key={props.keys} onPress={handleClick}>
-        <View style={[styles.card,  { width: props.width, height: props.height, justifyContent: "center",}]}>
+    <Pressable ref={cardRef} disabled={cardState.completed}  nativeID='card' key={props.keys} onPress={handleClick}>
+        <Center w={props.width} h={props.height} >
                 {front}
-        </View>
+        </Center>
 
         <Overlay ModalComponent={Modal} isVisible={visible} onBackdropPress={handleClick}>
             <QuestionOverlay style={styles.overlay} question = {props.question} answer = {props.answer} width={"100%"}/>
             <Button
                 style={styles.button}
                 onPress={handleIncorrectPress}
-                title="INCORRECT"
                 color="#841584"
                 accessibilityLabel="INCORRECT"
-            />
+            >INCORRECT</Button>
 
             <Button
                 style={styles.button}
-                onPress={handleCorrectPress}
-                title="CORRECT"
+                onPress={handleCorrectPress}            
                 color="#841584"
                 accessibilityLabel="CORRECT"
-            />
+            >CORRECT</Button>
         </Overlay>
-    </TouchableOpacity>
+    </Pressable>
 )}
 
 
