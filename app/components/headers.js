@@ -11,7 +11,7 @@ import {
 } from "native-base";
 
 export default function Header(props) {
-  console.log(props);
+
   let headers = props.data.map((category, index) => (
     <Center key={index} w={props.headerWidth}>
       <Heading size="xl" textAlign="center" bold>
@@ -26,10 +26,3 @@ export default function Header(props) {
   );
 }
 
-// const styles = StyleSheet.create({
-//   headers: {
-//     flexDirection: "row",
-//     backgroundColor: "FFC300",
-//     // padding: 10,
-//   },
-// });

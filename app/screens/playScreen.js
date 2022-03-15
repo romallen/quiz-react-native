@@ -55,7 +55,7 @@ export default function PlayScreen({ navigation }) {
         let keys = categoryIndex + "-" + questionIndex;
         column.push(
           <Card
-            keys={keys}
+            key={keys}
             height={cardHeight}
             width={cardWidth}
             question={question.question}
@@ -64,14 +64,14 @@ export default function PlayScreen({ navigation }) {
           />
         );
       });
-      card.push(<VStack>{column}</VStack>);
+      card.push(<VStack key={categoryIndex}>{column}</VStack>);
     });
 
     setCards(card);
   };
 
   return (
-    <Container>
+    <Box >
       <Header
        
         windowWidth={gState.windowWidth}
@@ -80,27 +80,8 @@ export default function PlayScreen({ navigation }) {
       />
       <HStack alignItems="center">{cards}</HStack>
       <Footer  windowWidth={gState.windowWidth} />
-    </Container>
+    </Box>
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     // flex: 1,
-//     height: "100%",
-//     justifyContent: "center",
-//     alignItems: "center",
-//     backgroundColor: "#FFC300",
-//     padding: 0,
-//     margin: 0,
-//   },
-//   gridView: {
-//     height: "75%",
-//   },
-//   header: {
-//     height: "15%",
-//   },
-//   footer: {
-//     height: "10%",
-//   },
-// });
+

@@ -90,11 +90,10 @@ export default function Card(props) {
     <Pressable
       ref={cardRef}
       disabled={cardState.completed}
-      //   nativeID="card"
       key={props.keys}
       onPress={handleClick}
     >
-      <Center w={props.width} h={props.height}>
+      <Center space={1} borderRadius="md" borderWidth={1} w={props.width} h={props.height}>
         {front}
       </Center>
 

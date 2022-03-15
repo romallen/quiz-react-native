@@ -7,6 +7,10 @@ import {
   Button,
   Container,
   Center,
+  Divider,
+  HamburgerIcon,
+  Pressable,
+  Menu,
   HStack,
   Heading,
 } from "native-base";
@@ -14,42 +18,37 @@ import {
 export default function Footer(props) {
   const teamsStore = useSelector((state) => state.teams.value);
   let teams = [];
-
+  let i = 0
   for (let team in teamsStore) {
     teams.push(
-      <Text
-        fontSize={"xl"}
-        // style={{
-        //   padding: 10,
-        //   border: 1,
-        //   //width: 1000,
-        //   textAlignVertical: "center",
-        //   fontSize: 20,
-        //   textAlign: "center",
-        //   alignItems: "center",
-        // }}
-        key={team}
-      >
+      <Text fontSize={"xl"} key={i}>
         {team + " " + teamsStore[team]}
       </Text>
     );
+    i++
   }
   return (
-    <HStack width={props.windowWidth}>
-      <Box >
-        <Text>MENU</Text>
+    <HStack pb="1" pl="10" width={props.windowWidth}>
+      <Box h="80%" w="20%" alignItems="flex-start">
+        <Menu
+          w="190"
+          closeOnSelect={false}
+          onOpen={() => console.log("opened")}
+          onClose={() => console.log("closed")}
+          trigger={(triggerProps) => {
+            return (
+              <Pressable {...triggerProps}>
+                <HamburgerIcon />
+              </Pressable>
+            );
+          }}
+        >
+   
+        </Menu>
       </Box>
-      <Box >{teams}</Box>
+      <HStack space={2} alignItems={"center"}>{teams}</HStack>
     </HStack>
   );
 }
 
-const styles = StyleSheet.create({
-  scores: {
-    flexDirection: "row",
-    backgroundColor: "FFC300",
-    alignItems: "right",
-    justifyContent: "right",
-    // padding: 10,
-  },
-});
+
