@@ -74,25 +74,3 @@ export default function SetupScreen({ navigation }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    //backgroundColor: "#ddf",
-  },
-  title: {
-    fontSize: 60,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  teams: {
-    fontSize: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    fontSize: 40,
-    paddingBottom: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

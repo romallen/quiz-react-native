@@ -23,7 +23,7 @@ export default function PlayScreen({ navigation }) {
 
   const currGameState = useSelector((state) => state.game.cardState);
   const dispatch = useDispatch();
-  
+
   const [gState, setGState] = useState({
     windowWidth: width,
     windowHeight: height,
@@ -53,12 +53,11 @@ export default function PlayScreen({ navigation }) {
     gState.data.forEach((category, categoryIndex) => {
       let column = [];
       category.questions.forEach((question, questionIndex) => {
-
         column.push(
           <Card
             key={categoryIndex + "-" + questionIndex}
             height={cardHeight}
-            width={gState.windowWidth / gState.cols - (gState.cols * 0.7)}
+            width={gState.windowWidth / gState.cols - gState.cols * 0.7}
             question={question.question}
             answer={question.answer}
             points={question.points}
@@ -74,16 +73,15 @@ export default function PlayScreen({ navigation }) {
     setCards(card);
     // dispatch(gameState(card))
   };
-  
 
   return (
-    <Box pr={1} pl={1} w={gState.windowWidth}  alignItems="center">
+    <Box pr={1} pl={1} w={gState.windowWidth} alignItems="center">
       <Header
-        windowWidth={gState.windowWidth - (gState.cols * 0.7)}
+        windowWidth={gState.windowWidth - gState.cols * 0.7}
         data={gState.data}
         headerWidth={gState.windowWidth / gState.cols}
       />
-      <Box >
+      <Box>
         <HStack pt={1} space={0.5} alignItems="center">
           {cards}
         </HStack>
