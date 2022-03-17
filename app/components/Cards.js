@@ -1,18 +1,10 @@
 import * as audio from "./audio";
 import imageRed from "../assets/img/red_x.svg";
 import { React, useState, createRef } from "react";
-import {
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
-import { Overlay } from "react-native-elements";
-import QuestionOverlay from "../components/questionOverlay";
+import {useWindowDimensions} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore } from "../redux/teamsSlice";
-import { incrementTurn } from "../redux/scoreSlice";
+import { incrementTurn } from "../redux/gameSlice";
 import {
   Text,
   Box,
@@ -42,7 +34,7 @@ export default function Card(props) {
   const teamNumber = Object.keys(
     useSelector((state) => state.teams.value)
   ).length;
-  const turn = useSelector((state) => state.score.value);
+  const turn = useSelector((state) => state.game.value);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -67,13 +59,12 @@ export default function Card(props) {
     setVisible(!visible);
   };
   let cardHeight;
-  if(height< 450){
+  if (height < 450) {
     cardHeight = props.height * 0.81;
-  } else if(height< 700){
+  } else if (height < 700) {
     cardHeight = props.height * 0.9;
-  }
-  else{
-    cardHeight = props.height
+  } else {
+    cardHeight = props.height;
   }
 
   let front = cardState.completed ? (
@@ -99,16 +90,22 @@ export default function Card(props) {
       key={props.keys}
       onPress={handleClick}
     >
-      {/*   */}
-      <Center  borderRadius="md" borderWidth={1} w={props.width} h={cardHeight} >
+      <Center borderRadius="md" borderWidth={1} w={props.width} h={cardHeight}>
         {front}
       </Center>
 
-      <Modal isOpen={visible} onClose={() => setVisible(!visible)} m="sm" size="full">
-        <Modal.Content >
+      <Modal
+        isOpen={visible}
+        onClose={() => setVisible(!visible)}
+        m="sm"
+        size="full"
+      >
+        <Modal.Content>
           <Modal.Body>
-            <Center >
-            <Heading  p={10} size="3xl">{props.question}</Heading>
+            <Center>
+              <Heading p={10} size="3xl">
+                {props.question}
+              </Heading>
               <Button onPress={() => setShowAnswer(!showAnswer)}>
                 {showAnswer ? "Hide Answer" : "Show Answer"}
               </Button>
@@ -126,10 +123,11 @@ export default function Card(props) {
                   },
                 }}
               >
-                <Heading  p={10} size="2xl">{props.answer}</Heading>
+                <Heading p={10} size="2xl">
+                  {props.answer}
+                </Heading>
               </PresenceTransition>
             </Center>
-
           </Modal.Body>
           <Modal.Footer>
             <Button.Group space={2}>
@@ -148,5 +146,3 @@ export default function Card(props) {
     </Pressable>
   );
 }
-
-

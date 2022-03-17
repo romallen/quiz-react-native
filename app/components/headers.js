@@ -8,7 +8,6 @@ import {
   Center,
   HStack,
   Heading,
-  extendTheme
 } from "native-base";
 
 export default function Header(props) {

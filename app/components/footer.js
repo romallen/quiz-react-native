@@ -89,7 +89,7 @@ export default function Footer(props) {
           </Actionsheet.Content>
         </Actionsheet>
       </Box>
-      <HStack space={2} alignItems={"center"}>
+      <HStack space={8} alignItems={"center"}>
         {teams}
       </HStack>
     </HStack>

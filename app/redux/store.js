@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import scoreReducer from './scoreSlice'
+import gameReducer from './gameSlice'
 import teamsReducer from './teamsSlice'
 import questionsReducer from './questionsSlice'
 
 export default configureStore({
   reducer: {
-    score: scoreReducer,
+    game: gameReducer,
     teams: teamsReducer,
     questions: questionsReducer
   }

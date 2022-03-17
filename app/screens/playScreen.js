@@ -2,8 +2,7 @@ import Card from "../components/Cards";
 import Header from "../components/headers";
 import Footer from "../components/footer";
 import { useState, useEffect } from "react";
-import { StyleSheet, View, useWindowDimensions } from "react-native";
-import { FlatGrid } from "react-native-super-grid";
+import { useWindowDimensions } from "react-native";
 import data1 from "../data";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -32,15 +31,13 @@ export default function PlayScreen({ navigation }) {
   gState.cols = data1.length;
 
   let cardWidth;
-  let footerHeight;
   let cardHeight;
   useEffect(() => {
     gState.windowWidth = width;
     gState.windowHeight = height;
 
     const headerHeight = gState.windowHeight * 0.15;
-    //footerHeight = gState.windowHeight * 0.1;
-    cardWidth = (gState.windowWidth / gState.cols)-(gState.cols*.7);
+    cardWidth = gState.windowWidth / gState.cols - gState.cols * 0.7;
     cardHeight = (gState.windowHeight - headerHeight) / gState.rows;
 
     resize(cardHeight, cardWidth);
@@ -57,29 +54,34 @@ export default function PlayScreen({ navigation }) {
           <Card
             key={keys}
             height={cardHeight}
-            width={(gState.windowWidth / gState.cols)-(gState.cols*.7)}
+            width={gState.windowWidth / gState.cols - gState.cols * 0.7}
             question={question.question}
             answer={question.answer}
             points={question.points}
           />
         );
       });
-      card.push(<VStack space={0.5} key={categoryIndex}>{column}</VStack>);
+      card.push(
+        <VStack space={0.5} key={categoryIndex}>
+          {column}
+        </VStack>
+      );
     });
 
     setCards(card);
   };
 
   return (
-    <Box m={1} >
+    <Box m={1}>
       <Header
         windowWidth={gState.windowWidth}
         data={gState.data}
         headerWidth={gState.windowWidth / gState.cols}
       />
-      <Box justifyContent= 'space-between'>
-      <HStack space={0.5} alignItems="center">{cards}</HStack>
-
+      <Box justifyContent="space-between">
+        <HStack space={0.5} alignItems="center">
+          {cards}
+        </HStack>
       </Box>
       <Footer windowWidth={gState.windowWidth} />
     </Box>

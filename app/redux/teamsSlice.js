@@ -8,7 +8,7 @@ export const teamsSlice = createSlice({
   reducers: {
  
     createTeams: (state, action) => {
-        console.log("action.payload",action)
+
       for(let i=0; i< action.payload;i++){
         state.value["Team " + (i+1)+ ":"] = 0
       }

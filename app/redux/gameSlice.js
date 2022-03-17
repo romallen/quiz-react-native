@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const scoreSlice = createSlice({
+export const gameSlice = createSlice({
   name: 'score',
   initialState: {
     value: 0
@@ -13,6 +13,6 @@ export const scoreSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementTurn } = scoreSlice.actions
+export const { incrementTurn } = gameSlice.actions
 
-export default scoreSlice.reducer
+export default gameSlice.reducer
