@@ -113,7 +113,7 @@ export default function Card(props) {
                 }}
                 animate={{
                   opacity: 1,
-                  scale: 1,
+                  scale: 2,
                   transition: {
                     duration: 250,
                   },
