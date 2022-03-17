@@ -33,20 +33,20 @@ export default function PlayScreen({ navigation }) {
 
   let cardWidth;
   let footerHeight;
+  let cardHeight;
   useEffect(() => {
     gState.windowWidth = width;
     gState.windowHeight = height;
 
     const headerHeight = gState.windowHeight * 0.15;
-    footerHeight = gState.windowHeight * 0.1;
-    cardWidth = gState.windowWidth / gState.cols;
-    //  let cardHeight = ((gState.windowHeight - headerHeight) / gState.rows);
-    let cardHeight = (gState.windowHeight - headerHeight) / gState.rows;
+    //footerHeight = gState.windowHeight * 0.1;
+    cardWidth = (gState.windowWidth / gState.cols)-(gState.cols*.7);
+    cardHeight = (gState.windowHeight - headerHeight) / gState.rows;
 
-    handleResize(cardHeight, cardWidth);
+    resize(cardHeight, cardWidth);
   }, [width, height]);
 
-  let handleResize = (cardHeight, cardWidth) => {
+  let resize = (cardHeight, cardWidth) => {
     let card = [];
 
     gState.data.forEach((category, categoryIndex) => {
@@ -57,31 +57,31 @@ export default function PlayScreen({ navigation }) {
           <Card
             key={keys}
             height={cardHeight}
-            width={cardWidth}
+            width={(gState.windowWidth / gState.cols)-(gState.cols*.7)}
             question={question.question}
             answer={question.answer}
             points={question.points}
           />
         );
       });
-      card.push(<VStack key={categoryIndex}>{column}</VStack>);
+      card.push(<VStack space={0.5} key={categoryIndex}>{column}</VStack>);
     });
 
     setCards(card);
   };
 
   return (
-    <Box >
+    <Box m={1} >
       <Header
-       
         windowWidth={gState.windowWidth}
         data={gState.data}
         headerWidth={gState.windowWidth / gState.cols}
       />
-      <HStack alignItems="center">{cards}</HStack>
-      <Footer  windowWidth={gState.windowWidth} />
+      <Box justifyContent= 'space-between'>
+      <HStack space={0.5} alignItems="center">{cards}</HStack>
+
+      </Box>
+      <Footer windowWidth={gState.windowWidth} />
     </Box>
   );
 }
-
-

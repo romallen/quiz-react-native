@@ -8,13 +8,14 @@ import {
   Center,
   HStack,
   Heading,
+  extendTheme
 } from "native-base";
 
 export default function Header(props) {
-
+ 
   let headers = props.data.map((category, index) => (
     <Center key={index} w={props.headerWidth}>
-      <Heading size="xl" textAlign="center" bold>
+      <Heading size={"lg"} textAlign="center" bold>
         {category.category}
       </Heading>
     </Center>
@@ -22,7 +23,6 @@ export default function Header(props) {
 
   return (
     <HStack width="100%">{headers}</HStack>
-
   );
 }
 

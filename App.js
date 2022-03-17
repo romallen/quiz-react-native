@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeBaseProvider} from 'native-base';
+import { NativeBaseProvider,extendTheme} from 'native-base';
 
 import HomeScreen from './app/screens/homeScreen';
 import PlayScreen from './app/screens/playScreen'
@@ -16,10 +16,17 @@ import store from './app/redux/store'
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
+  const theme = extendTheme({
+    // fontSizes: {
+    //   base: 0,
+    //   sm: 580,
+    //   md: 888,
+    //   lg: 992,
+    //   xl: 1280,},
+  })
 
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider theme={theme} >
       <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator initialRouteName="HomeScreen">

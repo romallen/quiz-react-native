@@ -31,6 +31,7 @@ import {
 } from "native-base";
 
 export default function Card(props) {
+  const { height, width } = useWindowDimensions();
   const [cardState, setCardState] = useState({
     view: "points",
     completed: false,
@@ -49,9 +50,6 @@ export default function Card(props) {
     if (!cardState.completed) {
       cardState.completed = true;
       setVisible(!visible);
-      //   setTimeout(() => {
-      //     setVisible(!visible);
-      //   }, 400);
     }
   };
 
@@ -68,11 +66,19 @@ export default function Card(props) {
     dispatch(incrementTurn());
     setVisible(!visible);
   };
+  let cardHeight;
+  if(height< 450){
+    cardHeight = props.height * 0.81;
+  } else if(height< 700){
+    cardHeight = props.height * 0.9;
+  }
+  else{
+    cardHeight = props.height
+  }
 
   let front = cardState.completed ? (
-    // <img src={image} />
     <Image
-      size="md"
+      size="lg"
       resizeMode={"contain"}
       borderRadius={100}
       source={{
@@ -81,7 +87,7 @@ export default function Card(props) {
       alt="Red X"
     />
   ) : (
-    <Heading size="lg" bold>
+    <Heading size={"lg"} bold>
       {props.points}
     </Heading>
   );
@@ -93,7 +99,8 @@ export default function Card(props) {
       key={props.keys}
       onPress={handleClick}
     >
-      <Center space={1} borderRadius="md" borderWidth={1} w={props.width} h={props.height}>
+      {/*   */}
+      <Center  borderRadius="md" borderWidth={1} w={props.width} h={cardHeight} >
         {front}
       </Center>
 
@@ -142,16 +149,4 @@ export default function Card(props) {
   );
 }
 
-// const styles = StyleSheet.create({
-//   card: {
-//     justifyContent: "center",
-//     alignItems: "center",
-//     overflow: "hidden",
-//     backgroundSize: "100% 100%",
-//     backgroundRepeat: "no-repeat",
-//     border: "solid 3px #ECECEC",
-//     borderRadius: "6px",
-//     backgroundColor: "#5463FF",
-//     fontSize: "54px",
-//   },
-// });
+
