@@ -13,7 +13,7 @@ import {
 export default function Header(props) {
  
   let headers = props.data.map((category, index) => (
-    <Center key={index} w={props.headerWidth}>
+    <Center key={index} w={props.headerWidth} >
       <Heading size={"lg"} textAlign="center" bold>
         {category.category}
       </Heading>
@@ -21,7 +21,7 @@ export default function Header(props) {
   ));
 
   return (
-    <HStack width="100%">{headers}</HStack>
+    <HStack width={props.width} backgroundColor={"tertiary.500"}>{headers}</HStack>
   );
 }
 

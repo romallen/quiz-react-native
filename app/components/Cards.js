@@ -1,7 +1,14 @@
 import * as audio from "./audio";
 import imageRed from "../assets/img/red_x.svg";
 import { React, useState, createRef } from "react";
-import {useWindowDimensions} from "react-native";
+import {
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from "react-native";
+
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore } from "../redux/teamsSlice";
 import { incrementTurn } from "../redux/gameSlice";
@@ -34,11 +41,11 @@ export default function Card(props) {
   const teamNumber = Object.keys(
     useSelector((state) => state.teams.value)
   ).length;
-  const turn = useSelector((state) => state.game.value);
+  const turn = useSelector((state) => state.game.turn);
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    console.log("card Pressed", cardState.completed);
+   
     if (!cardState.completed) {
       cardState.completed = true;
       setVisible(!visible);
@@ -46,7 +53,7 @@ export default function Card(props) {
   };
 
   const handleCorrectPress = () => {
-    console.log("CORRECT");
+  
     let team = (turn % teamNumber) + 1;
     dispatch(incrementScore({ team: team, points: props.points }));
     dispatch(incrementTurn());
@@ -54,7 +61,7 @@ export default function Card(props) {
   };
 
   const handleIncorrectPress = () => {
-    console.log("INCORRECT");
+ 
     dispatch(incrementTurn());
     setVisible(!visible);
   };
@@ -119,7 +126,7 @@ export default function Card(props) {
                   opacity: 1,
                   scale: 2,
                   transition: {
-                    duration: 250,
+                    duration: 300,
                   },
                 }}
               >
