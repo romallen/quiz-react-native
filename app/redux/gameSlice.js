@@ -18,7 +18,7 @@ export const gameSlice = createSlice({
   }
 })
 
-// Action creators are generated for each case reducer function
+
 export const { incrementTurn,gameState } = gameSlice.actions
 
 export default gameSlice.reducer

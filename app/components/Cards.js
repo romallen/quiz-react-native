@@ -85,7 +85,7 @@ export default function Card(props) {
       alt="Red X"
     />
   ) : (
-    <Heading size={"lg"} bold>
+    <Heading size={"xl"} bold>
       {props.points}
     </Heading>
   );

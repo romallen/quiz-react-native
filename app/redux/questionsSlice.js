@@ -18,7 +18,7 @@ export const questionsSlice = createSlice({
   }
 })
 
-// Action creators are generated for each case reducer function
+
 export const { addQuestion, removeQuestion, editQuestion} = questionsSlice.actions
 
 export default questionsSlice.reducer
