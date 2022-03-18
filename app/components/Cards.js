@@ -1,4 +1,3 @@
-import * as audio from "./audio";
 import imageRed from "../assets/img/red_x.svg";
 import { React, useState, createRef } from "react";
 import {

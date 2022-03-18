@@ -1,20 +1,26 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, createRef } from "react";
+import { useWindowDimensions } from "react-native";
 import {
-  Modal,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
-import {
-  Button,
   ListItem,
   Avatar,
   Overlay,
   FAB,
   SpeedDial,
 } from "react-native-elements";
+import {
+  Text,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Flex,
+  Slider,
+  VStack,
+  Spacer,
+  Pressable,
+  HStack,
+  ScrollView,
+} from "native-base";
 import axios from "axios";
 import data1 from "../data";
 // import ViewCategoryOverlay from "../components/viewCatOverlay";
@@ -23,6 +29,9 @@ export default function QuestionBankScreen(props) {
   //state
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
+  const { height, width } = useWindowDimensions();
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const categoryRef = createRef(null);
   //handle
   const handleBackPress = () => {
     console.log("Go to Welcome");
@@ -37,90 +46,81 @@ export default function QuestionBankScreen(props) {
     return await axios.post("", {});
   };
 
-  const handleClick = () => {
-    setVisible(!visible);
+  const categoryName = [];
+  data1.forEach((el, index) =>
+    categoryName.push(
+      <Pressable onPress={(e) => handleClick(el.questions)} key={index}>
+        <Box>{el.category}</Box>
+      </Pressable>
+    )
+  );
+
+
+  const handleClick = (val) => {
+    // setVisible(!visible);
+    console.log(val);
+    let questions = [];
+    val.forEach((element) => {
+      questions.push(
+        <Box
+        maxW="96" 
+          borderWidth="1"
+          borderColor="coolGray.300"
+          shadow="3"
+          bg="coolGray.100"
+          p="5"
+          rounded="8"
+        >
+          <HStack alignItems="center">
+            <Spacer />
+            <Text fontSize={10} color="coolGray.800">
+              Points: {element["points"]}
+            </Text>
+          </HStack>
+          <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize="xl">
+            Question: {element["question"]}
+          </Text>
+          <Text mt="2" fontSize="sm" color="coolGray.700">
+            Answer: {element["answer"]}
+          </Text>
+          <Flex>
+            <Button mt="2" fontSize={12} fontWeight="medium" color="darkBlue.600">
+              Edit
+            </Button>
+          </Flex>
+        </Box>
+      );
+    });
+
+    setSelectedCategory(questions);
   };
-  const categoryName = data1.map((el) => el.category);
 
-  console.log(categoryName);
+
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.greeting}>CRUD!!! </Text>
-      <View style={styles.catContainer}>
-        {categoryName.map((l, i) => (
-          <ListItem
-            key={i}
-            bottomDivider
-            Component={TouchableHighlight}
-            onPress={() => {
-              handleClick(l);
-            }}
-          >
-            <ListItem.Content>
-              <ListItem.Title>{l.toLocaleUpperCase()}</ListItem.Title>
-            </ListItem.Content>
-            <ListItem.Chevron />
-          </ListItem>
-        ))}
-      </View>
-      <SpeedDial
-        isOpen={isOpen}
-        icon={{ name: "edit", color: "#fff" }}
-        openIcon={{ name: "close", color: "#fff" }}
-        onOpen={() => setIsOpen(true)}
-        onClose={() => setIsOpen(false)}
-      >
-        <SpeedDial.Action
-          icon={{ name: "add", color: "#fff" }}
-          title="Add"
-          onPress={() => console.log("Add a Category")}
-        />
-        <SpeedDial.Action
-          icon={{ name: "delete", color: "#fff" }}
-          title="Delete"
-          onPress={() => console.log("Delete a Category")}
-        />
-      </SpeedDial>
-      <Button
-        style={styles.button}
-        onPress={handleBackPress}
-        title="RETURN TO WELCOME SCREEN"
-        color="#841584"
-        accessibilityLabel="GO BACK!"
-      />
+    <Box p={5}>
+      <Text fontSize="5xl" textAlign="center">
+        Question Bank
+      </Text>
 
-      <Overlay
-        ModalComponent={Modal}
-        isVisible={visible}
-        onBackdropPress={handleClick}
-      >
-        {/* <ViewCategoryOverlay/> */}
-      </Overlay>
-    </View>
+      <HStack space={8}>
+        <Box>
+          <Text fontSize="2xl" textAlign="center">
+            Categories
+          </Text>
+          <ScrollView>{categoryName}</ScrollView>
+        </Box>
+        <Box>
+
+          <ScrollView h={height*.8}>
+
+         {selectedCategory}
+          </ScrollView>
+          
+
+        </Box>
+      </HStack>
+    </Box>
+    
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ddf",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  catContainer: {
-    flex: 1,
-    width: 500,
-  },
-  greeting: {
-    flex: 0.2,
-    fontSize: 60,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  button: {
-    fontSize: 40,
-    paddingBottom: 20,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
