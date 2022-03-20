@@ -1,13 +1,6 @@
 import React, { useState, useEffect, createRef } from "react";
 import { useWindowDimensions } from "react-native";
 import {
-  ListItem,
-  Avatar,
-  Overlay,
-  FAB,
-  SpeedDial,
-} from "react-native-elements";
-import {
   Text,
   Box,
   Button,

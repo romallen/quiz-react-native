@@ -1,11 +1,7 @@
 import { useState } from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
-
 import { useSelector, useDispatch } from "react-redux";
 import { createTeams } from "../redux/teamsSlice";
 import { gameState, numCategoriesStore, numQuestionsStore } from "../redux/gameSettingsSlice";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   Text,
   Box,

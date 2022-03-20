@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Text,

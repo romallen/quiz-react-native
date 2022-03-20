@@ -1,31 +1,16 @@
 import imageRed from "../assets/img/red_x.svg";
 import { React, useState, createRef } from "react";
-import {
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
-
+import { useWindowDimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { incrementScore,incrementTurn  } from "../redux/teamsSlice";
-import { } from "../redux/gameSettingsSlice";
+import { incrementScore, incrementTurn } from "../redux/teamsSlice";
 import {
-  Text,
-  Box,
   Button,
-  Container,
   Image,
   PresenceTransition,
   Pressable,
   Center,
-  Slider,
   Modal,
   Heading,
-  Hidden,
-  HStack,
-  VStack,
 } from "native-base";
 
 export default function Card(props) {
@@ -44,7 +29,6 @@ export default function Card(props) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-   
     if (!cardState.completed) {
       cardState.completed = true;
       setVisible(!visible);
@@ -52,7 +36,6 @@ export default function Card(props) {
   };
 
   const handleCorrectPress = () => {
-  
     let team = (turn % teamNumber) + 1;
     dispatch(incrementScore({ team: team, points: props.points }));
     dispatch(incrementTurn());
@@ -60,7 +43,6 @@ export default function Card(props) {
   };
 
   const handleIncorrectPress = () => {
- 
     dispatch(incrementTurn());
     setVisible(!visible);
   };
