@@ -9,8 +9,8 @@ import {
 } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
-import { incrementScore,incrementTurn  } from "../redux/teamsSlice";
-import { } from "../redux/gameSettingsSlice";
+import { incrementScore } from "../redux/teamsSlice";
+
 import {
   Text,
   Box,
@@ -26,9 +26,11 @@ import {
   Hidden,
   HStack,
   VStack,
+  KeyboardAvoidingView,
+  Stack
 } from "native-base";
 
-export default function Card(props) {
+export default function ManualCard(props) {
   const { height, width } = useWindowDimensions();
   const [cardState, setCardState] = useState({
     view: "points",
@@ -40,11 +42,10 @@ export default function Card(props) {
   const teamNumber = Object.keys(
     useSelector((state) => state.teams.value)
   ).length;
-  const turn = useSelector((state) => state.teams.turn);
+
   const dispatch = useDispatch();
 
   const handleClick = () => {
-   
     if (!cardState.completed) {
       cardState.completed = true;
       setVisible(!visible);
@@ -52,40 +53,29 @@ export default function Card(props) {
   };
 
   const handleCorrectPress = () => {
-  
-    let team = (turn % teamNumber) + 1;
-    dispatch(incrementScore({ team: team, points: props.points }));
-    dispatch(incrementTurn());
     setVisible(!visible);
   };
 
   const handleIncorrectPress = () => {
- 
     dispatch(incrementTurn());
     setVisible(!visible);
   };
-  let cardHeight;
-  if (height < 450) {
-    cardHeight = props.height * 0.81;
-  } else if (height < 700) {
-    cardHeight = props.height * 0.9;
-  } else {
-    cardHeight = props.height;
-  }
+  //   let cardHeight;
+  //   if (height < 450) {
+  //     cardHeight = props.height * 0.81;
+  //   } else if (height < 700) {
+  //     cardHeight = props.height * 0.9;
+  //   } else {
+  //     cardHeight = props.height;
+  //   }
 
   let front = cardState.completed ? (
-    <Image
-      size="lg"
-      resizeMode={"contain"}
-      borderRadius={100}
-      source={{
-        uri: imageRed,
-      }}
-      alt="Red X"
-    />
+    <Heading size={"xl"} bold>
+      {question}
+    </Heading>
   ) : (
     <Heading size={"xl"} bold>
-      {props.points}
+      Add Question
     </Heading>
   );
 
@@ -96,7 +86,7 @@ export default function Card(props) {
       key={props.keys}
       onPress={handleClick}
     >
-      <Center borderRadius="md" borderWidth={1} w={props.width} h={cardHeight}>
+      <Center borderRadius="md" borderWidth={1}>
         {front}
       </Center>
 
@@ -108,32 +98,50 @@ export default function Card(props) {
       >
         <Modal.Content>
           <Modal.Body>
-            <Center>
-              <Heading p={10} size="3xl">
-                {props.question}
-              </Heading>
-              <Button onPress={() => setShowAnswer(!showAnswer)}>
-                {showAnswer ? "Hide Answer" : "Show Answer"}
-              </Button>
-              <PresenceTransition
-                visible={showAnswer}
-                initial={{
-                  opacity: 0,
-                  scale: 0,
-                }}
-                animate={{
-                  opacity: 1,
-                  scale: 2,
-                  transition: {
-                    duration: 300,
-                  },
+            <KeyboardAvoidingView behavior="padding">
+             
+            
+              <Stack
+                space={2.5}
+                alignSelf="center"
+                px="4"
+                safeArea
+                mt="4"
+                w={{
+                  base: "100%",
+                  md: "25%",
                 }}
               >
-                <Heading p={10} size="2xl">
-                  {props.answer}
-                </Heading>
-              </PresenceTransition>
-            </Center>
+                <Box>
+                  <Text bold fontSize="xl" mb="4">
+                    Default
+                  </Text>
+                  <FormControl mb="5">
+                    <FormControl.Label>Project Title</FormControl.Label>
+                    <Input />
+                    <FormControl.HelperText>
+                      Give your project a title.
+                    </FormControl.HelperText>
+                  </FormControl>
+                  <Divider />
+                </Box>
+                
+                <Box>
+                  <Text bold fontSize="xl" mb="4">
+                    Invalid
+                  </Text>
+                  <FormControl isInvalid>
+                    <FormControl.Label>Project Title</FormControl.Label>
+                    <Input placeholder="Title" />
+                    <FormControl.ErrorMessage
+                      leftIcon={<WarningOutlineIcon size="xs" />}
+                    >
+                      Something is wrong.
+                    </FormControl.ErrorMessage>
+                  </FormControl>
+                </Box>
+              </Stack>
+            </KeyboardAvoidingView>
           </Modal.Body>
           <Modal.Footer>
             <Button.Group space={2}>

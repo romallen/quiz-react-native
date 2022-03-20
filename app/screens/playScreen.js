@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useWindowDimensions } from "react-native";
 import data1 from "../data";
 import { useSelector, useDispatch } from "react-redux";
-import { gameState } from "../redux/gameSlice";
+// import { gameState } from "../redux/gameSettingsSlice";
 import {
   Text,
   Box,
@@ -17,7 +17,9 @@ export default function PlayScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
   const [cards, setCards] = useState([]);
 
-  const currGameState = useSelector((state) => state.game.cardState);
+  const currGameState = useSelector((state) => state.gameSettings.cardState);
+  const numCategories = useSelector((state) => state.gameSettings.numCategoriesStore);
+  const numQuestions = useSelector((state) => state.gameSettings.numQuestionsStore);
   const dispatch = useDispatch();
 
   const [gState, setGState] = useState({
@@ -27,8 +29,8 @@ export default function PlayScreen({ navigation }) {
   });
 
   gState.data = data1;
-  gState.rows = gState.data[0].questions.length;
-  gState.cols = data1.length;
+  gState.rows = numCategories;
+  gState.cols = numQuestions;
 
   let cardWidth;
   let cardHeight;
@@ -45,27 +47,30 @@ export default function PlayScreen({ navigation }) {
 
   let resize = (cardHeight, cardWidth) => {
     let card = [];
-
-    gState.data.forEach((category, categoryIndex) => {
+    console.log(numCategories, numQuestions);
+    for (let categoryIndex = 0; categoryIndex < numCategories; categoryIndex++) {
+     // gState.data.forEach((category, categoryIndex) => {
       let column = [];
-      category.questions.forEach((question, questionIndex) => {
+      for(let questionIndex = 0; questionIndex < numQuestions; questionIndex++) {
+     // num.questions.forEach((question, questionIndex) => {
+       console.log("wrfwfw3fqwf " ,gState.data[categoryIndex].questions[questionIndex].question);
         column.push(
           <Card
             key={categoryIndex + "-" + questionIndex}
             height={cardHeight}
             width={gState.windowWidth / gState.cols - gState.cols * 0.7}
-            question={question.question}
-            answer={question.answer}
-            points={question.points}
+            question={gState.data[categoryIndex].questions[questionIndex].question}
+            answer={gState.data[categoryIndex].questions[questionIndex].answer}
+            points={gState.data[categoryIndex].questions[questionIndex].points}
           />
         );
-      });
+      };
       card.push(
         <VStack space={0.5} key={categoryIndex}>
           {column}
         </VStack>
       );
-    });
+    };
     setCards(card);
     // dispatch(gameState(card))
   };
@@ -74,7 +79,7 @@ export default function PlayScreen({ navigation }) {
     <Box pr={1} pl={1} w={gState.windowWidth} alignItems="center">
       <Header
         windowWidth={gState.windowWidth - gState.cols * 0.7}
-        data={gState.data}
+        data={gState.data.slice(0, gState.rows)}
         headerWidth={gState.windowWidth / gState.cols}
       />
       <Box>

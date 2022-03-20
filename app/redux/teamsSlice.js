@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 export const teamsSlice = createSlice({
   name: 'teams',
   initialState: {
-    value: {}
+    value: {},
+    turn: 0
   },
   reducers: {
  
@@ -16,10 +17,13 @@ export const teamsSlice = createSlice({
     incrementScore: (state, action) => {
       state.value["Team " + (action.payload.team)+ ":"] += action.payload.points
     },
+    incrementTurn: (state, action) => {
+      state.turn+= 1
+    },
   }
 })
 
 
-export const { createTeams, incrementScore } = teamsSlice.actions
+export const { createTeams, incrementScore,incrementTurn } = teamsSlice.actions
 
 export default teamsSlice.reducer
