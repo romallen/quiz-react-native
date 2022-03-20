@@ -46,18 +46,18 @@ export default function Card(props) {
     dispatch(incrementTurn());
     setVisible(!visible);
   };
-  let cardHeight;
+  let cardH;
   if (height < 450) {
-    cardHeight = props.height * 0.81;
+    cardH = props.height * 0.81;
   } else if (height < 700) {
-    cardHeight = props.height * 0.9;
+    cardH = props.height * 0.9;
   } else {
-    cardHeight = props.height;
+    cardH = props.height;
   }
 
   let front = cardState.completed ? (
     <Image
-      size="lg"
+      size="md"
       resizeMode={"contain"}
       borderRadius={100}
       source={{
@@ -66,7 +66,7 @@ export default function Card(props) {
       alt="Red X"
     />
   ) : (
-    <Heading size={"xl"} bold>
+    <Heading size={"lg"} bold>
       {props.points}
     </Heading>
   );
@@ -78,7 +78,7 @@ export default function Card(props) {
       key={props.keys}
       onPress={handleClick}
     >
-      <Center borderRadius="md" borderWidth={1} w={props.width} h={cardHeight}>
+      <Center borderRadius="md" borderWidth={1} w={props.width} h={cardH}>
         {front}
       </Center>
 

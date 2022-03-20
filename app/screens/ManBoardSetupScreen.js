@@ -29,8 +29,8 @@ export default function ManBoardSetupScreen({ navigation }) {
 
   const [cat, setCat] = useState(new Array(numCategories));
 
-  gState.rows = numCategories;
-  gState.cols = numQuestions;
+  gState.rows = numQuestions;
+  gState.cols = numCategories;
 
   let cardWidth;
   let cardHeight;

@@ -45,8 +45,8 @@ export default function SetupScreen({ navigation }) {
   };
 
   return (
-    <Box p={10} alignItems="center">
-      <VStack space={4}>
+    <Box p={5} alignItems="center">
+      <VStack space={3}>
         <Text fontSize="5xl" textAlign="center">
           Setup
         </Text>

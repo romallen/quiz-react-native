@@ -29,8 +29,8 @@ export default function PlayScreen({ navigation }) {
   });
 
   gState.data = gameData;
-  gState.rows = numCategories;
-  gState.cols = numQuestions;
+  gState.rows = numQuestions;
+  gState.cols = numCategories;
 
   let cardWidth;
   let cardHeight;
@@ -38,9 +38,9 @@ export default function PlayScreen({ navigation }) {
     gState.windowWidth = width;
     gState.windowHeight = height;
 
-    const headerHeight = gState.windowHeight * 0.15;
+    const headerHeight = height * 0.17;
     cardWidth = gState.windowWidth / gState.cols - gState.cols * 0.7;
-    cardHeight = (gState.windowHeight - headerHeight) / gState.rows;
+    cardHeight = (height - headerHeight) / gState.rows;
 
     resize(cardHeight, cardWidth);
   }, [width, height]);
@@ -53,15 +53,12 @@ export default function PlayScreen({ navigation }) {
       categoryIndex < numCategories;
       categoryIndex++
     ) {
-      // gState.data.forEach((category, categoryIndex) => {
       let column = [];
       for (
         let questionIndex = 0;
         questionIndex < numQuestions;
         questionIndex++
       ) {
-        // num.questions.forEach((question, questionIndex) => {
-
         column.push(
           <Card
             key={categoryIndex + "-" + questionIndex}
@@ -82,15 +79,13 @@ export default function PlayScreen({ navigation }) {
       );
     }
     setCards(card);
-    // dispatch(gameState(card))
   };
 
   return (
-    <Box pr={1} pl={1} w={gState.windowWidth} alignItems="center">
+    <Box pr={1} pl={1} w={width} alignItems="center">
       <Header
-        windowWidth={gState.windowWidth - gState.cols * 0.7}
-        data={gState.data.slice(0, gState.rows)}
-        headerWidth={gState.windowWidth / gState.cols}
+        data={gState.data.slice(0, gState.cols)}
+        headerWidth={width / gState.cols}
       />
       <Box>
         <HStack pt={1} space={0.5} alignItems="center">

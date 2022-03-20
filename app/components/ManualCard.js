@@ -57,13 +57,13 @@ export default function ManualCard(props) {
   const handleCancelPress = () => {
     setVisible(!visible);
   };
-  let cardHeight;
+  let cardH;
   if (height < 450) {
-    cardHeight = props.height * 0.81;
+    cardH = props.height * 0.81;
   } else if (height < 700) {
-    cardHeight = props.height * 0.9;
+    cardH = props.height * 0.9;
   } else {
-    cardHeight = props.height;
+    cardH = props.height;
   }
 
   let front = cardState.completed ? (
@@ -86,7 +86,7 @@ export default function ManualCard(props) {
         borderRadius="md"
         borderWidth={1}
         w={props.width}
-        h={cardHeight * 0.9}
+        h={cardH}
       >
         {front}
       </Center>
