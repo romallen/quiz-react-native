@@ -1,18 +1,24 @@
-import ManualCard from "../components/ManualCard";
-
+import ManualCard from "../components/manualCard";
 
 import { useState, useEffect } from "react";
 import { useWindowDimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Text, Box, HStack, VStack } from "native-base";
+import { Text, Input, Box, HStack, Heading, VStack } from "native-base";
+import { clearBoard, makeGameboardCat } from "../redux/gameSettingsSlice";
+import { Button } from "react-native-elements";
 
 export default function ManBoardSetupScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
   const [board, setBoard] = useState([]);
-  const currGameState = useSelector((state) => state.gameSettings.cardState);
-  const numCategories = useSelector((state) => state.gameSettings.numCategories);
-  const numQuestions = useSelector((state) => state.gameSettings.numQuestions);
+
+  const numCategories = useSelector(
+    (state) => state.gameSettings.numCategoriesStore
+  );
+  const numQuestions = useSelector(
+    (state) => state.gameSettings.numQuestionsStore
+  );
+
   const dispatch = useDispatch();
 
   const [gState, setGState] = useState({
@@ -21,12 +27,24 @@ export default function ManBoardSetupScreen({ navigation }) {
     data: [],
   });
 
-  gState.data = data1;
-  gState.rows = gState.data[0].questions.length;
-  gState.cols = data1.length;
+  const [cat, setCat] = useState(new Array(numCategories));
+
+  gState.rows = numCategories;
+  gState.cols = numQuestions;
 
   let cardWidth;
   let cardHeight;
+  useEffect(() => {
+    let blankData = new Array(numCategories).fill({
+      category: "",
+      questions: [],
+    });
+    dispatch(clearBoard(blankData));
+    // for (let i = 0; i < numCategories; i++) {
+    // }
+    //   dispatch(makeGameboardCat(blankData));
+  }, []);
+
   useEffect(() => {
     gState.windowWidth = width;
     gState.windowHeight = height;
@@ -38,52 +56,58 @@ export default function ManBoardSetupScreen({ navigation }) {
     resize(cardHeight, cardWidth);
   }, [width, height]);
 
-  let headers = []
   let resize = (cardHeight, cardWidth) => {
-    let board = [];
+    let emptyBoard = [];
 
     for (let i = 0; i < numCategories; i++) {
-      let category = {
-        category: "",
-        questions: [],
-      };
+      let category = [
+        <Input
+          key={i}
+          index={i}
+          value={cat[i]}
+          onChangeText={(text) =>
+            dispatch(makeGameboardCat({ value: text, index: i }))
+          }
+          size="lg"
+          placeholder={"Category: " + (i + 1)}
+          isRequired={true}
+        />,
+      ];
 
       for (let j = 0; j < numQuestions; j++) {
-        // category.questions.push({
-        //   question: "",
-        //   answer: "",
-        //   points: 0,
-        // })
-        category.questions.push(
+        category.push(
           <ManualCard
             key={i + "-" + j}
-            question=""
-            answer=""
-            points={0}
+            index={i}
+            height={cardHeight}
+            width={gState.windowWidth / gState.cols - gState.cols * 0.7}
+            cat={cat[i]}
+            points={(j + 1) * 100}
           ></ManualCard>
         );
       }
 
-      board.push(
-        <VStack space={0.5} key={categoryIndex}>
-          <Header></Header>
+      emptyBoard.push(
+        <VStack space={0.5} key={i}>
           {category}
         </VStack>
       );
     }
-    setBoard(board);
+    setBoard(emptyBoard);
   };
-  
-
-
+  const handlePlayPress = () => {
+    navigation.navigate("PlayScreen");
+  };
   return (
     <Box pr={1} pl={1} w={gState.windowWidth} alignItems="center">
-
       <Box>
         <HStack pt={1} space={0.5} alignItems="center">
           {board}
         </HStack>
       </Box>
+      <HStack>
+        <Button onPress={handlePlayPress}>{"Save & Play"}</Button>
+      </HStack>
     </Box>
   );
 }

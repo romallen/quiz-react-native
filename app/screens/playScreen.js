@@ -3,23 +3,23 @@ import Header from "../components/headers";
 import Footer from "../components/footer";
 import { useState, useEffect } from "react";
 import { useWindowDimensions } from "react-native";
-import data1 from "../data";
+// import data1 from "../data";
 import { useSelector, useDispatch } from "react-redux";
 // import { gameState } from "../redux/gameSettingsSlice";
-import {
-  Text,
-  Box,
-  HStack,
-  VStack,
-} from "native-base";
+import { Text, Box, HStack, VStack } from "native-base";
 
 export default function PlayScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
   const [cards, setCards] = useState([]);
 
   const currGameState = useSelector((state) => state.gameSettings.cardState);
-  const numCategories = useSelector((state) => state.gameSettings.numCategoriesStore);
-  const numQuestions = useSelector((state) => state.gameSettings.numQuestionsStore);
+  const numCategories = useSelector(
+    (state) => state.gameSettings.numCategoriesStore
+  );
+  const numQuestions = useSelector(
+    (state) => state.gameSettings.numQuestionsStore
+  );
+  const gameData = useSelector((state) => state.gameSettings.gameboard);
   const dispatch = useDispatch();
 
   const [gState, setGState] = useState({
@@ -28,7 +28,7 @@ export default function PlayScreen({ navigation }) {
     data: [],
   });
 
-  gState.data = data1;
+  gState.data = gameData;
   gState.rows = numCategories;
   gState.cols = numQuestions;
 
@@ -48,29 +48,39 @@ export default function PlayScreen({ navigation }) {
   let resize = (cardHeight, cardWidth) => {
     let card = [];
     console.log(numCategories, numQuestions);
-    for (let categoryIndex = 0; categoryIndex < numCategories; categoryIndex++) {
-     // gState.data.forEach((category, categoryIndex) => {
+    for (
+      let categoryIndex = 0;
+      categoryIndex < numCategories;
+      categoryIndex++
+    ) {
+      // gState.data.forEach((category, categoryIndex) => {
       let column = [];
-      for(let questionIndex = 0; questionIndex < numQuestions; questionIndex++) {
-     // num.questions.forEach((question, questionIndex) => {
-       console.log("wrfwfw3fqwf " ,gState.data[categoryIndex].questions[questionIndex].question);
+      for (
+        let questionIndex = 0;
+        questionIndex < numQuestions;
+        questionIndex++
+      ) {
+        // num.questions.forEach((question, questionIndex) => {
+
         column.push(
           <Card
             key={categoryIndex + "-" + questionIndex}
             height={cardHeight}
             width={gState.windowWidth / gState.cols - gState.cols * 0.7}
-            question={gState.data[categoryIndex].questions[questionIndex].question}
+            question={
+              gState.data[categoryIndex].questions[questionIndex].question
+            }
             answer={gState.data[categoryIndex].questions[questionIndex].answer}
             points={gState.data[categoryIndex].questions[questionIndex].points}
           />
         );
-      };
+      }
       card.push(
         <VStack space={0.5} key={categoryIndex}>
           {column}
         </VStack>
       );
-    };
+    }
     setCards(card);
     // dispatch(gameState(card))
   };

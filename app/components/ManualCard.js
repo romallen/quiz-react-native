@@ -1,33 +1,23 @@
-import imageRed from "../assets/img/red_x.svg";
 import { React, useState, createRef } from "react";
-import {
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { useWindowDimensions } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
-import { incrementScore } from "../redux/teamsSlice";
+import { makeGameboardQues } from "../redux/gameSettingsSlice";
 
 import {
   Text,
   Box,
   Button,
-  Container,
-  Image,
-  PresenceTransition,
   Pressable,
   Center,
   Slider,
   Modal,
   Heading,
-  Hidden,
-  HStack,
-  VStack,
+  WarningOutlineIcon,
+  FormControl,
+  Input,
   KeyboardAvoidingView,
-  Stack
+  Stack,
 } from "native-base";
 
 export default function ManualCard(props) {
@@ -38,11 +28,8 @@ export default function ManualCard(props) {
   });
   const cardRef = createRef(null);
   const [visible, setVisible] = useState(false);
-  const [showAnswer, setShowAnswer] = useState(false);
-  const teamNumber = Object.keys(
-    useSelector((state) => state.teams.value)
-  ).length;
-
+  const [question, setQuestion] = useState([]);
+  const [answer, setAnswer] = useState([]);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -52,29 +39,39 @@ export default function ManualCard(props) {
     }
   };
 
-  const handleCorrectPress = () => {
+  const handleSavePress = () => {
+    dispatch(
+      makeGameboardQues({
+        value: {
+          question: question,
+          answer: answer,
+          points: props.points,
+        },
+        index: props.index,
+      })
+    );
+
     setVisible(!visible);
   };
 
-  const handleIncorrectPress = () => {
-    dispatch(incrementTurn());
+  const handleCancelPress = () => {
     setVisible(!visible);
   };
-  //   let cardHeight;
-  //   if (height < 450) {
-  //     cardHeight = props.height * 0.81;
-  //   } else if (height < 700) {
-  //     cardHeight = props.height * 0.9;
-  //   } else {
-  //     cardHeight = props.height;
-  //   }
+  let cardHeight;
+  if (height < 450) {
+    cardHeight = props.height * 0.81;
+  } else if (height < 700) {
+    cardHeight = props.height * 0.9;
+  } else {
+    cardHeight = props.height;
+  }
 
   let front = cardState.completed ? (
-    <Heading size={"xl"} bold>
+    <Heading size={"sm"} bold>
       {question}
     </Heading>
   ) : (
-    <Heading size={"xl"} bold>
+    <Heading size={"lg"} bold>
       Add Question
     </Heading>
   );
@@ -82,11 +79,15 @@ export default function ManualCard(props) {
   return (
     <Pressable
       ref={cardRef}
-      disabled={cardState.completed}
       key={props.keys}
       onPress={handleClick}
     >
-      <Center borderRadius="md" borderWidth={1}>
+      <Center
+        borderRadius="md"
+        borderWidth={1}
+        w={props.width}
+        h={cardHeight * 0.9}
+      >
         {front}
       </Center>
 
@@ -99,8 +100,6 @@ export default function ManualCard(props) {
         <Modal.Content>
           <Modal.Body>
             <KeyboardAvoidingView behavior="padding">
-             
-            
               <Stack
                 space={2.5}
                 alignSelf="center"
@@ -113,26 +112,32 @@ export default function ManualCard(props) {
                 }}
               >
                 <Box>
-                  <Text bold fontSize="xl" mb="4">
-                    Default
-                  </Text>
-                  <FormControl mb="5">
-                    <FormControl.Label>Project Title</FormControl.Label>
-                    <Input />
-                    <FormControl.HelperText>
-                      Give your project a title.
-                    </FormControl.HelperText>
+                  <FormControl>
+                    <FormControl.Label>Question</FormControl.Label>
+                    <Input
+                      value={question}
+                      w="75%"
+                      maxW="300px"
+                      onChangeText={(text) => setQuestion(text)}
+                      placeholder="Question"
+                    />
+                    <FormControl.ErrorMessage
+                      leftIcon={<WarningOutlineIcon size="xs" />}
+                    >
+                      Something is wrong.
+                    </FormControl.ErrorMessage>
                   </FormControl>
-                  <Divider />
                 </Box>
-                
                 <Box>
-                  <Text bold fontSize="xl" mb="4">
-                    Invalid
-                  </Text>
-                  <FormControl isInvalid>
-                    <FormControl.Label>Project Title</FormControl.Label>
-                    <Input placeholder="Title" />
+                  <FormControl>
+                    <FormControl.Label>Answer</FormControl.Label>
+                    <Input
+                      value={answer}
+                      w="75%"
+                      maxW="300px"
+                      onChangeText={(text) => setAnswer(text)}
+                      placeholder="Answer"
+                    />
                     <FormControl.ErrorMessage
                       leftIcon={<WarningOutlineIcon size="xs" />}
                     >
@@ -148,11 +153,11 @@ export default function ManualCard(props) {
               <Button
                 variant="ghost"
                 colorScheme="blueGray"
-                onPress={handleIncorrectPress}
+                onPress={handleCancelPress}
               >
-                INCORRECT
+                CANCEL
               </Button>
-              <Button onPress={handleCorrectPress}>CORRECT</Button>
+              <Button onPress={handleSavePress}>SAVE</Button>
             </Button.Group>
           </Modal.Footer>
         </Modal.Content>

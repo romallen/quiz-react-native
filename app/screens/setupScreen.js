@@ -30,6 +30,7 @@ export default function SetupScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const handleCreateBoardPress = () => {
+    dispatch(createTeams(numTeams));
     dispatch(numCategoriesStore(numCategories));
     dispatch(numQuestionsStore(numQuestions));
     navigation.navigate("ManBoardSetupScreen");
