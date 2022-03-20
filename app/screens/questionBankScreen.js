@@ -63,8 +63,8 @@ export default function QuestionBankScreen(props) {
     val.forEach((element) => {
       questions.push(
         <Box
-          maxW="96"
-          h= "300"
+          maxW="md"
+          maxH="sm"
           borderWidth="1"
           borderColor="coolGray.300"
           shadow="3"
@@ -72,22 +72,23 @@ export default function QuestionBankScreen(props) {
           p="5"
           rounded="8"
         >
-          <HStack alignItems="center">
+          <HStack>
             <Spacer />
-            <Text fontSize={10} color="coolGray.800">
+            <Text fontSize={"sm"} color="coolGray.800">
               Points: {element["points"]}
             </Text>
           </HStack>
           <Text color="coolGray.800" mt="3" fontWeight="medium" fontSize="xl">
             Question: {element["question"]}
           </Text>
-          <Text mt="2" fontSize="sm" color="coolGray.700">
+          <Text mt="2" fontSize="md" color="coolGray.700">
             Answer: {element["answer"]}
           </Text>
           <Flex>
             <Button
+              alignSelf={"end"}
               mt="2"
-              fontSize={12}
+              fontSize={"md"}
               fontWeight="medium"
               color="darkBlue.600"
             >
@@ -107,26 +108,24 @@ export default function QuestionBankScreen(props) {
         Question Bank
       </Text>
 
-      <Flex space={8}  direction="row"> 
-        <VStack >
+      <HStack space={10} >
+        <VStack>
           <Text fontSize="2xl" textAlign="left">
             Categories
           </Text>
           <ScrollView>{categoryName}</ScrollView>
         </VStack>
-        <Box  alignItems ="center"  >
-       
+        <Box pl={1} w={width} justifyItems="center">
           <Carousel
-            width={400}
+            width={450}
             height={500}
             mode="parallax"
             loop={false}
-            data=   {selectedCategory}
+            data={selectedCategory}
             renderItem={({ item }) => item}
           />
-          
         </Box>
-      </Flex> 
+      </HStack>
     </Box>
   );
 }
