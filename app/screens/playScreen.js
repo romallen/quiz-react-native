@@ -9,10 +9,6 @@ import { gameState } from "../redux/gameSlice";
 import {
   Text,
   Box,
-  Button,
-  Container,
-  Pressable,
-  Slider,
   HStack,
   VStack,
 } from "native-base";
