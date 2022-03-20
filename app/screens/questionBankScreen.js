@@ -26,7 +26,7 @@ import axios from "axios";
 import data1 from "../data";
 // import ViewCategoryOverlay from "../components/viewCatOverlay";
 
-export default function QuestionBankScreen(props) {
+export default function QuestionBankScreen({ navigation }) {
   //state
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -36,11 +36,7 @@ export default function QuestionBankScreen(props) {
   //handle
   const handleBackPress = () => {
     console.log("Go to Welcome");
-    props.setCurrentView("WelcomeScreen");
-  };
-  const handleViewQuestionsPress = () => {
-    console.log("Go to QuestionBankPress");
-    props.setCurrentView("QuestionBank");
+    navigation.navigate("HomeScreen");
   };
 
   const createQuestions = async () => {
@@ -108,7 +104,7 @@ export default function QuestionBankScreen(props) {
         Question Bank
       </Text>
 
-      <HStack space={10} >
+      <HStack space={10}>
         <VStack>
           <Text fontSize="2xl" textAlign="left">
             Categories
@@ -126,6 +122,9 @@ export default function QuestionBankScreen(props) {
           />
         </Box>
       </HStack>
+      <Button onPress={handleBackPress} size="lg">
+        RETURN TO HOME SCREEN
+      </Button>
     </Box>
   );
 }
