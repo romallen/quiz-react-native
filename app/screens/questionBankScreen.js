@@ -21,6 +21,7 @@ import {
   HStack,
   ScrollView,
 } from "native-base";
+import Carousel from "react-native-reanimated-carousel";
 import axios from "axios";
 import data1 from "../data";
 // import ViewCategoryOverlay from "../components/viewCatOverlay";
@@ -30,7 +31,7 @@ export default function QuestionBankScreen(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const { height, width } = useWindowDimensions();
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState([]);
   const categoryRef = createRef(null);
   //handle
   const handleBackPress = () => {
@@ -55,7 +56,6 @@ export default function QuestionBankScreen(props) {
     )
   );
 
-
   const handleClick = (val) => {
     // setVisible(!visible);
     console.log(val);
@@ -63,7 +63,8 @@ export default function QuestionBankScreen(props) {
     val.forEach((element) => {
       questions.push(
         <Box
-        maxW="96" 
+          maxW="96"
+          h= "300"
           borderWidth="1"
           borderColor="coolGray.300"
           shadow="3"
@@ -84,7 +85,12 @@ export default function QuestionBankScreen(props) {
             Answer: {element["answer"]}
           </Text>
           <Flex>
-            <Button mt="2" fontSize={12} fontWeight="medium" color="darkBlue.600">
+            <Button
+              mt="2"
+              fontSize={12}
+              fontWeight="medium"
+              color="darkBlue.600"
+            >
               Edit
             </Button>
           </Flex>
@@ -95,32 +101,32 @@ export default function QuestionBankScreen(props) {
     setSelectedCategory(questions);
   };
 
-
-
   return (
     <Box p={5}>
       <Text fontSize="5xl" textAlign="center">
         Question Bank
       </Text>
 
-      <HStack space={8}>
-        <Box>
-          <Text fontSize="2xl" textAlign="center">
+      <Flex space={8}  direction="row"> 
+        <VStack >
+          <Text fontSize="2xl" textAlign="left">
             Categories
           </Text>
           <ScrollView>{categoryName}</ScrollView>
-        </Box>
-        <Box>
-
-          <ScrollView h={height*.8}>
-
-         {selectedCategory}
-          </ScrollView>
+        </VStack>
+        <Box  alignItems ="center"  >
+       
+          <Carousel
+            width={400}
+            height={500}
+            mode="parallax"
+            loop={false}
+            data=   {selectedCategory}
+            renderItem={({ item }) => item}
+          />
           
-
         </Box>
-      </HStack>
+      </Flex> 
     </Box>
-    
   );
 }
