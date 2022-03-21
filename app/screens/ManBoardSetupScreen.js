@@ -4,9 +4,8 @@ import { useState, useEffect } from "react";
 import { useWindowDimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Text, Input, Box, HStack, Heading, VStack } from "native-base";
+import { Text, Button, Input, Box, HStack, Heading, VStack } from "native-base";
 import { clearBoard, makeGameboardCat } from "../redux/gameSettingsSlice";
-import { Button } from "react-native-elements";
 
 export default function ManBoardSetupScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
@@ -40,9 +39,6 @@ export default function ManBoardSetupScreen({ navigation }) {
       questions: [],
     });
     dispatch(clearBoard(blankData));
-    // for (let i = 0; i < numCategories; i++) {
-    // }
-    //   dispatch(makeGameboardCat(blankData));
   }, []);
 
   useEffect(() => {
@@ -95,19 +91,29 @@ export default function ManBoardSetupScreen({ navigation }) {
     }
     setBoard(emptyBoard);
   };
+
+  const handleBackPress = () => {
+    console.log("Go to Welcome");
+    navigation.navigate("SetupScreen");
+  };
+
   const handlePlayPress = () => {
     navigation.navigate("PlayScreen");
   };
   return (
-    <Box pr={1} pl={1} w={gState.windowWidth} alignItems="center">
-      <Box>
-        <HStack pt={1} space={0.5} alignItems="center">
-          {board}
-        </HStack>
-      </Box>
-      <HStack>
-        <Button onPress={handlePlayPress}>{"Save & Play"}</Button>
+    <VStack pr={1} pl={1} space={4} w={gState.windowWidth} alignSelf="center">
+      <HStack pt={1} space={0.5} alignItems="center" alignSelf="center">
+        {board}
       </HStack>
-    </Box>
+
+      <HStack space={4} alignSelf="center">
+        <Button onPress={handleBackPress} size="lg" w={"70%"}>
+          BACK TO SETTINGS
+        </Button>
+        <Button onPress={handlePlayPress} size="lg" w={"70%"}>
+          PLAY
+        </Button>
+      </HStack>
+    </VStack>
   );
 }

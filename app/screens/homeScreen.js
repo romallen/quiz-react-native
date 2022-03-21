@@ -35,22 +35,3 @@ export default function HomeScreen({ navigation }) {
     </Box>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     // flex: 1,
-//     //backgroundColor: "#ddf",
-//   },
-//   greeting: {
-//     flex: 1,
-//     fontSize: 60,
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   button: {
-//     fontSize: 40,
-//     paddingBottom: 20,
-//      alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
