@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createTeams } from "../redux/teamsSlice";
-import { gameState, numCategoriesStore, numQuestionsStore } from "../redux/gameSettingsSlice";
+import {
+  gameState,
+  numCategoriesStore,
+  numQuestionsStore,
+} from "../redux/gameSettingsSlice";
 import {
   Text,
   Box,
   Button,
-  Container,
   Slider,
   VStack,
   HStack,
   Stack,
   Radio,
   Switch,
-  PresenceTransition,
 } from "native-base";
 
 export default function SetupScreen({ navigation }) {
@@ -33,7 +35,6 @@ export default function SetupScreen({ navigation }) {
   };
 
   const handleStartGamePress = () => {
-
     dispatch(createTeams(numTeams));
     dispatch(numCategoriesStore(numCategories));
     dispatch(numQuestionsStore(numQuestions));
@@ -45,13 +46,22 @@ export default function SetupScreen({ navigation }) {
   };
 
   return (
-    <Box p={5} alignItems="center">
-      <VStack space={3}>
-        <Text fontSize="5xl" textAlign="center">
+    <Box
+      p={5}
+      // w={"100%"}
+      height={"100%"}
+      alignItems="center"
+      justifyContent="center"
+      //overflow="hidden"
+      borderColor="coolGray.500"
+      borderWidth="5"
+    >
+      <VStack space={4}>
+        <Text fontSize="6xl" textAlign="center">
           Setup
         </Text>
 
-        <HStack space={10} alignItems="left">
+        <HStack space={5} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl">
             Number of Teams:
           </Text>
@@ -64,36 +74,35 @@ export default function SetupScreen({ navigation }) {
             <Stack
               direction={{
                 base: "column",
-                md: "row",
+                sm: "row",
               }}
-              alignItems="center"
-              space={4}
-              w="75%"
-              maxW="300px"
+              space={1}
+              w="65%"
+              maxW="200px"
             >
-              <Radio value={1} colorScheme="green" size="md" my={1}>
+              <Radio value={1} colorScheme="green" size="sm" my={1}>
                 1
               </Radio>
-              <Radio value={2} colorScheme="green" size="md" my={1}>
+              <Radio value={2} colorScheme="green" size="sm" my={1}>
                 2
               </Radio>
-              <Radio value={3} colorScheme="green" size="md" my={1}>
+              <Radio value={3} colorScheme="green" size="sm" my={1}>
                 3
               </Radio>
-              <Radio value={4} colorScheme="green" size="md" my={1}>
+              <Radio value={4} colorScheme="green" size="sm" my={1}>
                 4
               </Radio>
-              <Radio value={5} colorScheme="green" size="md" my={1}>
+              <Radio value={5} colorScheme="green" size="sm" my={1}>
                 5
               </Radio>
-              <Radio value={6} colorScheme="green" size="md" my={1}>
+              <Radio value={6} colorScheme="green" size="sm" my={1}>
                 6
               </Radio>
             </Stack>
           </Radio.Group>
         </HStack>
 
-        <HStack space={10} alignItems="left">
+        <HStack space={5} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl">
             Number of Categories:
           </Text>
@@ -106,36 +115,36 @@ export default function SetupScreen({ navigation }) {
             <Stack
               direction={{
                 base: "column",
-                md: "row",
+                sm: "row",
               }}
               alignItems="right"
-              space={4}
-              w="75%"
-              maxW="300px"
+              space={1}
+              w="65%"
+              maxW="200px"
             >
-              <Radio value={1} colorScheme="green" size="md" my={1}>
+              <Radio value={1} colorScheme="green" size="sm" my={1}>
                 1
               </Radio>
-              <Radio value={2} colorScheme="green" size="md" my={1}>
+              <Radio value={2} colorScheme="green" size="sm" my={1}>
                 2
               </Radio>
-              <Radio value={3} colorScheme="green" size="md" my={1}>
+              <Radio value={3} colorScheme="green" size="sm" my={1}>
                 3
               </Radio>
-              <Radio value={4} colorScheme="green" size="md" my={1}>
+              <Radio value={4} colorScheme="green" size="sm" my={1}>
                 4
               </Radio>
-              <Radio value={5} colorScheme="green" size="md" my={1}>
+              <Radio value={5} colorScheme="green" size="sm" my={1}>
                 5
               </Radio>
-              <Radio value={6} colorScheme="green" size="md" my={1}>
+              <Radio value={6} colorScheme="green" size="sm" my={1}>
                 6
               </Radio>
             </Stack>
           </Radio.Group>
         </HStack>
 
-        <HStack space={10} alignItems="left">
+        <HStack space={5} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl">
             Number of Questions:
           </Text>
@@ -148,43 +157,43 @@ export default function SetupScreen({ navigation }) {
             <Stack
               direction={{
                 base: "column",
-                md: "row",
+                sm: "row",
               }}
               alignItems="right"
-              space={4}
-              w="75%"
-              maxW="300px"
+              space={1}
+              w="65%"
+              maxW="200px"
             >
-              <Radio value={1} colorScheme="green" size="md" my={1}>
+              <Radio value={1} colorScheme="green" size="sm" my={1}>
                 1
               </Radio>
-              <Radio value={2} colorScheme="green" size="md" my={1}>
+              <Radio value={2} colorScheme="green" size="sm" my={1}>
                 2
               </Radio>
-              <Radio value={3} colorScheme="green" size="md" my={1}>
+              <Radio value={3} colorScheme="green" size="sm" my={1}>
                 3
               </Radio>
-              <Radio value={4} colorScheme="green" size="md" my={1}>
+              <Radio value={4} colorScheme="green" size="sm" my={1}>
                 4
               </Radio>
-              <Radio value={5} colorScheme="green" size="md" my={1}>
+              <Radio value={5} colorScheme="green" size="sm" my={1}>
                 5
               </Radio>
-              <Radio value={6} colorScheme="green" size="md" my={1}>
+              <Radio value={6} colorScheme="green" size="sm" my={1}>
                 6
               </Radio>
             </Stack>
           </Radio.Group>
         </HStack>
 
-        <HStack space={10} alignItems="left">
+        <HStack space={10} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl">
             Create Board:
           </Text>
           <HStack alignItems="center" space={4}>
             <Text fontSize="lg">{createB ? "Automatic" : "Manual"} </Text>
             <Switch
-              size="md"
+              size="sm"
               onToggle={() => setCreateB(!createB)}
               defaultIsChecked={true}
               isChecked={createB}

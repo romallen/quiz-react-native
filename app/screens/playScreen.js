@@ -47,7 +47,7 @@ export default function PlayScreen({ navigation }) {
 
   let resize = (cardHeight, cardWidth) => {
     let card = [];
-    console.log(numCategories, numQuestions);
+
     for (
       let categoryIndex = 0;
       categoryIndex < numCategories;

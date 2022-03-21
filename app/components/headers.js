@@ -1,15 +1,20 @@
 import React from "react";
-import { Box, HStack, Heading } from "native-base";
+import { HStack, Heading } from "native-base";
 import { useWindowDimensions } from "react-native";
 
 export default function Header(props) {
   const { height, width } = useWindowDimensions();
   let headers = props.data.map((category, index) => (
-    <Box key={index} alignItems="center" w={props.headerWidth}>
-      <Heading size={"lg"} textAlign="center" bold>
-        {category.category}
-      </Heading>
-    </Box>
+    <Heading
+      key={index}
+      w={props.headerWidth}
+      size={"lg"}
+      textAlign="center"
+      alignSelf="center"
+      bold
+    >
+      {category.category}
+    </Heading>
   ));
 
   return (

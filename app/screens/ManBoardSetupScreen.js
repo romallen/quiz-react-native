@@ -93,24 +93,24 @@ export default function ManBoardSetupScreen({ navigation }) {
   };
 
   const handleBackPress = () => {
-    console.log("Go to Welcome");
     navigation.navigate("SetupScreen");
   };
 
   const handlePlayPress = () => {
     navigation.navigate("PlayScreen");
   };
+
   return (
     <VStack pr={1} pl={1} space={4} w={gState.windowWidth} alignSelf="center">
       <HStack pt={1} space={0.5} alignItems="center" alignSelf="center">
         {board}
       </HStack>
 
-      <HStack space={4} alignSelf="center">
-        <Button onPress={handleBackPress} size="lg" w={"70%"}>
+      <HStack space={4} justifyContent="space-around">
+        <Button onPress={handleBackPress} size="lg" w={"40%"}>
           BACK TO SETTINGS
         </Button>
-        <Button onPress={handlePlayPress} size="lg" w={"70%"}>
+        <Button onPress={handlePlayPress} size="lg" w={"40%"}>
           PLAY
         </Button>
       </HStack>

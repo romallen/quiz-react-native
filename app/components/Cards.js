@@ -85,6 +85,7 @@ export default function Card(props) {
       <Modal
         isOpen={visible}
         onClose={() => setVisible(!visible)}
+        closeOnOverlayClick={false}
         m="sm"
         size="full"
       >

@@ -17,7 +17,6 @@ import {
 import Carousel from "react-native-reanimated-carousel";
 import axios from "axios";
 import data1 from "../data";
-// import ViewCategoryOverlay from "../components/viewCatOverlay";
 
 export default function QuestionBankScreen({ navigation }) {
   //state
@@ -28,7 +27,6 @@ export default function QuestionBankScreen({ navigation }) {
   const categoryRef = createRef(null);
   //handle
   const handleBackPress = () => {
-    console.log("Go to Welcome");
     navigation.navigate("HomeScreen");
   };
 
@@ -58,7 +56,7 @@ export default function QuestionBankScreen({ navigation }) {
           borderColor="coolGray.300"
           shadow="3"
           bg="coolGray.100"
-          p="5"
+          p="1"
           rounded="8"
         >
           <HStack>
@@ -92,32 +90,40 @@ export default function QuestionBankScreen({ navigation }) {
   };
 
   return (
-    <Box p={5}>
-      <Text fontSize="5xl" textAlign="center">
-        Question Bank
-      </Text>
+    <Box
+      p={4}
+      height={"100%"}
+      alignItems="center"
+      justifyContent="center"
+      borderColor="coolGray.500"
+      borderWidth="5"
+    >
+      <VStack space={1}>
+        <Text fontSize="6xl" textAlign="center">
+          Question Bank
+        </Text>
 
-      <HStack space={10}>
-        <VStack>
-          <Text fontSize="2xl" textAlign="left">
-            Categories
-          </Text>
-          <ScrollView>{categoryName}</ScrollView>
-        </VStack>
-        <Box pl={1} w={width} justifyItems="center">
-          <Carousel
-            width={450}
-            height={500}
-            mode="parallax"
-            loop={false}
-            data={selectedCategory}
-            renderItem={({ item }) => item}
-          />
-        </Box>
-      </HStack>
-      <Button onPress={handleBackPress} size="lg">
-        RETURN TO HOME SCREEN
-      </Button>
+        <HStack space={8}>
+          <VStack>
+            <Text fontSize="2xl">Categories</Text>
+            <ScrollView>{categoryName}</ScrollView>
+          </VStack>
+          <Divider orientation="vertical" mx="3" />
+          <Box>
+            <Carousel
+              width={width / 2}
+              height={(height - 50) / 2}
+              mode="parallax"
+              loop={false}
+              data={selectedCategory}
+              renderItem={({ item }) => item}
+            />
+          </Box>
+        </HStack>
+        <Button onPress={handleBackPress} size="lg">
+          RETURN TO HOME SCREEN
+        </Button>
+      </VStack>
     </Box>
   );
 }

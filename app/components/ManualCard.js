@@ -33,10 +33,9 @@ export default function ManualCard(props) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    if (!cardState.completed) {
-      cardState.completed = true;
-      setVisible(!visible);
-    }
+    cardState.completed = true;
+    setVisible(!visible);
+    // if (!cardState.completed) {}
   };
 
   const handleSavePress = () => {
@@ -77,25 +76,17 @@ export default function ManualCard(props) {
   );
 
   return (
-    <Pressable
-      ref={cardRef}
-      key={props.keys}
-      onPress={handleClick}
-    >
-      <Center
-        borderRadius="md"
-        borderWidth={1}
-        w={props.width}
-        h={cardH}
-      >
+    <Pressable ref={cardRef} key={props.keys} onPress={handleClick}>
+      <Center borderRadius="md" borderWidth={1} w={props.width} h={cardH}>
         {front}
       </Center>
 
       <Modal
         isOpen={visible}
         onClose={() => setVisible(!visible)}
+        closeOnOverlayClick={false}
         m="sm"
-        size="full"
+        size="xl"
       >
         <Modal.Content>
           <Modal.Body>

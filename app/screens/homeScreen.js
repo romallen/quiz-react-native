@@ -13,23 +13,26 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <Box
-      p={50}
-      w={"100%"}
+      p={10}
+      // w={"100%"}
       height={"100%"}
       alignItems="center"
-      overflow="hidden"
-      borderColor="coolGray.200"
-      borderWidth="1"
+      justifyContent="center"
+      //overflow="hidden"
+      borderColor="coolGray.500"
+      borderWidth="5"
     >
       <VStack space={4}>
-        <Text fontSize="6xl">QuizApp</Text>
+        <Text fontSize="8xl" >
+          QuizApp
+        </Text>
 
         <Button onPress={handlePlayPress} size="lg">
           PLAY
         </Button>
 
         <Button onPress={handleQuestionBankPress} size="lg">
-          Question Bank
+          QUESTION BANK
         </Button>
       </VStack>
     </Box>

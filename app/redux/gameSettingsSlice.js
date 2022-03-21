@@ -13,7 +13,6 @@ export const gameSettingsSlice = createSlice({
   reducers: {
     gameState: (state, action) => {
       state.cardState = action.payload;
-      console.log(state);
     },
     numCategoriesStore: (state, action) => {
       state.numCategoriesStore = action.payload;
@@ -27,7 +26,6 @@ export const gameSettingsSlice = createSlice({
     },
 
     makeGameboardCat: (state, action) => {
-      console.log(action.payload);
       state.gameboard[action.payload.index].category = action.payload.value;
     },
     makeGameboardQues: (state, action) => {
