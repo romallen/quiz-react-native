@@ -41,7 +41,10 @@ export default function QuestionBankScreen({ navigation }) {
   const categoryName = [];
   gameData.forEach((el, index) =>
     categoryName.push(
-      <Pressable onPress={(e) => handleClick(el)} key={index}>
+      <Pressable onPress={(e) => handleClick(el)}  key={index}>
+        {/* {({isHovered}) =>{ 
+          return 
+        } } */}
         <Text fontSize="md">{el.category}</Text>
         <Divider orientation="horizontal" mx="1" />
       </Pressable>
@@ -116,12 +119,12 @@ export default function QuestionBankScreen({ navigation }) {
         ) : (
           <Text fontSize="xl">Select a Category</Text>
         )}
-        <HStack space={8}>
+        <HStack space={1}>
           <VStack space={4}>
             <Text fontSize="3xl">Categories</Text>
             <ScrollView>{categoryName}</ScrollView>
           </VStack>
-          <Divider orientation="vertical" mx="2" />
+          <Divider orientation="vertical" mx="1" />
           <Box alignItems="center">
             <Carousel
               width={(width - 100) / 2}
@@ -136,6 +139,7 @@ export default function QuestionBankScreen({ navigation }) {
             />
           </Box>
         </HStack>
+        <Spacer />
         <Button onPress={handleBackPress} w="50%" size="lg">
           RETURN TO HOME SCREEN
         </Button>
