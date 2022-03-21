@@ -41,7 +41,7 @@ export default function QuestionBankScreen({ navigation }) {
   const categoryName = [];
   gameData.forEach((el, index) =>
     categoryName.push(
-      <Pressable onPress={(e) => handleClick(el.questions)} key={index}>
+      <Pressable onPress={(e) => handleClick(el)} key={index}>
         <Text fontSize="md">{el.category}</Text>
         <Divider orientation="horizontal" mx="1" />
       </Pressable>
@@ -50,9 +50,9 @@ export default function QuestionBankScreen({ navigation }) {
 
   const handleClick = (val) => {
     // setVisible(!visible);
-
+    setSelected(val.category);
     let questions = [];
-    val.forEach((element) => {
+    val.questions.forEach((element) => {
       questions.push(
         <Box
           // maxW="lg"
@@ -104,23 +104,25 @@ export default function QuestionBankScreen({ navigation }) {
       p={4}
       height={"100%"}
       alignItems="center"
-      // justifyContent="center"
       borderColor="coolGray.500"
       borderWidth="5"
     >
-      <VStack space={2}>
+      <VStack space={2} alignItems="center">
         <Text fontSize="6xl" textAlign="center">
           Question Bank
         </Text>
-
+        {selected ? (
+          <Text fontSize="xl">{selected}</Text>
+        ) : (
+          <Text fontSize="xl">Select a Category</Text>
+        )}
         <HStack space={8}>
           <VStack space={4}>
             <Text fontSize="3xl">Categories</Text>
             <ScrollView>{categoryName}</ScrollView>
           </VStack>
-          <Divider orientation="vertical" mx="3" />
-          <Box>
-            <Text></Text>
+          <Divider orientation="vertical" mx="2" />
+          <Box alignItems="center">
             <Carousel
               width={(width - 100) / 2}
               height={(height - 200) / 2}
@@ -134,12 +136,7 @@ export default function QuestionBankScreen({ navigation }) {
             />
           </Box>
         </HStack>
-        <Button
-          onPress={handleBackPress}
-          justifyContent="space-around"
-          w="50%"
-          size="lg"
-        >
+        <Button onPress={handleBackPress} w="50%" size="lg">
           RETURN TO HOME SCREEN
         </Button>
       </VStack>
