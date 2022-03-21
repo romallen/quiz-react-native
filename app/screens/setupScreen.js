@@ -51,8 +51,7 @@ export default function SetupScreen({ navigation }) {
       // w={"100%"}
       height={"100%"}
       alignItems="center"
-      justifyContent="center"
-      //overflow="hidden"
+      // justifyContent="center"
       borderColor="coolGray.500"
       borderWidth="5"
     >

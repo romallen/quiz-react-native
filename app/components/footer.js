@@ -35,8 +35,8 @@ export default function Footer(props) {
     i++;
   }
   return (
-    <HStack pb="1" pl="10" width={props.windowWidth}>
-      <Box h="80%" w="20%" alignItems="flex-start">
+    <HStack  py="2" px="4" width={props.windowWidth} justifyContent="space-between">
+      <Box h="80%" w="20%" >
         <Pressable onPress={onOpen}>
           <HamburgerIcon />
         </Pressable>
@@ -94,7 +94,7 @@ export default function Footer(props) {
           </Actionsheet.Content>
         </Actionsheet>
       </Box>
-      <HStack space={8} alignItems={"center"} alignSelf="center">
+      <HStack space={10} alignItems={"center"} alignSelf="center">
         {teams}
       </HStack>
     </HStack>

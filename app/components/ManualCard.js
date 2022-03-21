@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { makeGameboardQues } from "../redux/gameSettingsSlice";
 
 import {
-  Text,
   Box,
   Button,
   Pressable,
@@ -18,6 +17,7 @@ import {
   Input,
   KeyboardAvoidingView,
   Stack,
+  TextArea,
 } from "native-base";
 
 export default function ManualCard(props) {
@@ -66,7 +66,7 @@ export default function ManualCard(props) {
   }
 
   let front = cardState.completed ? (
-    <Heading size={"sm"} bold>
+    <Heading p={2} size={"sm"} isTruncated="true"  bold>
       {question}
     </Heading>
   ) : (
@@ -99,16 +99,18 @@ export default function ManualCard(props) {
                 mt="4"
                 w={{
                   base: "100%",
-                  md: "25%",
+                  // md: "25%",
                 }}
               >
                 <Box>
                   <FormControl>
                     <FormControl.Label>Question</FormControl.Label>
-                    <Input
+                    <TextArea
+                      size="lg"
+                      isFullWidth={true}
                       value={question}
-                      w="75%"
-                      maxW="300px"
+                      // w="75%"
+                      // maxW="300px"
                       onChangeText={(text) => setQuestion(text)}
                       placeholder="Question"
                     />
@@ -122,10 +124,10 @@ export default function ManualCard(props) {
                 <Box>
                   <FormControl>
                     <FormControl.Label>Answer</FormControl.Label>
-                    <Input
+                    <TextArea
                       value={answer}
-                      w="75%"
-                      maxW="300px"
+                      // w="75%"
+                      // maxW="300px"
                       onChangeText={(text) => setAnswer(text)}
                       placeholder="Answer"
                     />
