@@ -1,12 +1,6 @@
 
 import * as Realm from "realm-web";
 import {REALM_APPID, REALM_BASEURL } from '@env'
-import React, { useEffect, useState } from "react";
-// import {appId, baseUrl} from './realm';
-
-// const app = new Realm.App({ id: process.env.REALM_API });
-// const credentials = Realm.Credentials.anonymous();
-
 
 
 if (!REALM_APPID) {
@@ -16,22 +10,13 @@ if (!REALM_BASEURL) {
   throw 'Missing Realm base URL. Set baseUrl in env file';
 }
 
-// const appConfiguration = {
-//   id: REALM_APPID,
-//   REALM_BASEURL,
-// };
-useEffect(async() => {
-    const app = new Realm.App({ id: REALM_APPID})
-    try {
-        const user = await app.logIn(credentials);
-      } catch(err) {
-        console.error("Failed to log in", err);
-      }
-}, [])
+const appConfiguration = {
+  id: REALM_APPID,
+  REALM_BASEURL,
+};
 
+export const realmApp = new Realm.App(appConfiguration);
   
-//export const realmApp = new Realm.App({ id: REALM_APPID});
-
 
 
 

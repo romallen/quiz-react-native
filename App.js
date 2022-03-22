@@ -8,38 +8,58 @@ import PlayScreen from "./app/screens/playScreen";
 import SetupScreen from "./app/screens/setupScreen";
 import ManBoardSetupScreen from "./app/screens/manBoardSetupScreen";
 import QuestionBankScreen from "./app/screens/QuestionBankScreen";
+import SignInScreen from "./app/screens/signInScreen";
+import SignUpScreen from "./app/screens/signUpScreen";
 
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
 
 import * as Realm from "realm-web";
-import { REALM_APPID, REALM_BASEURL } from "@env";
+import { realmApp } from "./app/realm/realm";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [data, setData] = useState(null);
-  const realmApp = new Realm.App({ id: REALM_APPID });
-  useEffect(async () => {
-    try {
-      const user = await realmApp.logIn(Realm.Credentials.anonymous());
-    } catch (err) {
-      console.error("Failed to log in", err);
-    }
-    const client = realmApp.currentUser.mongoClient("mongodb-atlas");
-    const cat = client.db("quizapp").collection("categories");
-    setData(await cat.find());
-  }, []);
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const [loading, setLoading] = useState(true);
+ 
+  // useEffect(async () => {
+  //   if (loading) {
+  //     try {
+     
+  //       const client = realmApp.currentUser.mongoClient("mongodb-atlas");
+  //       const cat = client.db("quizapp").collection("categories");
+  //     } catch (err) {
+  //       console.error("Failed to log in", err);
+  //     }
+
+  //     setData(await cat.find());
+  //     setLoading(false);
+  //   }
+  // }, [loading]);
+
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
+
   return (
     <NativeBaseProvider>
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="HomeScreen">
+          <Stack.Navigator initialRouteName="SignInScreen">
             <Stack.Screen
               name="HomeScreen"
               component={HomeScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignInScreen"
+              component={SignInScreen}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="SignUpScreen"
+              component={SignUpScreen}
               options={{ headerShown: false }}
             />
             <Stack.Screen
