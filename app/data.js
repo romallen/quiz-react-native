@@ -1,4 +1,4 @@
-const data1 = [
+const data = [
   {
       "category": "SPORTS",
       "questions": [
@@ -194,4 +194,4 @@ const data1 = [
     } 
 ];
 
-export default data1;
+export default data;

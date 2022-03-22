@@ -1,27 +1,25 @@
 import React from "react";
-import { StatusBar, StyleSheet, View } from "react-native";
-import {
-  Text,
-  Box,
-  Button,
-  Container,
-  Center,
-  HStack,
-  Heading,
-} from "native-base";
+import { HStack, Heading } from "native-base";
+import { useWindowDimensions } from "react-native";
 
 export default function Header(props) {
- 
+  const { height, width } = useWindowDimensions();
   let headers = props.data.map((category, index) => (
-    <Center key={index} w={props.headerWidth} >
-      <Heading size={"lg"} textAlign="center" bold>
-        {category.category}
-      </Heading>
-    </Center>
+    <Heading
+      key={index}
+      w={props.headerWidth}
+      size={"lg"}
+      textAlign="center"
+      alignSelf="center"
+      bold
+    >
+      {category.category}
+    </Heading>
   ));
 
   return (
-    <HStack width={props.width} backgroundColor={"tertiary.500"}>{headers}</HStack>
+    <HStack width={width} backgroundColor={"tertiary.500"}>
+      {headers}
+    </HStack>
   );
 }
-
