@@ -59,7 +59,7 @@ export default function Card(props) {
     <Image
       size="md"
       resizeMode={"contain"}
-      borderRadius={100}
+      // borderRadius={100}
       source={{
         uri: imageRed,
       }}
@@ -77,6 +77,7 @@ export default function Card(props) {
       disabled={cardState.completed}
       key={props.keys}
       onPress={handleClick}
+    
     >
       <Center borderRadius="md" borderWidth={1} w={props.width} h={cardH}>
         {front}

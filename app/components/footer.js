@@ -11,6 +11,7 @@ import {
   Pressable,
   Icon,
   HStack,
+  VStack,
   Heading,
   useDisclose,
 } from "native-base";
@@ -28,15 +29,15 @@ export default function Footer(props) {
   let i = 0;
   for (let team in teamsStore) {
     teams.push(
-      <Text fontSize={"xl"} key={i}>
+      <Text fontSize={"lg"} key={i}>
         {team + " " + teamsStore[team]}
       </Text>
     );
     i++;
   }
   return (
-    <HStack  py="2" px="4" width={props.windowWidth} justifyContent="space-between">
-      <Box h="80%" w="20%" >
+    <VStack  py="2" px={1} width={props.footerWidth} justifyContent="space-between">
+      <Box h="20%"  >
         <Pressable onPress={onOpen}>
           <HamburgerIcon />
         </Pressable>
@@ -94,9 +95,9 @@ export default function Footer(props) {
           </Actionsheet.Content>
         </Actionsheet>
       </Box>
-      <HStack space={10} alignItems={"center"} alignSelf="center">
+      <VStack space={5} pr={1} alignItems={"left"} alignSelf="center">
         {teams}
-      </HStack>
-    </HStack>
+      </VStack>
+    </VStack>
   );
 }

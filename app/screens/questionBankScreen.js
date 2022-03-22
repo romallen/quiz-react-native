@@ -41,7 +41,7 @@ export default function QuestionBankScreen({ navigation }) {
   const categoryName = [];
   gameData.forEach((el, index) =>
     categoryName.push(
-      <Pressable onPress={(e) => handleClick(el)}  key={index}>
+      <Pressable onPress={(e) => handleClick(el)} key={index}>
         {/* {({isHovered}) =>{ 
           return 
         } } */}

@@ -18,7 +18,7 @@ export default function Header(props) {
   ));
 
   return (
-    <HStack width={width} backgroundColor={"tertiary.500"}>
+    <HStack width={width*0.93} backgroundColor={"tertiary.500"}>
       {headers}
     </HStack>
   );

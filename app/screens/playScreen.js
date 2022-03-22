@@ -6,7 +6,7 @@ import { useWindowDimensions } from "react-native";
 // import data1 from "../data";
 import { useSelector, useDispatch } from "react-redux";
 // import { gameState } from "../redux/gameSettingsSlice";
-import { Text, Box, HStack, VStack } from "native-base";
+import { Text, Box, HStack, VStack, Divider } from "native-base";
 
 export default function PlayScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
@@ -38,8 +38,8 @@ export default function PlayScreen({ navigation }) {
     gState.windowWidth = width;
     gState.windowHeight = height;
 
-    const headerHeight = height * 0.17;
-    cardWidth = gState.windowWidth / gState.cols - gState.cols * 0.7;
+    const headerHeight = height * 0.1;
+    cardWidth = (gState.windowWidth * 0.9) / gState.cols;
     cardHeight = (height - headerHeight) / gState.rows;
 
     resize(cardHeight, cardWidth);
@@ -63,7 +63,7 @@ export default function PlayScreen({ navigation }) {
           <Card
             key={categoryIndex + "-" + questionIndex}
             height={cardHeight}
-            width={gState.windowWidth / gState.cols - gState.cols * 0.7}
+            width={cardWidth}
             question={
               gState.data[categoryIndex].questions[questionIndex].question
             }
@@ -73,7 +73,7 @@ export default function PlayScreen({ navigation }) {
         );
       }
       card.push(
-        <VStack space={0.5} key={categoryIndex}>
+        <VStack space={1.5} key={categoryIndex}>
           {column}
         </VStack>
       );
@@ -83,16 +83,24 @@ export default function PlayScreen({ navigation }) {
 
   return (
     <Box pr={1} pl={1} w={width} alignItems="center">
-      <Header
-        data={gState.data.slice(0, gState.cols)}
-        headerWidth={width / gState.cols}
-      />
-      <Box>
-        <HStack pt={1} space={0.5} alignItems="center">
-          {cards}
-        </HStack>
-      </Box>
-      <Footer windowWidth={gState.windowWidth} />
+      <HStack>
+        <Footer footerWidth={width * 0.07} />
+        <Divider orientation="vertical" ml="1" />
+        <Box width={width * 0.93}>
+          <Header
+            data={gState.data.slice(0, gState.cols)}
+            headerWidth={(width * 0.93) / gState.cols}
+          />
+          <HStack
+            pt={1}
+            space={1.5}
+            alignItems="center"
+            justifyContent="center"
+          >
+            {cards}
+          </HStack>
+        </Box>
+      </HStack>
     </Box>
   );
 }
