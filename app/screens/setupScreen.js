@@ -103,7 +103,7 @@ export default function SetupScreen({ navigation }) {
             w="45%"
             defaultValue={numCategories}
             minValue={1}
-            maxValue={6}
+            maxValue={5}
             colorScheme="cyan"
             onChange={(v) => {
               setOnChangeNumCategoriesValue(Math.floor(v));
@@ -131,7 +131,7 @@ export default function SetupScreen({ navigation }) {
             w="45%"
             defaultValue={numQuestions}
             minValue={1}
-            maxValue={6}
+            maxValue={5}
             colorScheme="cyan"
             onChange={(v) => {
               setOnChangeNumQuestionsValue(Math.floor(v));
