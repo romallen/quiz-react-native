@@ -10,6 +10,7 @@ import { clearBoard, makeGameboardCat } from "../redux/gameSettingsSlice";
 export default function ManBoardSetupScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
   const [board, setBoard] = useState([]);
+  const [cat, setCat] = useState(new Array(numCategories));
 
   const numCategories = useSelector(
     (state) => state.gameSettings.numCategoriesStore
@@ -25,8 +26,6 @@ export default function ManBoardSetupScreen({ navigation }) {
     windowHeight: height,
     data: [],
   });
-
-  const [cat, setCat] = useState(new Array(numCategories));
 
   gState.rows = numQuestions;
   gState.cols = numCategories;
@@ -46,7 +45,7 @@ export default function ManBoardSetupScreen({ navigation }) {
     gState.windowHeight = height;
 
     const headerHeight = gState.windowHeight * 0.15;
-    cardWidth = gState.windowWidth / gState.cols - gState.cols * 0.7;
+    cardWidth = (gState.windowWidth * 0.96)/ gState.cols;
     cardHeight = (gState.windowHeight - headerHeight) / gState.rows;
 
     resize(cardHeight, cardWidth);
@@ -67,6 +66,7 @@ export default function ManBoardSetupScreen({ navigation }) {
           size="lg"
           placeholder={"Category: " + (i + 1)}
           isRequired={true}
+          width={cardWidth}
         />,
       ];
 
@@ -76,7 +76,7 @@ export default function ManBoardSetupScreen({ navigation }) {
             key={i + "-" + j}
             index={i}
             height={cardHeight}
-            width={gState.windowWidth / gState.cols - gState.cols * 0.7}
+            width={cardWidth}
             cat={cat[i]}
             points={(j + 1) * 100}
           ></ManualCard>
@@ -84,7 +84,7 @@ export default function ManBoardSetupScreen({ navigation }) {
       }
 
       emptyBoard.push(
-        <VStack space={0.5} key={i}>
+        <VStack space={1.5} key={i}>
           {category}
         </VStack>
       );
@@ -101,19 +101,21 @@ export default function ManBoardSetupScreen({ navigation }) {
   };
 
   return (
-    <VStack pr={1} pl={1} space={4} w={gState.windowWidth} alignSelf="center">
-      <HStack pt={1} space={0.5} alignItems="center" alignSelf="center">
-        {board}
-      </HStack>
+    <Box p={2} w={width} h={height} alignItems="center" bg="primary.900">
+      <VStack space={2}>
+        <HStack pt={1} space={1.5} alignItems="center" alignSelf="center">
+          {board}
+        </HStack>
 
-      <HStack space={4} justifyContent="space-around">
-        <Button onPress={handleBackPress} size="lg" w={"40%"}>
-          BACK TO SETTINGS
-        </Button>
-        <Button onPress={handlePlayPress} size="lg" w={"40%"}>
-          PLAY
-        </Button>
-      </HStack>
-    </VStack>
+        <HStack space={4} justifyContent="space-around">
+          <Button onPress={handleBackPress} size="lg" w={"40%"}>
+            BACK TO SETTINGS
+          </Button>
+          <Button onPress={handlePlayPress} size="lg" w={"40%"}>
+            PLAY
+          </Button>
+        </HStack>
+      </VStack>
+    </Box>
   );
 }

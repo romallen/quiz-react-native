@@ -9,11 +9,11 @@ export const teamsSlice = createSlice({
   reducers: {
     createTeams: (state, action) => {
       for (let i = 0; i < action.payload; i++) {
-        state.value["Team " + (i + 1) + ":"] = 0;
+        state.value["Team " + (i + 1)] = 0;
       }
     },
     incrementScore: (state, action) => {
-      state.value["Team " + action.payload.team + ":"] += action.payload.points;
+      state.value["Team " + action.payload.team] += action.payload.points;
     },
     incrementTurn: (state, action) => {
       state.turn += 1;

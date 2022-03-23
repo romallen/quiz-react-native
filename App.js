@@ -7,7 +7,7 @@ import HomeScreen from "./app/screens/homeScreen";
 import PlayScreen from "./app/screens/playScreen";
 import SetupScreen from "./app/screens/setupScreen";
 import ManBoardSetupScreen from "./app/screens/manBoardSetupScreen";
-import QuestionBankScreen from "./app/screens/QuestionBankScreen";
+import QuestionBankScreen from "./app/screens/questionBankScreen";
 import SignInScreen from "./app/screens/signInScreen";
 import SignUpScreen from "./app/screens/signUpScreen";
 
@@ -17,11 +17,17 @@ import store from "./app/redux/store";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const theme = {
+    colors: {
+      primary: "#00aaff",
+    },
+  };
+
   return (
     <NativeBaseProvider>
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="SignInScreen">
+          <Stack.Navigator initialRouteName="HomeScreen">
             <Stack.Screen
               name="HomeScreen"
               component={HomeScreen}

@@ -48,11 +48,11 @@ export default function Card(props) {
   };
   let cardH;
   if (height < 450) {
-    cardH = props.height * 0.81;
+    cardH = props.height * 0.80;
   } else if (height < 700) {
-    cardH = props.height * 0.9;
+    cardH = props.height * 0.88;
   } else {
-    cardH = props.height;
+    cardH = props.height * 0.96;
   }
 
   let front = cardState.completed ? (
@@ -77,9 +77,19 @@ export default function Card(props) {
       disabled={cardState.completed}
       key={props.keys}
       onPress={handleClick}
-    
+      style={{
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+      }}
+      background="primary.500"
     >
-      <Center borderRadius="md" borderWidth={1} w={props.width} h={cardH}>
+      <Center  w={props.width-1} h={cardH}>
         {front}
       </Center>
 
@@ -89,11 +99,12 @@ export default function Card(props) {
         closeOnOverlayClick={false}
         m="sm"
         size="full"
+        
       >
-        <Modal.Content>
+        <Modal.Content background="primary.600">
           <Modal.Body>
-            <Center>
-              <Heading p={10} size="3xl">
+            <Center background="primary.600">
+              <Heading p={10} size="3xl" color="primary.50">
                 {props.question}
               </Heading>
               <Button onPress={() => setShowAnswer(!showAnswer)}>
@@ -113,16 +124,16 @@ export default function Card(props) {
                   },
                 }}
               >
-                <Heading p={10} size="2xl">
+                <Heading p={10} size="2xl" color="primary.50">
                   {props.answer}
                 </Heading>
               </PresenceTransition>
             </Center>
           </Modal.Body>
-          <Modal.Footer>
+          <Modal.Footer background="primary.800">
             <Button.Group space={2}>
               <Button
-                variant="ghost"
+                variant="subtle"
                 colorScheme="blueGray"
                 onPress={handleIncorrectPress}
               >

@@ -4,7 +4,6 @@ import {
   Text,
   Box,
   Button,
-  Container,
   Divider,
   Flex,
   Skeleton,
@@ -29,8 +28,7 @@ export default function QuestionBankScreen({ navigation }) {
   const [selected, setSelected] = useState("");
   //const gameData = useSelector((state) => state.gameSettings.gameboard);
   const gameData = useSelector((state) => state.questions.categories);
-  const categoryRef = createRef(null);
-  //handle
+
   const handleBackPress = () => {
     navigation.navigate("HomeScreen");
   };
@@ -42,12 +40,9 @@ export default function QuestionBankScreen({ navigation }) {
   const categoryName = [];
   gameData.forEach((el, index) =>
     categoryName.push(
-      <Pressable onPress={(e) => handleClick(el)} key={index}>
-        {/* {({isHovered}) =>{ 
-          return 
-        } } */}
-        <Text fontSize="md">{el.category}</Text>
-        <Divider orientation="horizontal" mx="1" />
+      <Pressable onPress={(e) => handleClick(el)} key={index} >
+        <Text fontSize="lg" color="primary.50">{el.category}</Text>
+        <Divider orientation="horizontal" />
       </Pressable>
     )
   );
@@ -109,23 +104,24 @@ export default function QuestionBankScreen({ navigation }) {
       height={"100%"}
       alignItems="center"
       borderColor="coolGray.500"
-      borderWidth="5"
+      borderWidth="1"
+      bg={"primary.900"}
     >
       <VStack space={2} alignItems="center">
-        <Text fontSize="6xl" textAlign="center">
+        <Text fontSize="6xl" textAlign="center" color="primary.50">
           Question Bank
         </Text>
         {selected ? (
-          <Text fontSize="xl">{selected}</Text>
+          <Text fontSize="xl" color="primary.50">{selected}</Text>
         ) : (
-          <Text fontSize="xl">Select a Category</Text>
+          <Text fontSize="xl" color="primary.50">Select a Category</Text>
         )}
         <HStack space={1}>
           <VStack space={4}>
-            <Text fontSize="3xl">Categories</Text>
+            <Text fontSize="3xl" color="primary.50">Categories</Text>
             <ScrollView>{categoryName}</ScrollView>
           </VStack>
-          <Divider orientation="vertical" mx="1" />
+          <Divider orientation="vertical" mx="1" background="primary.300"/>
           <Box alignItems="center">
             <Carousel
               width={(width - 100) / 2}
@@ -140,7 +136,7 @@ export default function QuestionBankScreen({ navigation }) {
             />
           </Box>
         </HStack>
-        <Spacer />
+        <Spacer background="primary.300"/>
         <Button onPress={handleBackPress} w="50%" size="lg">
           RETURN TO HOME SCREEN
         </Button>

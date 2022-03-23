@@ -1,4 +1,4 @@
-import Card from "../components/cards";
+import Card from "../components/card";
 import Header from "../components/headers";
 import Footer from "../components/footer";
 import { useState, useEffect } from "react";
@@ -82,10 +82,17 @@ export default function PlayScreen({ navigation }) {
   };
 
   return (
-    <Box pr={1} pl={1} w={width} alignItems="center">
+    <Box
+      pr={1}
+      pl={1}
+      w={width}
+      h={height}
+      alignItems="center"
+      bg="primary.600"
+    >
       <HStack>
-        <Footer footerWidth={width * 0.07} />
-        <Divider orientation="vertical" ml="1" />
+        <Footer footerWidth={width * 0.07} footerHeight={height} />
+
         <Box width={width * 0.93}>
           <Header
             data={gState.data.slice(0, gState.cols)}

@@ -15,8 +15,12 @@ export default function HomeScreen({ navigation }) {
     if (loading) {
       try {
         const client = realmApp.currentUser.mongoClient("mongodb-atlas");
-        const cat =  await client.db("quizapp").collection("categories").find({},{projection:{ _id: false }});
-        
+        console.log("acacac", realmApp.currentUser);
+        const cat = await client
+          .db("quizapp")
+          .collection("categories")
+          .find({}, { projection: { _id: false } });
+
         setData(cat);
       } catch (err) {
         console.error("Failed to log in", err);
@@ -27,7 +31,6 @@ export default function HomeScreen({ navigation }) {
   }, [loading]);
 
   useEffect(() => {
-    console.log("data ", data);
     dispatch(getQuestions(data));
   }, [data]);
 
@@ -43,12 +46,14 @@ export default function HomeScreen({ navigation }) {
       p={10}
       height={"100%"}
       alignItems="center"
-      // justifyContent="center"
+      bg={"primary.900"}
       borderColor="coolGray.500"
-      borderWidth="5"
+      borderWidth="1"
     >
       <VStack space={4}>
-        <Text fontSize="8xl">QuizApp</Text>
+        <Text fontSize="8xl" color="primary.50">
+          QuizApp
+        </Text>
 
         <Button onPress={handlePlayPress} size="lg">
           PLAY

@@ -48,20 +48,19 @@ export default function SetupScreen({ navigation }) {
   return (
     <Box
       p={5}
-      // w={"100%"}
       height={"100%"}
       alignItems="center"
-      // justifyContent="center"
+      bg={"primary.900"}
       borderColor="coolGray.500"
-      borderWidth="5"
+      borderWidth="1"
     >
       <VStack space={4}>
-        <Text fontSize="6xl" textAlign="center">
+        <Text fontSize="6xl" textAlign="center" color="primary.50">
           Setup
         </Text>
 
         <HStack space={5} justifyContent="space-between">
-          <Text textAlign="left" fontSize="xl">
+          <Text textAlign="left" fontSize="xl" color="primary.50">
             Number of Teams:
           </Text>
           <Radio.Group
@@ -102,7 +101,7 @@ export default function SetupScreen({ navigation }) {
         </HStack>
 
         <HStack space={5} justifyContent="space-between">
-          <Text textAlign="left" fontSize="xl">
+          <Text textAlign="left" fontSize="xl" color="primary.50">
             Number of Categories:
           </Text>
           <Radio.Group
@@ -144,7 +143,7 @@ export default function SetupScreen({ navigation }) {
         </HStack>
 
         <HStack space={5} justifyContent="space-between">
-          <Text textAlign="left" fontSize="xl">
+          <Text textAlign="left" fontSize="xl" color="primary.50">
             Number of Questions:
           </Text>
           <Radio.Group
@@ -186,11 +185,13 @@ export default function SetupScreen({ navigation }) {
         </HStack>
 
         <HStack space={10} justifyContent="space-between">
-          <Text textAlign="left" fontSize="xl">
+          <Text textAlign="left" fontSize="xl" color="primary.50">
             Create Board:
           </Text>
           <HStack alignItems="center" space={4}>
-            <Text fontSize="lg">{createB ? "Automatic" : "Manual"} </Text>
+            <Text fontSize="lg" color="primary.50">
+              {createB ? "Automatic" : "Manual"}{" "}
+            </Text>
             <Switch
               size="sm"
               onToggle={() => setCreateB(!createB)}

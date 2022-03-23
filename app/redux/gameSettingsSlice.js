@@ -26,7 +26,8 @@ export const gameSettingsSlice = createSlice({
     },
 
     makeGameboardCat: (state, action) => {
-      state.gameboard[action.payload.index].category = action.payload.value;
+      state.gameboard[action.payload.index].category =
+        action.payload.value.toUpperCase();
     },
     makeGameboardQues: (state, action) => {
       state.gameboard[action.payload.index].questions.push(

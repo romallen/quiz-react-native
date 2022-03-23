@@ -4,9 +4,6 @@ import {
   Text,
   Box,
   Actionsheet,
-  Button,
-  Center,
-  Divider,
   HamburgerIcon,
   Pressable,
   Icon,
@@ -29,23 +26,35 @@ export default function Footer(props) {
   let i = 0;
   for (let team in teamsStore) {
     teams.push(
-      <Text fontSize={"lg"} key={i}>
-        {team + " " + teamsStore[team]}
-      </Text>
+      <VStack>
+        <Text fontSize={"xl"} key={i} textAlign="center" color="primary.50">
+          {teamsStore[team]}
+        </Text>
+        <Text fontSize={"lg"} key={i} textAlign="center" color="primary.50">
+          {team}
+        </Text>
+      </VStack>
     );
     i++;
   }
   return (
-    <VStack  py="2" px={1} width={props.footerWidth} justifyContent="space-between">
-      <Box h="20%"  >
-        <Pressable onPress={onOpen}>
+    <VStack
+      py="2"
+      px={1}
+      width={props.footerWidth}
+      height={props.footerHeight}
+      justifyContent="space-between"
+      bg="primary.900"
+    >
+      <Box h="20%">
+        <Pressable onPress={onOpen} alignItems="center">
           <HamburgerIcon />
         </Pressable>
         <Actionsheet isOpen={isOpen} onClose={onClose} size="lg">
           <Actionsheet.Content>
             <Box w="100%" h={60} px={4} justifyContent="center">
               <Text
-                fontSize="16"
+                fontSize="md"
                 color="gray.500"
                 _dark={{
                   color: "gray.300",
@@ -95,9 +104,9 @@ export default function Footer(props) {
           </Actionsheet.Content>
         </Actionsheet>
       </Box>
-      <VStack space={5} pr={1} alignItems={"center"} alignSelf="center">
-        {teams}
-      </VStack>
+      <Box h="80%" minW={60}>
+        <VStack space={8}>{teams}</VStack>
+      </Box>
     </VStack>
   );
 }

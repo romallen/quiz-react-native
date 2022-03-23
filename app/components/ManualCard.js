@@ -35,7 +35,6 @@ export default function ManualCard(props) {
   const handleClick = () => {
     cardState.completed = true;
     setVisible(!visible);
-    // if (!cardState.completed) {}
   };
 
   const handleSavePress = () => {
@@ -58,15 +57,15 @@ export default function ManualCard(props) {
   };
   let cardH;
   if (height < 450) {
-    cardH = props.height * 0.81;
+    cardH = props.height * 0.80;
   } else if (height < 700) {
-    cardH = props.height * 0.9;
+    cardH = props.height * 0.98;
   } else {
-    cardH = props.height;
+    cardH = props.height*0.96;
   }
 
   let front = cardState.completed ? (
-    <Heading p={2} size={"sm"} isTruncated="true"  bold>
+    <Heading p={2} size={"md"} isTruncated="true" bold>
       {question}
     </Heading>
   ) : (
@@ -76,8 +75,8 @@ export default function ManualCard(props) {
   );
 
   return (
-    <Pressable ref={cardRef} key={props.keys} onPress={handleClick}>
-      <Center borderRadius="md" borderWidth={1} w={props.width} h={cardH}>
+    <Pressable ref={cardRef} key={props.keys} onPress={handleClick} bg="primary.100">
+      <Center borderWidth={1} w={props.width} h={cardH}>
         {front}
       </Center>
 
