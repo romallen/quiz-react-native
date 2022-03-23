@@ -15,18 +15,21 @@ import {
   Input,
   HStack,
 } from "native-base";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function SignInScreen({ navigation }) {
   
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [user, setUser] = useState(null);
   
-    // state values for toggable visibility of features in the UI
-    const [passwordHidden, setPasswordHidden] = useState(true);
-    const [isInSignUpMode, setIsInSignUpMode] = useState(true);
+    // // state values for toggable visibility of features in the UI
+    // const [passwordHidden, setPasswordHidden] = useState(true);
+    // const [isInSignUpMode, setIsInSignUpMode] = useState(true);
   
-    useEffect(() => {
-      if (user) {
+    useEffect(async () => {
+      const currentUserVal = await AsyncStorage.getItem('currentUser')
+       currentUserVal != null ? JSON.parse(currentUserVal) : null;
+      if (currentUserVal) {
         navigation.navigate('HomeScreen'); // if there is a logged in user, navigate to the Tasks Screen
       }
     }, [user, navigation]);
@@ -36,6 +39,9 @@ export default function SignInScreen({ navigation }) {
       const creds = Realm.Credentials.emailPassword(email, password);
       const loggedInUser = await realmApp.logIn(creds);
       setUser(loggedInUser);
+
+      const jsonUser = JSON.stringify(loggedInUser)
+      await AsyncStorage.setItem('currentUser', jsonUser)
     };
   
     // onPressSignIn() uses the emailPassword authentication provider to log in

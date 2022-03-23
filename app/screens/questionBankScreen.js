@@ -27,7 +27,8 @@ export default function QuestionBankScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selected, setSelected] = useState("");
-  const gameData = useSelector((state) => state.gameSettings.gameboard);
+  //const gameData = useSelector((state) => state.gameSettings.gameboard);
+  const gameData = useSelector((state) => state.questions.categories);
   const categoryRef = createRef(null);
   //handle
   const handleBackPress = () => {
