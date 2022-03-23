@@ -59,13 +59,16 @@ export default function SetupScreen({ navigation }) {
       borderWidth="1"
     >
       <VStack space={4}>
-        <Text fontSize="6xl" textAlign="center" color="primary.50">
+        <Text fontSize="7xl" textAlign="center" color="primary.50">
           Setup
         </Text>
 
-        <HStack space={5} justifyContent="space-between">
+        <HStack space={4} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            Number of Teams: {onChangeTeamValue}
+            {"Teams:       "}
+          </Text>
+          <Text textAlign="left" fontSize="xl" color="primary.50">
+           {onChangeTeamValue}
           </Text>
 
           <Slider
@@ -86,47 +89,14 @@ export default function SetupScreen({ navigation }) {
             </Slider.Track>
             <Slider.Thumb />
           </Slider>
-
-          {/* <Radio.Group
-            name="selectNumTeams"
-            defaultValue={numTeams}
-            accessibilityLabel="pick number of teams"
-            onChange={(value) => setNumTeams(value)}
-          >
-            <Stack
-              direction={{
-                base: "column",
-                sm: "row",
-              }}
-              space={1}
-              w="65%"
-              maxW="200px"
-            >
-              <Radio value={1} colorScheme="green" size="sm" my={1}>
-                1
-              </Radio>
-              <Radio value={2} colorScheme="green" size="sm" my={1}>
-                2
-              </Radio>
-              <Radio value={3} colorScheme="green" size="sm" my={1}>
-                3
-              </Radio>
-              <Radio value={4} colorScheme="green" size="sm" my={1}>
-                4
-              </Radio>
-              <Radio value={5} colorScheme="green" size="sm" my={1}>
-                5
-              </Radio>
-              <Radio value={6} colorScheme="green" size="sm" my={1}>
-                6
-              </Radio>
-            </Stack>
-          </Radio.Group> */}
         </HStack>
 
         <HStack space={5} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            Number of Categories: {onChangeNumCategoriesValue}
+            {"Categories:"}
+          </Text>
+          <Text textAlign="left" fontSize="xl" color="primary.50">
+            {onChangeNumCategoriesValue}
           </Text>
 
           <Slider
@@ -151,7 +121,10 @@ export default function SetupScreen({ navigation }) {
 
         <HStack space={5} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            Number of Questions: {onChangeNumQuestionsValue}
+            {"Questions: "}
+          </Text>
+          <Text textAlign="left" fontSize="xl" color="primary.50">
+            {onChangeNumQuestionsValue}
           </Text>
 
           <Slider
