@@ -20,9 +20,13 @@ import {
 
 export default function SetupScreen({ navigation }) {
   const [numTeams, setNumTeams] = useState(1);
+  const [onChangeTeamValue, setOnChangeTeamValue] = useState(1);
   const [timer, setTimer] = useState(30);
   const [numCategories, setNumCategories] = useState(4);
+  const [onChangeNumCategoriesValue, setOnChangeNumCategoriesValue] =
+    useState(4);
   const [numQuestions, setNumQuestions] = useState(5);
+  const [onChangeNumQuestionsValue, setOnChangeNumQuestionsValue] = useState(5);
   const [createB, setCreateB] = useState(true);
 
   const dispatch = useDispatch();
@@ -61,9 +65,29 @@ export default function SetupScreen({ navigation }) {
 
         <HStack space={5} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            Number of Teams:
+            Number of Teams: {onChangeTeamValue}
           </Text>
-          <Radio.Group
+
+          <Slider
+            w="45%"
+            defaultValue={numTeams}
+            minValue={1}
+            maxValue={6}
+            colorScheme="cyan"
+            onChange={(v) => {
+              setOnChangeTeamValue(Math.floor(v));
+            }}
+            onChangeEnd={(v) => {
+              v && setNumTeams(Math.floor(v));
+            }}
+          >
+            <Slider.Track>
+              <Slider.FilledTrack />
+            </Slider.Track>
+            <Slider.Thumb />
+          </Slider>
+
+          {/* <Radio.Group
             name="selectNumTeams"
             defaultValue={numTeams}
             accessibilityLabel="pick number of teams"
@@ -97,91 +121,57 @@ export default function SetupScreen({ navigation }) {
                 6
               </Radio>
             </Stack>
-          </Radio.Group>
+          </Radio.Group> */}
         </HStack>
 
         <HStack space={5} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            Number of Categories:
+            Number of Categories: {onChangeNumCategoriesValue}
           </Text>
-          <Radio.Group
-            name="selectNumCategories"
+
+          <Slider
+            w="45%"
             defaultValue={numCategories}
-            accessibilityLabel="pick number of categories"
-            onChange={(value) => setNumCategories(value)}
+            minValue={1}
+            maxValue={6}
+            colorScheme="cyan"
+            onChange={(v) => {
+              setOnChangeNumCategoriesValue(Math.floor(v));
+            }}
+            onChangeEnd={(v) => {
+              v && setNumCategories(Math.floor(v));
+            }}
           >
-            <Stack
-              direction={{
-                base: "column",
-                sm: "row",
-              }}
-              alignItems="right"
-              space={1}
-              w="65%"
-              maxW="200px"
-            >
-              <Radio value={1} colorScheme="green" size="sm" my={1}>
-                1
-              </Radio>
-              <Radio value={2} colorScheme="green" size="sm" my={1}>
-                2
-              </Radio>
-              <Radio value={3} colorScheme="green" size="sm" my={1}>
-                3
-              </Radio>
-              <Radio value={4} colorScheme="green" size="sm" my={1}>
-                4
-              </Radio>
-              <Radio value={5} colorScheme="green" size="sm" my={1}>
-                5
-              </Radio>
-              <Radio value={6} colorScheme="green" size="sm" my={1}>
-                6
-              </Radio>
-            </Stack>
-          </Radio.Group>
+            <Slider.Track>
+              <Slider.FilledTrack />
+            </Slider.Track>
+            <Slider.Thumb />
+          </Slider>
         </HStack>
 
         <HStack space={5} justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            Number of Questions:
+            Number of Questions: {onChangeNumQuestionsValue}
           </Text>
-          <Radio.Group
-            name="selectNumTeams"
+
+          <Slider
+            w="45%"
             defaultValue={numQuestions}
-            accessibilityLabel="pick number of questions"
-            onChange={(value) => setNumQuestions(value)}
+            minValue={1}
+            maxValue={6}
+            colorScheme="cyan"
+            onChange={(v) => {
+              setOnChangeNumQuestionsValue(Math.floor(v));
+            }}
+            onChangeEnd={(v) => {
+              v && setNumQuestions(Math.floor(v));
+            }}
           >
-            <Stack
-              direction={{
-                base: "column",
-                sm: "row",
-              }}
-              alignItems="right"
-              space={1}
-              w="65%"
-              maxW="200px"
-            >
-              <Radio value={1} colorScheme="green" size="sm" my={1}>
-                1
-              </Radio>
-              <Radio value={2} colorScheme="green" size="sm" my={1}>
-                2
-              </Radio>
-              <Radio value={3} colorScheme="green" size="sm" my={1}>
-                3
-              </Radio>
-              <Radio value={4} colorScheme="green" size="sm" my={1}>
-                4
-              </Radio>
-              <Radio value={5} colorScheme="green" size="sm" my={1}>
-                5
-              </Radio>
-              <Radio value={6} colorScheme="green" size="sm" my={1}>
-                6
-              </Radio>
-            </Stack>
-          </Radio.Group>
+            <Slider.Track>
+              <Slider.FilledTrack />
+            </Slider.Track>
+            <Slider.Thumb />
+          </Slider>
         </HStack>
 
         <HStack space={10} justifyContent="space-between">
