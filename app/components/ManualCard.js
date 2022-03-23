@@ -143,7 +143,7 @@ export default function ManualCard(props) {
           <Modal.Footer>
             <Button.Group space={2}>
               <Button
-                variant="ghost"
+                variant="subtle"
                 colorScheme="blueGray"
                 onPress={handleCancelPress}
               >

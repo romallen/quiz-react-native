@@ -26,11 +26,11 @@ export default function Footer(props) {
   let i = 0;
   for (let team in teamsStore) {
     teams.push(
-      <VStack>
-        <Text fontSize={"xl"} key={i} textAlign="center" color="primary.50">
+      <VStack key={i}>
+        <Text fontSize={"xl"} textAlign="center" color="primary.50">
           {teamsStore[team]}
         </Text>
-        <Text fontSize={"lg"} key={i} textAlign="center" color="primary.50">
+        <Text fontSize={"lg"} textAlign="center" color="primary.50">
           {team}
         </Text>
       </VStack>

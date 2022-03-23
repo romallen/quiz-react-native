@@ -5,13 +5,10 @@ import { useWindowDimensions } from "react-native";
 export default function Header(props) {
   const { height, width } = useWindowDimensions();
   let headers = props.data.map((category, index) => (
-   
-      <HStack bg="primary.800">
+    <HStack key={index} bg="primary.800">
       {/* <Divider orientation="vertical"  backgroundColor={"primary.600"}/> */}
       <Heading
-        key={index}
         w={props.headerWidth}
-       
         size={"lg"}
         textAlign="center"
         alignSelf="center"
@@ -20,9 +17,7 @@ export default function Header(props) {
       >
         {category.category}
       </Heading>
-      </HStack>
-      
-    
+    </HStack>
   ));
 
   return (

@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Text, Box, Button, Container, VStack } from "native-base";
+import { Text, Box, Button, Icon, Spacer, VStack, HStack } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
 
 import * as Realm from "realm-web";
 import { realmApp } from "../realm/realm";
 import { useSelector, useDispatch } from "react-redux";
 import { getQuestions } from "../redux/questionsSlice";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function HomeScreen({ navigation }) {
   const [data, setData] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(realmApp.currentUser);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
@@ -15,7 +18,7 @@ export default function HomeScreen({ navigation }) {
     if (loading) {
       try {
         const client = realmApp.currentUser.mongoClient("mongodb-atlas");
-        console.log("acacac", realmApp.currentUser);
+
         const cat = await client
           .db("quizapp")
           .collection("categories")
@@ -34,6 +37,26 @@ export default function HomeScreen({ navigation }) {
     dispatch(getQuestions(data));
   }, [data]);
 
+  // useEffect(async () => {
+  //   const currentUserVal = await AsyncStorage.getItem("currentUser");
+  //   currentUserVal != null ? setIsLoggedIn(!isLoggedIn) : null;
+  //   realmApp.currentUser != null ? setUser(realmApp.currentUser) : null;
+  // }, []);
+
+  const handleLoginPress = () => {
+    setIsLoggedIn(!isLoggedIn);
+    navigation.navigate("SignInScreen");
+  };
+  const handleLogoutPress = async () => {
+    try {
+      realmApp.currentUser.logOut();
+      await AsyncStorage.removeItem("currentUser");
+      setIsLoggedIn(!isLoggedIn);
+      navigation.navigate("HomeScreen");
+    } catch (err) {
+      console.error("Failed to log out", err);
+    }
+  };
   const handlePlayPress = () => {
     navigation.navigate("SetupScreen");
   };
@@ -45,21 +68,42 @@ export default function HomeScreen({ navigation }) {
     <Box
       p={10}
       height={"100%"}
-      alignItems="center"
+      // alignItems="center"
       bg={"primary.900"}
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      <VStack space={4}>
-        <Text fontSize="8xl" color="primary.50">
+      <HStack alignItems="right">
+        {isLoggedIn ? (
+          <Button
+            variant="subtle"
+            colorScheme="blueGray"
+            onPress={handleLogoutPress}
+            leftIcon={<Icon as={Ionicons} name="log-out-outline" size="xs" />}
+          >
+            Logout
+          </Button>
+        ) : (
+          <Button
+            variant="subtle"
+            colorScheme="blueGray"
+            onPress={handleLoginPress}
+            leftIcon={<Icon as={Ionicons} name="log-in-outline" size="xs" />}
+          >
+            Login
+          </Button>
+        )}
+      </HStack>
+      <VStack space={4} alignItems="center">
+        <Text fontSize="8xl" color="primary.50" textAlign="center">
           QuizApp
         </Text>
 
-        <Button onPress={handlePlayPress} size="lg">
+        <Button onPress={handlePlayPress} size="lg" w="50%">
           PLAY
         </Button>
 
-        <Button onPress={handleQuestionBankPress} size="lg">
+        <Button onPress={handleQuestionBankPress} size="lg" w="50%">
           QUESTION BANK
         </Button>
       </VStack>
