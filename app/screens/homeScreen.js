@@ -37,21 +37,20 @@ export default function HomeScreen({ navigation }) {
     dispatch(getQuestions(data));
   }, [data]);
 
-  // useEffect(async () => {
-  //   const currentUserVal = await AsyncStorage.getItem("currentUser");
-  //   currentUserVal != null ? setIsLoggedIn(!isLoggedIn) : null;
-  //   realmApp.currentUser != null ? setUser(realmApp.currentUser) : null;
-  // }, []);
+  useEffect(async () => {
+    const currentUserVal = await AsyncStorage.getItem("currentUser");
+    currentUserVal != null ? setIsLoggedIn(true) : null;
+  }, []);
 
   const handleLoginPress = () => {
-    setIsLoggedIn(!isLoggedIn);
+    setIsLoggedIn(true);
     navigation.navigate("SignInScreen");
   };
   const handleLogoutPress = async () => {
     try {
       realmApp.currentUser.logOut();
       await AsyncStorage.removeItem("currentUser");
-      setIsLoggedIn(!isLoggedIn);
+      setIsLoggedIn(false);
       navigation.navigate("HomeScreen");
     } catch (err) {
       console.error("Failed to log out", err);
@@ -99,11 +98,11 @@ export default function HomeScreen({ navigation }) {
           QuizApp
         </Text>
 
-        <Button onPress={handlePlayPress} size="lg" w="50%">
+        <Button onPress={handlePlayPress} size="lg" w="40%">
           PLAY
         </Button>
 
-        <Button onPress={handleQuestionBankPress} size="lg" w="50%">
+        <Button onPress={handleQuestionBankPress} size="lg" w="40%">
           QUESTION BANK
         </Button>
       </VStack>

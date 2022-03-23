@@ -19,8 +19,8 @@ import {
 } from "native-base";
 
 export default function SetupScreen({ navigation }) {
-  const [numTeams, setNumTeams] = useState(1);
-  const [onChangeTeamValue, setOnChangeTeamValue] = useState(1);
+  const [numTeams, setNumTeams] = useState(2);
+  const [onChangeTeamValue, setOnChangeTeamValue] = useState(2);
   const [timer, setTimer] = useState(30);
   const [numCategories, setNumCategories] = useState(4);
   const [onChangeNumCategoriesValue, setOnChangeNumCategoriesValue] =
@@ -53,22 +53,22 @@ export default function SetupScreen({ navigation }) {
     <Box
       p={5}
       height={"100%"}
-      alignItems="center"
+      // alignItems="center"
       bg={"primary.900"}
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      <VStack space={4}>
+      <VStack space={4} alignItems="center">
         <Text fontSize="7xl" textAlign="center" color="primary.50">
           Setup
         </Text>
 
-        <HStack space={4} justifyContent="space-between">
+        <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            {"Teams:       "}
+            {"Teams:        "}
           </Text>
           <Text textAlign="left" fontSize="xl" color="primary.50">
-           {onChangeTeamValue}
+            {onChangeTeamValue}
           </Text>
 
           <Slider
@@ -91,7 +91,7 @@ export default function SetupScreen({ navigation }) {
           </Slider>
         </HStack>
 
-        <HStack space={5} justifyContent="space-between">
+        <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Categories:"}
           </Text>
@@ -119,7 +119,7 @@ export default function SetupScreen({ navigation }) {
           </Slider>
         </HStack>
 
-        <HStack space={5} justifyContent="space-between">
+        <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Questions: "}
           </Text>
@@ -147,7 +147,7 @@ export default function SetupScreen({ navigation }) {
           </Slider>
         </HStack>
 
-        <HStack space={10} justifyContent="space-between">
+        <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             Create Board:
           </Text>
@@ -165,16 +165,16 @@ export default function SetupScreen({ navigation }) {
         </HStack>
 
         {createB ? (
-          <Button onPress={handleStartGamePress} size="lg">
+          <Button onPress={handleStartGamePress} size="lg" w="40%">
             START THE GAME
           </Button>
         ) : (
-          <Button onPress={handleCreateBoardPress} size="lg">
+          <Button onPress={handleCreateBoardPress} size="lg" w="40%">
             CREATE BOARD
           </Button>
         )}
 
-        <Button onPress={handleBackPress} size="lg">
+        <Button onPress={handleBackPress} size="lg" w="40%">
           RETURN TO HOME SCREEN
         </Button>
       </VStack>
