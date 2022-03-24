@@ -72,7 +72,7 @@ export default function HomeScreen({ navigation }) {
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      <HStack alignItems="right">
+      {/* <HStack alignItems="right">
         {isLoggedIn ? (
           <Button
             variant="subtle"
@@ -92,7 +92,7 @@ export default function HomeScreen({ navigation }) {
             Login
           </Button>
         )}
-      </HStack>
+      </HStack> */}
       <VStack space={4} alignItems="center">
         <Text fontSize="8xl" color="primary.50" textAlign="center">
           QuizApp
