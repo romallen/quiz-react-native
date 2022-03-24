@@ -35,7 +35,7 @@ export default function SetupScreen({ navigation }) {
     dispatch(createTeams(numTeams));
     dispatch(numCategoriesStore(numCategories));
     dispatch(numQuestionsStore(numQuestions));
-    navigation.navigate("ManBoardSetupScreen");
+    navigation.navigate("CreateBoardScreen");
   };
 
   const handleStartGamePress = () => {
@@ -45,7 +45,6 @@ export default function SetupScreen({ navigation }) {
     navigation.navigate("PlayScreen");
   };
   const handleBackPress = () => {
-    console.log("Go to Welcome");
     navigation.navigate("HomeScreen");
   };
 
@@ -62,7 +61,6 @@ export default function SetupScreen({ navigation }) {
         <Text fontSize="7xl" textAlign="center" color="primary.50">
           Setup
         </Text>
-
         <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Teams:        "}
@@ -90,7 +88,6 @@ export default function SetupScreen({ navigation }) {
             <Slider.Thumb />
           </Slider>
         </HStack>
-
         <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Categories:"}
@@ -118,7 +115,6 @@ export default function SetupScreen({ navigation }) {
             <Slider.Thumb />
           </Slider>
         </HStack>
-
         <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Questions: "}
@@ -146,8 +142,7 @@ export default function SetupScreen({ navigation }) {
             <Slider.Thumb />
           </Slider>
         </HStack>
-
-        <HStack space={3} w="40%" justifyContent="space-between">
+        {/* <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             Create Board:
           </Text>
@@ -172,8 +167,11 @@ export default function SetupScreen({ navigation }) {
           <Button onPress={handleCreateBoardPress} size="lg" w="40%">
             CREATE BOARD
           </Button>
-        )}
-
+        )} */}
+        <Button onPress={handleCreateBoardPress} size="lg" w="40%">
+          CREATE BOARD
+        </Button>
+        
         <Button onPress={handleBackPress} size="lg" w="40%">
           RETURN TO HOME SCREEN
         </Button>

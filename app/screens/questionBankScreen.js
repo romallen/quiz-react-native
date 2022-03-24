@@ -33,9 +33,7 @@ export default function QuestionBankScreen({ navigation }) {
     navigation.navigate("HomeScreen");
   };
 
-  const createQuestions = async () => {
-    return await axios.post("", {});
-  };
+
 
   const categoryName = [];
   gameData.forEach((el, index) =>

@@ -10,6 +10,8 @@ import ManBoardSetupScreen from "./app/screens/manBoardSetupScreen";
 import QuestionBankScreen from "./app/screens/questionBankScreen";
 import SignInScreen from "./app/screens/signInScreen";
 import SignUpScreen from "./app/screens/signUpScreen";
+import CreateBoardScreen from "./app/screens/createBoardScreen";
+import SelectSavedBoardScreen from "./app/screens/selectSavedBoardScreen";
 
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
@@ -46,6 +48,16 @@ export default function App() {
             <Stack.Screen
               name="SetupScreen"
               component={SetupScreen}
+              options={{ headerShown: false }}
+            />
+              <Stack.Screen
+              name="CreateBoardScreen"
+              component={CreateBoardScreen}
+              options={{ headerShown: false }}
+            />
+             <Stack.Screen
+              name="SelectSavedBoardScreen"
+              component={SelectSavedBoardScreen}
               options={{ headerShown: false }}
             />
             <Stack.Screen
