@@ -168,12 +168,12 @@ export default function SetupScreen({ navigation }) {
             CREATE BOARD
           </Button>
         )} */}
-        <Button onPress={handleCreateBoardPress} size="lg" w="40%">
-          CREATE BOARD
+        <Button onPress={handleCreateBoardPress} mt="2" w="40%">
+          NEXT
         </Button>
         
-        <Button onPress={handleBackPress} size="lg" w="40%">
-          RETURN TO HOME SCREEN
+        <Button onPress={handleBackPress}mt="2" w="40%">
+          BACK
         </Button>
       </VStack>
     </Box>

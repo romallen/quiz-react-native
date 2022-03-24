@@ -21,15 +21,7 @@ import {
 } from "native-base";
 
 export default function CreateBoardScreen({ navigation }) {
-  const [numTeams, setNumTeams] = useState(2);
-  const [onChangeTeamValue, setOnChangeTeamValue] = useState(2);
-  const [timer, setTimer] = useState(30);
-  const [numCategories, setNumCategories] = useState(4);
-  const [onChangeNumCategoriesValue, setOnChangeNumCategoriesValue] =
-    useState(4);
-  const [numQuestions, setNumQuestions] = useState(5);
-  const [onChangeNumQuestionsValue, setOnChangeNumQuestionsValue] = useState(5);
-  const [createB, setCreateB] = useState(true);
+ 
   const [method, setMethod] = useState("auto");
   const dispatch = useDispatch();
 
@@ -73,9 +65,9 @@ export default function CreateBoardScreen({ navigation }) {
           Setup
         </Text>
 
-        <HStack space={3} w="40%" justifyContent="space-between">
+        <VStack space={3} alignItems="center" w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            Select Board Creation Method:
+            Select Creation Method:
           </Text>
           <HStack alignItems="center" space={4}>
        
@@ -95,16 +87,16 @@ export default function CreateBoardScreen({ navigation }) {
               onValueChange={(itemValue) => setMethod(itemValue)}
             >
               <Select.Item label="Auto" value="auto" />
-              <Select.Item label="Saved Board" value="savedB" />
-              <Select.Item label="Saved Categories" value="saveC" />
+              {/* <Select.Item label="Saved Board" value="savedB" />
+              <Select.Item label="Saved Categories" value="saveC" /> */}
               <Select.Item label="Blank Slate" value="blank" />
             </Select>
           </HStack>
-        </HStack>
+        </VStack>
 
         {method === "auto" ? (
           <Button onPress={handleStartGamePress} size="lg" w="40%">
-            START THE GAME
+            PLAY
           </Button>
         ) : null}
         {method === "savedB" ? (

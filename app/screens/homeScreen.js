@@ -96,6 +96,7 @@ export default function HomeScreen({ navigation }) {
     <Box
       p={10}
       height={"100%"}
+      w="100%"
       // alignItems="center"
       bg={"primary.900"}
       borderColor="coolGray.500"
@@ -127,13 +128,13 @@ export default function HomeScreen({ navigation }) {
           QuizApp
         </Text>
 
-        <Button onPress={handlePlayPress} size="lg" w="40%">
+        <Button mt="2" w="40%" onPress={handlePlayPress}  >
           PLAY
         </Button>
 
-        <Button onPress={handleQuestionBankPress} size="lg" w="40%">
+        {/* <Button mt="2" onPress={handleQuestionBankPress}  >
           QUESTION BANK
-        </Button>
+        </Button> */}
       </VStack>
     </Box>
   );

@@ -175,7 +175,7 @@ export default function ManBoardSetupScreen({ navigation }) {
                 value={boardName}
                 onChangeText={(text) => setBoardName(text)}
                 size="lg"
-                placeholder={"Category Name "}
+                placeholder={"Board Name "}
               ></Input>
             </AlertDialog.Body>
             <AlertDialog.Footer>
@@ -202,18 +202,16 @@ export default function ManBoardSetupScreen({ navigation }) {
           </AlertDialog.Content>
         </AlertDialog>
         <HStack space={4} justifyContent="space-around">
-          <Button onPress={handleBackPress} size="lg" w={"40%"}>
-            BACK TO SETTINGS
+          <Button onPress={handleBackPress} mt="2" w="25%">
+            BACK
           </Button>
-          {isSaved ? (
-            <Button onPress={handlePlayPress} size="lg" w={"40%"}>
-              {"PLAY"}
-            </Button>
-          ) : (
-            <Button onPress={handleSavePress} size="lg" w={"40%"}>
-              {"SAVE"}
-            </Button>
-          )}
+          <Button onPress={handleSavePress} mt="2" w="25%">
+            SAVE
+          </Button>
+
+          <Button onPress={handlePlayPress} mt="2" w="25%">
+            PLAY
+          </Button>
         </HStack>
       </VStack>
     </Box>
