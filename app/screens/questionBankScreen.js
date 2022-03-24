@@ -27,8 +27,8 @@ export default function QuestionBankScreen({ navigation }) {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selected, setSelected] = useState("");
   //const gameData = useSelector((state) => state.gameSettings.gameboard);
-  const gameData = useSelector((state) => state.questions.categories);
-
+  //const gameData = useSelector((state) => state.questions.categories);
+  const gameData = data1
   const handleBackPress = () => {
     navigation.navigate("HomeScreen");
   };

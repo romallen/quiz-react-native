@@ -25,6 +25,13 @@ export default function HomeScreen({ navigation }) {
           .find({}, { projection: { _id: false } });
 
         setData(cat);
+
+
+
+        // const cat2 = await client
+        //   .db("quizapp")
+        //   .collection("categories")
+        //   .insertOne({"category": "test", "questions": [{"question": "test", "answer": "test", "points": 1}], "_partition": "quizapp"});
       } catch (err) {
         console.error("Failed to log in", err);
       }
@@ -34,7 +41,8 @@ export default function HomeScreen({ navigation }) {
   }, [loading]);
 
   useEffect(() => {
-    dispatch(getQuestions(data));
+    console.log(data)
+    // dispatch(getQuestions(data));
   }, [data]);
 
   useEffect(async () => {
@@ -72,7 +80,7 @@ export default function HomeScreen({ navigation }) {
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      {/* <HStack alignItems="right">
+      <HStack alignItems="right">
         {isLoggedIn ? (
           <Button
             variant="subtle"
@@ -92,7 +100,7 @@ export default function HomeScreen({ navigation }) {
             Login
           </Button>
         )}
-      </HStack> */}
+      </HStack>
       <VStack space={4} alignItems="center">
         <Text fontSize="8xl" color="primary.50" textAlign="center">
           QuizApp
