@@ -7,12 +7,39 @@ import { realmApp } from "../realm/realm";
 import { useSelector, useDispatch } from "react-redux";
 import { getQuestions } from "../redux/questionsSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+// const anonLogin = async () => {
+//   let anonUser
+//   try {
+//     anonUser = await realmApp.logIn(Realm.Credentials.anonymous());
+//     //setUser(anonUser);
+//     const jsonUser = JSON.stringify(loggedInUser)
+//     await AsyncStorage.setItem('currentUser', anonUser)
+//   } catch (error) {
+//     Alert.alert(`Failed to sign up: ${error.message}`);
+//   }
+
+//   return anonUser
+// };
+
 export default function HomeScreen({ navigation }) {
   const [data, setData] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(realmApp.currentUser);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+
+  useEffect(async () => {
+    const currentUserVal = await AsyncStorage.getItem('currentUser')
+     currentUserVal != null ? JSON.parse(currentUserVal) : null;
+    if (!currentUserVal) {
+      const anonUser = await realmApp.logIn(Realm.Credentials.anonymous());
+      setUser(anonUser);
+      const jsonUser = JSON.stringify(anonUser)
+      await AsyncStorage.setItem('currentUser', jsonUser)
+    }
+  }, [user, navigation]);
 
   useEffect(async () => {
     if (loading) {
@@ -26,12 +53,6 @@ export default function HomeScreen({ navigation }) {
 
         setData(cat);
 
-
-
-        // const cat2 = await client
-        //   .db("quizapp")
-        //   .collection("categories")
-        //   .insertOne({"category": "test", "questions": [{"question": "test", "answer": "test", "points": 1}], "_partition": "quizapp"});
       } catch (err) {
         console.error("Failed to log in", err);
       }
@@ -80,7 +101,7 @@ export default function HomeScreen({ navigation }) {
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      <HStack alignItems="right">
+      {/* <HStack alignItems="right">
         {isLoggedIn ? (
           <Button
             variant="subtle"
@@ -100,7 +121,7 @@ export default function HomeScreen({ navigation }) {
             Login
           </Button>
         )}
-      </HStack>
+      </HStack> */}
       <VStack space={4} alignItems="center">
         <Text fontSize="8xl" color="primary.50" textAlign="center">
           QuizApp
