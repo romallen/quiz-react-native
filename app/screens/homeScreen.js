@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Text, Box, Button, Icon, Spacer, VStack, HStack } from "native-base";
+import { Text, Box, Button, Spinner, Heading, Icon, Spacer, VStack, HStack } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 
 import * as Realm from "realm-web";
@@ -128,9 +128,14 @@ export default function HomeScreen({ navigation }) {
           QuizApp
         </Text>
 
-        <Button mt="2" w="40%" onPress={handlePlayPress}  >
+       {loading ?  <HStack space={2} justifyContent="center">
+      <Spinner accessibilityLabel="Loading posts" />
+      <Heading color="primary.500" fontSize="md">
+        Loading
+      </Heading>
+    </HStack> : <Button mt="2" w="40%" onPress={handlePlayPress}  >
           PLAY
-        </Button>
+        </Button>} 
 
         {/* <Button mt="2" onPress={handleQuestionBankPress}  >
           QUESTION BANK
