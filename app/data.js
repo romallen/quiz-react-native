@@ -191,7 +191,38 @@ const data = [
               "difficulty": 1,                     
           },
       ]
-    } 
+    } ,
+    {
+        "category": "COLORS",
+        "questions": [
+            {
+                "question": "This is the color of the road.",
+                "answer": "Grey/Black",
+                "points": 100
+            },
+            {
+                "question": "At a traffic light, this color means to stop.",
+                "answer": "Red",
+                "points": 200
+            },
+            {
+                "question": "This is the color  of matcha.",
+                "answer": "Green",
+                "points": 300
+            },
+            {
+                "question": "This is the color of cherry blossoms.",
+                "answer": "Pink/White",
+                "points": 400
+            },
+            {
+                "question": "This is the color of a clear sky.",
+                "answer": "Blue",
+                "points": 500
+            }
+        ],
+      
+    }
 ];
 
 export default data;
