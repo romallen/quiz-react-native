@@ -59,7 +59,7 @@ export default function ManualCard(props) {
   if (height < 450) {
     cardH = props.height * 0.80;
   } else if (height < 700) {
-    cardH = props.height * 0.98;
+    cardH = props.height * 0.88;
   } else {
     cardH = props.height*0.96;
   }
@@ -69,7 +69,7 @@ export default function ManualCard(props) {
       {question}
     </Heading>
   ) : (
-    <Heading size={"lg"} bold>
+    <Heading size={"md"} bold>
       Add Question
     </Heading>
   );

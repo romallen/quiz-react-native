@@ -60,9 +60,9 @@ export default function ManBoardSetupScreen({ navigation }) {
     gState.windowWidth = width;
     gState.windowHeight = height;
 
-    const headerHeight = gState.windowHeight * 0.15;
-    cardWidth = (gState.windowWidth * 0.96) / gState.cols;
-    cardHeight = (gState.windowHeight - headerHeight) / gState.rows;
+    const headerHeight = height * 0.2;
+    cardWidth = (width * 0.93) / gState.cols;
+    cardHeight = (height - headerHeight) / gState.rows;
 
     resize(cardHeight, cardWidth);
   }, [width, height]);
@@ -157,8 +157,8 @@ export default function ManBoardSetupScreen({ navigation }) {
 
   return (
     <Box p={2} w={width} h={height} alignItems="center" bg="primary.900">
-      <VStack space={2}>
-        <HStack pt={1} space={1.5} alignItems="center" alignSelf="center">
+      <VStack space={1}>
+        <HStack pt={1} space={1} alignItems="center" alignSelf="center">
           {board}
         </HStack>
         <AlertDialog

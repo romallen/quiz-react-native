@@ -1,13 +1,13 @@
 import Card from "../components/card";
 import Header from "../components/headers";
-import Footer from "../components/footer";
+import Sidebar from "../components/sidebar";
 import { useState, useEffect } from "react";
 import { useWindowDimensions } from "react-native";
 // import data1 from "../data";
 import { useSelector, useDispatch } from "react-redux";
 // import { gameState } from "../redux/gameSettingsSlice";
 import { Text, Box, HStack, VStack, Divider } from "native-base";
-
+import arrayShuffle from 'array-shuffle'
 export default function PlayScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
   const [cards, setCards] = useState([]);
@@ -28,7 +28,7 @@ export default function PlayScreen({ navigation }) {
     data: [],
   });
 
-  gState.data = gameData;
+  gState.data = arrayShuffle(gameData);
   gState.rows = numQuestions;
   gState.cols = numCategories;
 
@@ -91,12 +91,12 @@ export default function PlayScreen({ navigation }) {
       bg="primary.600"
     >
       <HStack>
-        <Footer footerWidth={width * 0.07} footerHeight={height} />
+        <Sidebar footerWidth={70} footerHeight={height} />
 
-        <Box width={width * 0.93}>
+        <Box width={width -70}>
           <Header
             data={gState.data.slice(0, gState.cols)}
-            headerWidth={(width * 0.93) / gState.cols}
+            headerWidth={(width-70) / gState.cols}
           />
           <HStack
             pt={1}

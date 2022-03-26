@@ -16,7 +16,7 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Path } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Footer(props) {
+export default function Sidebar(props) {
   const navigation = useNavigation();
 
   const { isOpen, onOpen, onClose } = useDisclose();

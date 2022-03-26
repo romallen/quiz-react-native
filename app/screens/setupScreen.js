@@ -13,9 +13,6 @@ import {
   Slider,
   VStack,
   HStack,
-  Stack,
-  Radio,
-  Switch,
 } from "native-base";
 
 export default function SetupScreen({ navigation }) {
