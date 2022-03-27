@@ -105,7 +105,7 @@ export default function Sidebar(props) {
         </Actionsheet>
       </Box>
       <Box h="80%" minW={60}>
-        <VStack space={8}>{teams}</VStack>
+        <VStack space={4}>{teams}</VStack>
       </Box>
     </VStack>
   );
