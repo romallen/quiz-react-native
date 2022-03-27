@@ -48,7 +48,7 @@ export default function Card(props) {
   };
   let cardH;
   if (height < 450) {
-    cardH = props.height * 0.80;
+    cardH = props.height * 0.8;
   } else if (height < 700) {
     cardH = props.height * 0.88;
   } else {
@@ -89,7 +89,7 @@ export default function Card(props) {
       }}
       background="primary.500"
     >
-      <Center  w={props.width-1} h={cardH}>
+      <Center w={props.width - 1} h={cardH}>
         {front}
       </Center>
 
@@ -97,14 +97,15 @@ export default function Card(props) {
         isOpen={visible}
         onClose={() => setVisible(!visible)}
         closeOnOverlayClick={false}
+        alignSelf="center"
         m="sm"
         size="full"
-        
+        w={"80%"}
       >
-        <Modal.Content background="primary.600">
+        <Modal.Content h={height * 0.6} background="primary.600">
           <Modal.Body>
             <Center background="primary.600">
-              <Heading p={10} size="3xl" color="primary.50">
+              <Heading p={5} size="3xl" color="primary.50">
                 {props.question}
               </Heading>
               <Button onPress={() => setShowAnswer(!showAnswer)}>
@@ -118,13 +119,14 @@ export default function Card(props) {
                 }}
                 animate={{
                   opacity: 1,
-                  scale: 2,
+                  scale: 1.5,
+                  translateY: 10,
                   transition: {
                     duration: 300,
                   },
                 }}
               >
-                <Heading p={10} size="2xl" color="primary.50">
+                <Heading p={2} size="2xl" color="primary.50">
                   {props.answer}
                 </Heading>
               </PresenceTransition>

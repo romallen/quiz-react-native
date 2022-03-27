@@ -36,14 +36,7 @@ export default function ManBoardSetupScreen({ navigation }) {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = useRef(null);
-  const [gState, setGState] = useState({
-    windowWidth: width,
-    windowHeight: height,
-    data: [],
-  });
 
-  gState.rows = numQuestions;
-  gState.cols = numCategories;
 
   let cardWidth;
   let cardHeight;
@@ -57,12 +50,10 @@ export default function ManBoardSetupScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    gState.windowWidth = width;
-    gState.windowHeight = height;
 
     const headerHeight = height * 0.2;
-    cardWidth = (width * 0.93) / gState.cols;
-    cardHeight = (height - headerHeight) / gState.rows;
+    cardWidth = (width * 0.93) / numCategories;
+    cardHeight = (height - headerHeight) / numQuestions;
 
     resize(cardHeight, cardWidth);
   }, [width, height]);
