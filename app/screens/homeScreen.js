@@ -1,5 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Text, Box, Button, Spinner, Heading, Icon, Spacer, VStack, HStack } from "native-base";
+import {
+  Text,
+  Box,
+  Button,
+  Spinner,
+  Heading,
+  Icon,
+  Spacer,
+  VStack,
+  HStack,
+} from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 
 import * as Realm from "realm-web";
@@ -7,7 +17,6 @@ import { realmApp } from "../realm/realm";
 import { useSelector, useDispatch } from "react-redux";
 import { getQuestions } from "../redux/questionsSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 // const anonLogin = async () => {
 //   let anonUser
@@ -31,13 +40,13 @@ export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    const currentUserVal = await AsyncStorage.getItem('currentUser')
-     currentUserVal != null ? JSON.parse(currentUserVal) : null;
+    const currentUserVal = await AsyncStorage.getItem("currentUser");
+    currentUserVal != null ? JSON.parse(currentUserVal) : null;
     if (!currentUserVal) {
       const anonUser = await realmApp.logIn(Realm.Credentials.anonymous());
       setUser(anonUser);
-      const jsonUser = JSON.stringify(anonUser)
-      await AsyncStorage.setItem('currentUser', jsonUser)
+      const jsonUser = JSON.stringify(anonUser);
+      await AsyncStorage.setItem("currentUser", jsonUser);
     }
   }, [user, navigation]);
 
@@ -52,7 +61,6 @@ export default function HomeScreen({ navigation }) {
           .find({}, { projection: { _id: false } });
 
         setData(cat);
-
       } catch (err) {
         console.error("Failed to log in", err);
       }
@@ -62,7 +70,7 @@ export default function HomeScreen({ navigation }) {
   }, [loading]);
 
   useEffect(() => {
-    console.log(data)
+    console.log(data);
     dispatch(getQuestions(data));
   }, [data]);
 
@@ -128,14 +136,18 @@ export default function HomeScreen({ navigation }) {
           QuizApp
         </Text>
 
-       {loading ?  <HStack space={2} justifyContent="center">
-      <Spinner accessibilityLabel="Loading posts" />
-      <Heading color="primary.500" fontSize="md">
-        Loading
-      </Heading>
-    </HStack> : <Button mt="2" w="40%" onPress={handlePlayPress}  >
-          PLAY
-        </Button>} 
+        {loading ? (
+          <HStack space={2} justifyContent="center">
+            <Spinner accessibilityLabel="Loading posts" />
+            <Heading color="primary.500" fontSize="md">
+              Loading
+            </Heading>
+          </HStack>
+        ) : (
+          <Button mt="2" w="40%" onPress={handlePlayPress}>
+            PLAY
+          </Button>
+        )}
 
         {/* <Button mt="2" onPress={handleQuestionBankPress}  >
           QUESTION BANK

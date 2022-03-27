@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { incrementScore, incrementTurn } from "../redux/teamsSlice";
 import {
   Text,
   Box,
@@ -10,6 +11,7 @@ import {
   HStack,
   VStack,
   Heading,
+  Center,
   useDisclose,
 } from "native-base";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -22,11 +24,33 @@ export default function Sidebar(props) {
   const { isOpen, onOpen, onClose } = useDisclose();
   const [showMenu, setShowMenu] = useState(false);
   const teamsStore = useSelector((state) => state.teams.value);
+  const teamNumber = Object.keys(teamsStore).length;
+  const turn = useSelector((state) => state.teams.turn);
+  let teamTurn = turn % teamNumber;
+
   let teams = [];
   let i = 0;
   for (let team in teamsStore) {
     teams.push(
-      <VStack key={i}>
+      <VStack
+        key={i}
+        borderRadius={7}
+        bg={teamTurn === i ? "primary.700" : null}
+        style={
+          teamTurn === i
+            ? {
+                shadowColor: "#fff",
+                shadowOffset: {
+                  width: 1.5,
+                  height: 1.5,
+                },
+                shadowOpacity: 0.24,
+                shadowRadius: 6.27,
+                elevation: 10,
+              }
+            : null
+        }
+      >
         <Text fontSize={"xl"} textAlign="center" color="primary.50">
           {teamsStore[team]}
         </Text>
@@ -46,7 +70,7 @@ export default function Sidebar(props) {
       justifyContent="space-between"
       bg="primary.900"
     >
-      <Box h="20%">
+      <Box h="10%">
         <Pressable onPress={onOpen} alignItems="center">
           <HamburgerIcon />
         </Pressable>
@@ -104,7 +128,7 @@ export default function Sidebar(props) {
           </Actionsheet.Content>
         </Actionsheet>
       </Box>
-      <Box h="80%" minW={60}>
+      <Box h="90%" minW={60}>
         <VStack space={4}>{teams}</VStack>
       </Box>
     </VStack>
