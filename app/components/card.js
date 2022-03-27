@@ -57,7 +57,7 @@ export default function Card(props) {
 
   let front = cardState.completed ? (
     <Image
-      size="md"
+      size="xs"
       resizeMode={"contain"}
       // borderRadius={100}
       source={{
@@ -100,12 +100,13 @@ export default function Card(props) {
         alignSelf="center"
         m="sm"
         size="full"
-        w={"80%"}
+        // w={"80%"}
+        
       >
-        <Modal.Content h={height * 0.6} background="primary.600">
-          <Modal.Body>
+        <Modal.Content h={height} background="primary.600">
+          <Modal.Body >
             <Center background="primary.600">
-              <Heading p={5} size="3xl" color="primary.50">
+              <Heading p={2} size="4xl"  color="primary.50">
                 {props.question}
               </Heading>
               <Button onPress={() => setShowAnswer(!showAnswer)}>
@@ -126,7 +127,7 @@ export default function Card(props) {
                   },
                 }}
               >
-                <Heading p={2} size="2xl" color="primary.50">
+                <Heading p={2} size="4xl" color="primary.50">
                   {props.answer}
                 </Heading>
               </PresenceTransition>

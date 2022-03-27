@@ -21,7 +21,7 @@ export default function PlayScreen({ navigation }) {
     (state) => state.gameSettings.numQuestionsStore
   );
   const gameData = useSelector((state) => state.gameSettings.gameboard);
-  console.log(gameData);
+
   useEffect(async () => {
     if (loading) {
       let shuffledData = arrayShuffle(gameData).splice(0, numCategories);
@@ -31,7 +31,7 @@ export default function PlayScreen({ navigation }) {
   }, []);
 
   useEffect(() => {
-    console.log(catData);
+   
     if (!loading) {
       makeCards();
     }
@@ -54,8 +54,10 @@ export default function PlayScreen({ navigation }) {
         column.push(
           <Card
             key={categoryIndex + "-" + questionIndex}
-            height={(height * 0.9) / numQuestions}
+            height={(height * 0.85) / numQuestions}
             width={(width - 95) / numCategories}
+            numCat = {numCategories}
+            numQues = {numQuestions}
             question={catData[categoryIndex].questions[questionIndex].question}
             answer={catData[categoryIndex].questions[questionIndex].answer}
             points={(questionIndex + 1) * 100}
