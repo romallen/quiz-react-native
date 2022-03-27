@@ -18,19 +18,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getQuestions } from "../redux/questionsSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// const anonLogin = async () => {
-//   let anonUser
-//   try {
-//     anonUser = await realmApp.logIn(Realm.Credentials.anonymous());
-//     //setUser(anonUser);
-//     const jsonUser = JSON.stringify(loggedInUser)
-//     await AsyncStorage.setItem('currentUser', anonUser)
-//   } catch (error) {
-//     Alert.alert(`Failed to sign up: ${error.message}`);
-//   }
-
-//   return anonUser
-// };
 
 export default function HomeScreen({ navigation }) {
   const [data, setData] = useState(null);
@@ -55,12 +42,12 @@ export default function HomeScreen({ navigation }) {
       try {
         const client = realmApp.currentUser.mongoClient("mongodb-atlas");
 
-        const cat = await client
-          .db("quizapp")
-          .collection("categories")
-          .find({}, { projection: { _id: false } });
+        // const cat = await client
+        //   .db("quizapp")
+        //   .collection("categories")
+        //   .find({}, { projection: { _id: false } });
 
-        setData(cat);
+        // setData(cat);
       } catch (err) {
         console.error("Failed to log in", err);
       }
@@ -70,8 +57,8 @@ export default function HomeScreen({ navigation }) {
   }, [loading]);
 
   useEffect(() => {
-    console.log(data);
-    dispatch(getQuestions(data));
+    // console.log(data);
+    // dispatch(getQuestions(data));
   }, [data]);
 
   useEffect(async () => {

@@ -61,6 +61,7 @@ export default function PlayScreen({ navigation }) {
             question={catData[categoryIndex].questions[questionIndex].question}
             answer={catData[categoryIndex].questions[questionIndex].answer}
             points={(questionIndex + 1) * 100}
+            type={catData[categoryIndex].questions[questionIndex].type}
           />
         );
       }

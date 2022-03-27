@@ -1,10 +1,11 @@
 import imageRed from "../assets/img/red_x.svg";
 import { React, useState, createRef } from "react";
-import { useWindowDimensions } from "react-native";
+import {  useWindowDimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore, incrementTurn } from "../redux/teamsSlice";
 import {
   Button,
+  Box,
   Image,
   PresenceTransition,
   Pressable,
@@ -100,16 +101,34 @@ export default function Card(props) {
         alignSelf="center"
         m="sm"
         size="full"
-        // w={"80%"}
-        
+     
       >
         <Modal.Content h={height} background="primary.600">
-          <Modal.Body >
-            <Center background="primary.600">
-              <Heading p={2} size="4xl"  color="primary.50">
-                {props.question}
-              </Heading>
-              <Button onPress={() => setShowAnswer(!showAnswer)}>
+          <Modal.Body>
+            <Box p={2} background="primary.600" w="100%" h="100%" alignItems={"center"}>
+              {props.type === "text" ? (
+                <Heading
+                  p={2}
+                  size="4xl"
+                  color="primary.50"
+                  textAlign={"center"}
+                >
+                  {props.question}
+                </Heading>
+              ) : (
+                <Image
+                  p={2}
+                  size="2xl"
+                  resizeMode={"contain"}
+                  source={{
+                    uri: props.question,
+                  }}
+                  
+                  alt="image"
+                />
+              )}
+
+              <Button w={"50%"} onPress={() => setShowAnswer(!showAnswer)}>
                 {showAnswer ? "Hide Answer" : "Show Answer"}
               </Button>
               <PresenceTransition
@@ -127,11 +146,16 @@ export default function Card(props) {
                   },
                 }}
               >
-                <Heading p={2} size="4xl" color="primary.50">
+                <Heading
+                  p={2}
+                  size="2xl"
+                  color="primary.50"
+                  textAlign={"center"}
+                >
                   {props.answer}
                 </Heading>
               </PresenceTransition>
-            </Center>
+            </Box>
           </Modal.Body>
           <Modal.Footer background="primary.800">
             <Button.Group space={2}>

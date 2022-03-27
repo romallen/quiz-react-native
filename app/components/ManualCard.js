@@ -1,4 +1,4 @@
-import { React, useState, createRef } from "react";
+import { React, useState, createRef, useEffect } from "react";
 import { useWindowDimensions } from "react-native";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +18,11 @@ import {
   KeyboardAvoidingView,
   Stack,
   TextArea,
+  HStack,
 } from "native-base";
+
+import { ListBucketsCommand } from "@aws-sdk/client-s3";
+import { s3Client } from "../aws/s3Client";
 
 export default function ManualCard(props) {
   const { height, width } = useWindowDimensions();
@@ -31,6 +35,37 @@ export default function ManualCard(props) {
   const [question, setQuestion] = useState([]);
   const [answer, setAnswer] = useState([]);
   const dispatch = useDispatch();
+
+  useEffect(async () => {
+    try {
+      const data = await s3Client.send(new ListBucketsCommand({}));
+      console.log("Success", data.Buckets);
+      return data; // For unit tests.
+    } catch (err) {
+      console.log("Error", err);
+    }
+  }, []);
+
+
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    console.log(base64);
+    setQuestion(base64)
+   
+  };
 
   const handleClick = () => {
     cardState.completed = true;
@@ -57,11 +92,11 @@ export default function ManualCard(props) {
   };
   let cardH;
   if (height < 450) {
-    cardH = props.height * 0.80;
+    cardH = props.height * 0.8;
   } else if (height < 700) {
     cardH = props.height * 0.88;
   } else {
-    cardH = props.height*0.96;
+    cardH = props.height * 0.96;
   }
 
   let front = cardState.completed ? (
@@ -75,7 +110,12 @@ export default function ManualCard(props) {
   );
 
   return (
-    <Pressable ref={cardRef} key={props.keys} onPress={handleClick} bg="primary.100">
+    <Pressable
+      ref={cardRef}
+      key={props.keys}
+      onPress={handleClick}
+      bg="primary.100"
+    >
       <Center borderWidth={1} w={props.width} h={cardH}>
         {front}
       </Center>
@@ -104,15 +144,24 @@ export default function ManualCard(props) {
                 <Box>
                   <FormControl>
                     <FormControl.Label>Question</FormControl.Label>
-                    <TextArea
-                      size="lg"
-                      isFullWidth={true}
-                      value={question}
-                      // w="75%"
-                      // maxW="300px"
-                      onChangeText={(text) => setQuestion(text)}
-                      placeholder="Question"
-                    />
+                    <HStack>
+                      <TextArea
+                        size="lg"
+                        
+                        isFullWidth={true}
+                        value={question}
+                        onChangeText={(text) => setQuestion(text)}
+                        placeholder="Question"
+                      />
+                      <input
+                        type="file"
+                        label="Image"
+                        name="myFile"
+                        accept=".jpeg, .png, .jpg"
+                        onChange={(e) => handleFileUpload(e)}
+                      ></input>
+                    </HStack>
+
                     <FormControl.ErrorMessage
                       leftIcon={<WarningOutlineIcon size="xs" />}
                     >

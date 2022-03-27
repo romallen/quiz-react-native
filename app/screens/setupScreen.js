@@ -6,14 +6,7 @@ import {
   numCategoriesStore,
   numQuestionsStore,
 } from "../redux/gameSettingsSlice";
-import {
-  Text,
-  Box,
-  Button,
-  Slider,
-  VStack,
-  HStack,
-} from "native-base";
+import { Text, Box, Button, Slider, VStack, HStack } from "native-base";
 
 export default function SetupScreen({ navigation }) {
   const [numTeams, setNumTeams] = useState(2);
@@ -54,13 +47,14 @@ export default function SetupScreen({ navigation }) {
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      <VStack space={4} alignItems="center">
+      <VStack space={1} alignItems="center">
         <Text fontSize="7xl" textAlign="center" color="primary.50">
           Setup
         </Text>
         <HStack space={3} w="40%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Teams:        "}
+          
           </Text>
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {onChangeTeamValue}
@@ -168,8 +162,8 @@ export default function SetupScreen({ navigation }) {
         <Button onPress={handleCreateBoardPress} mt="2" w="40%">
           NEXT
         </Button>
-        
-        <Button onPress={handleBackPress}mt="2" w="40%">
+
+        <Button onPress={handleBackPress} mt="2" w="40%">
           BACK
         </Button>
       </VStack>
