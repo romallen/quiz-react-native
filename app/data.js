@@ -167,7 +167,7 @@ const data = [
                 "type": "text",             
           },
           {    
-              "question": "The meat comes from cows.",
+              "question": "This meat comes from cows.",
               "answer": "Beef",
               "points": 200,
                 "type": "text",             
@@ -224,42 +224,6 @@ const data = [
                 "answer": "Blue",
                 "points": 500,
         "type": "text",
-    }
-        ],
-      
-    },
-    {
-        "category": "FLAGS",
-        "questions": [
-            {
-                "question": "https://reactquizgame.s3.ap-northeast-1.amazonaws.com/jamaicaflag.png",
-                "answer": "Jamaica",
-                "points": 100,
-            "type": "image",
-            },
-            {
-                "question": "https://reactquizgame.s3.ap-northeast-1.amazonaws.com/australiaflag.png",
-                "answer": "Australia",
-                "points": 200,
-            "type": "image",
-        },
-            {
-                "question": "https://reactquizgame.s3.ap-northeast-1.amazonaws.com/indiaflag.png",
-                "answer": "India",
-                "points": 300,
-            "type": "image",
-        },
-            {
-                "question": "https://reactquizgame.s3.ap-northeast-1.amazonaws.com/germanyflag.png",
-                "answer": "Germany",
-                "points": 400,
-            "type": "image",
-        },
-            {
-                "question": "https://reactquizgame.s3.ap-northeast-1.amazonaws.com/mexicoflag.png",
-                "answer": "Mexico",
-                "points": 500,
-        "type": "image",
     }
         ],
       

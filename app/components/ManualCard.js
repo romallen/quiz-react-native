@@ -21,8 +21,6 @@ import {
   HStack,
 } from "native-base";
 
-import { ListBucketsCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "../aws/s3Client";
 
 export default function ManualCard(props) {
   const { height, width } = useWindowDimensions();
