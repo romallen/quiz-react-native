@@ -77,7 +77,7 @@ export default function ManualCard(props) {
           question: question,
           answer: answer,
           points: props.points,
-          type: (question.slice(0,10)=== "data:image") ? "image" : "text",
+          type: (question.slice(0,10) === "data:image") ? "image" : "text",
         },
         index: props.index,
       })
