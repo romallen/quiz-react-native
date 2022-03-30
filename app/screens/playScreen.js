@@ -131,7 +131,7 @@ export default function PlayScreen({ navigation }) {
         </HStack>
       ) : (
         <HStack>
-          <Sidebar footerWidth={70} footerHeight={height} />
+          <Sidebar sideBarWidth={70} sideBarHeight={height} />
 
           <Box width={width - 70}>
             <Header data={catData} headerWidth={(width - 70) / numCategories} />

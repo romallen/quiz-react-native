@@ -1,17 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import { Divider, HStack, Heading, Box } from "native-base";
 import { useWindowDimensions } from "react-native";
 
 export default function Header(props) {
   const { height, width } = useWindowDimensions();
+
+
+  console.log()
   let headers = props.data.map((category, index) => (
     <HStack key={index} bg="primary.800">
       {/* <Divider orientation="vertical"  backgroundColor={"primary.600"}/> */}
+      {console.log(props.headerWidth)}
       <Heading
         w={props.headerWidth}
-        size={"lg"}
+        fontSize={width < 400 ? "xs":"lg"}
         textAlign="center"
         alignSelf="center"
+
+        numberOfLines={2}
         bold
         color="primary.50"
       >
@@ -21,7 +27,7 @@ export default function Header(props) {
   ));
 
   return (
-    <HStack width={width -70} backgroundColor={"primary.600"}>
+    <HStack  backgroundColor={"primary.600"}>
       {headers}
     </HStack>
   );

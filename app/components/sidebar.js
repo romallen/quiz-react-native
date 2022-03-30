@@ -37,7 +37,7 @@ export default function Sidebar(props) {
 
   let teams = [];
   let i = 0;
-console.log(height,width)
+
   for (let team in teamsStore) {
     teams.push(
       <VStack
@@ -77,8 +77,8 @@ console.log(height,width)
     <VStack
       py="2"
       px={1}
-      width={props.footerWidth}
-      height={props.footerHeight}
+      width={props.sideBarWidth}
+      height={props.sideBarHeight}
       justifyContent="space-between"
       bg="primary.900"
     >
