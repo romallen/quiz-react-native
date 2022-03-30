@@ -6,14 +6,13 @@ export default function Header(props) {
   const { height, width } = useWindowDimensions();
 
 
-  console.log()
   let headers = props.data.map((category, index) => (
     <HStack key={index} bg="primary.800">
       {/* <Divider orientation="vertical"  backgroundColor={"primary.600"}/> */}
-      {console.log(props.headerWidth)}
+  
       <Heading
         w={props.headerWidth}
-        fontSize={width < 400 ? "xs":"lg"}
+        fontSize={width < 400 ? "xs":"xl"}
         textAlign="center"
         alignSelf="center"
 
