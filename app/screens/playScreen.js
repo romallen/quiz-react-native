@@ -18,6 +18,7 @@ import {
   HStack,
   VStack,
   Skeleton,
+  ZStack,
   Divider,
 } from "native-base";
 import arrayShuffle from "array-shuffle";
@@ -25,8 +26,8 @@ import ConfettiCannon from "react-native-confetti-cannon";
 
 export default function PlayScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
-  const breakpoint = useBreakpointValue({})
-  const [screenOrientation,setScreenOrientation]=useState(true)
+  const breakpoint = useBreakpointValue({});
+  const [screenOrientation, setScreenOrientation] = useState(true);
   const [cards, setCards] = useState([]);
   const [catData, setCatData] = useState();
   const currGameState = useSelector((state) => state.gameSettings.cardState);
@@ -43,26 +44,23 @@ export default function PlayScreen({ navigation }) {
     (state) => state.gameSettings.numQuestionsStore
   );
   const gameData = useSelector((state) => state.gameSettings.gameboard);
- 
- 
+
   const turn = useSelector((state) => state.teams.turn);
   const teamScores = useSelector((state) => state.teams.value);
   const topScore = Math.max(...Object.values(teamScores));
   const winnerArr = Object.keys(teamScores).filter((team) => {
     return teamScores[team] === topScore;
   });
-  
+
   let winnerResult = "";
   if (winnerArr.length === 1) {
     winnerResult = winnerArr[0] + " wins!!!";
-  } else if(winnerArr.length === 2) {
+  } else if (winnerArr.length === 2) {
     winnerResult = "It's a tie between " + winnerArr.join(" & ") + "!";
-  }
-  else{
+  } else {
     winnerResult = "It's a tie between more than 2 teams!";
   }
-  
-  
+
   useEffect(async () => {
     if (loading) {
       let shuffledData = arrayShuffle(gameData).splice(0, numCategories);
@@ -112,17 +110,12 @@ export default function PlayScreen({ navigation }) {
       );
     }
     setCards(card);
-   
   };
-
-
-
-
 
   return (
     <Box
-      pr={.5}
-      pl={.5}
+      pr={0.5}
+      pl={0.5}
       w={width}
       h={height}
       alignItems="center"
@@ -161,61 +154,65 @@ export default function PlayScreen({ navigation }) {
           </Box>
         </HStack>
       )}
+
       {turn === numCategories * numQuestions ? (
-        <Center>
-          <AlertDialog
-            leastDestructiveRef={cancelRef}
-            isOpen={isOpen}
-            onClose={onClose}
-            alignSelf="center"
-            m="sm"
-            size="full"
-          >
-            <AlertDialog.Content>
-              <AlertDialog.Header fontSize="5xl" textAlign="center">CONGRATULATIONS!!!</AlertDialog.Header>
-              <AlertDialog.Body>
-                <Text fontSize="5xl" textAlign="center">
-                  {winnerResult}
-                </Text>
-              </AlertDialog.Body>
-              <AlertDialog.Footer>
-                <Button.Group space={2}>
-                  <Button
-                    variant="unstyled"
-                    colorScheme="coolGray"
-                    onPress={() => {
-                      onClose();
-                      dispatch(resetTeams());
-                    }}
-                    ref={cancelRef}
-                  >
-                    Dismiss
-                  </Button>
-                  <Button
-                    colorScheme="danger"
-                    onPress={() => {
-                      onClose();
-                      dispatch(resetTeams());
-                
-                      navigation.navigate("HomeScreen");
-                    }}
-                  >
-                    Exit Game
-                  </Button>
-                </Button.Group>
-              </AlertDialog.Footer>
-            </AlertDialog.Content>
-          </AlertDialog>
-          <ConfettiCannon
-            count={500}
-            origin={{ x: 0, y: 0 }}
-            fallSpeed={4000}
-            autoStartDelay={300}
-            explosionSpeed={600}
-            onAnimationStart={() => setIsOpen(!isOpen)}
-          />
-        </Center>
+        <ConfettiCannon
+          count={400}
+          origin={{ x: -10, y: 0 }}
+          fallSpeed={5000}
+          // autoStartDelay={300}
+          explosionSpeed={400}
+          onAnimationStart={() => setTimeout( setIsOpen(!isOpen), 5000)}
+        />
       ) : null}
+
+      <Center>
+        <AlertDialog
+          leastDestructiveRef={cancelRef}
+          isOpen={isOpen}
+          onClose={onClose}
+          alignSelf="center"
+          m="sm"
+          size="full"
+        >
+          <AlertDialog.Content>
+            <AlertDialog.Header fontSize="5xl" textAlign="center">
+              CONGRATULATIONS!!!
+            </AlertDialog.Header>
+            <AlertDialog.Body>
+              <Text fontSize="5xl" textAlign="center">
+                {winnerResult}
+              </Text>
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <Button.Group space={2}>
+                <Button
+                  variant="unstyled"
+                  colorScheme="coolGray"
+                  onPress={() => {
+                    onClose();
+                    dispatch(resetTeams());
+                  }}
+                  ref={cancelRef}
+                >
+                  Dismiss
+                </Button>
+                <Button
+                  colorScheme="danger"
+                  onPress={() => {
+                    onClose();
+                    dispatch(resetTeams());
+
+                    navigation.navigate("HomeScreen");
+                  }}
+                >
+                  Exit Game
+                </Button>
+              </Button.Group>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog>
+      </Center>
     </Box>
   );
 }
