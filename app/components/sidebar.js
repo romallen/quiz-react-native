@@ -82,7 +82,7 @@ export default function Sidebar(props) {
       justifyContent="space-between"
       bg="primary.900"
     >
-      <Box h="10%">
+      <Box h="10%" alignItems={"center"}>
         <Menu
           w="190"
           trigger={(triggerProps) => {
