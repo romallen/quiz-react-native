@@ -1,12 +1,13 @@
 import imageRed from "../assets/img/red_x.svg";
 import { React, useState, createRef } from "react";
-import {  useWindowDimensions } from "react-native";
+import { useWindowDimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore, incrementTurn } from "../redux/teamsSlice";
 import {
   Button,
   Box,
   Image,
+  Divider,
   PresenceTransition,
   Pressable,
   Center,
@@ -59,7 +60,6 @@ export default function Card(props) {
     <Image
       size="xs"
       resizeMode={"contain"}
-      // borderRadius={100}
       source={{
         uri: imageRed,
       }}
@@ -100,11 +100,15 @@ export default function Card(props) {
         alignSelf="center"
         m="sm"
         size="full"
-     
       >
         <Modal.Content h="100%" background="primary.600">
           <Modal.Body>
-            <Box background="primary.600" w="100%" h="100%" alignItems={"center"}>
+            <Box
+              background="primary.600"
+              w="100%"
+              h="100%"
+              alignItems={"center"}
+            >
               {props.type === "text" ? (
                 <Heading
                   p={2}
@@ -116,17 +120,15 @@ export default function Card(props) {
                 </Heading>
               ) : (
                 <Image
-                 
-                  size= { height < 450 ? "xl": 330}
+                  size={height < 450 ? "xl" : 330}
                   resizeMode={"contain"}
                   source={{
                     uri: props.question,
-                  }}   
+                  }}
                   alt="image"
                 />
               )}
-
-              
+              <Divider mb={1} />
               <PresenceTransition
                 visible={showAnswer}
                 initial={{
@@ -154,9 +156,11 @@ export default function Card(props) {
             </Box>
           </Modal.Body>
           <Modal.Footer background="primary.800">
-          
             <Button.Group space={2}>
-            <Button alignItems={"left"} onPress={() => setShowAnswer(!showAnswer)}>
+              <Button
+                alignItems={"left"}
+                onPress={() => setShowAnswer(!showAnswer)}
+              >
                 {showAnswer ? "Hide Answer" : "Show Answer"}
               </Button>
               <Button

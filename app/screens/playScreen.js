@@ -162,7 +162,7 @@ export default function PlayScreen({ navigation }) {
           fallSpeed={5000}
           // autoStartDelay={300}
           explosionSpeed={400}
-          onAnimationStart={() => setTimeout( setIsOpen(!isOpen), 5000)}
+          onAnimationStart={() => setTimeout(setIsOpen(!isOpen), 5000)}
         />
       ) : null}
 
@@ -173,7 +173,7 @@ export default function PlayScreen({ navigation }) {
           onClose={onClose}
           alignSelf="center"
           m="sm"
-          size="full"
+          size="lg"
         >
           <AlertDialog.Content>
             <AlertDialog.Header fontSize="5xl" textAlign="center">

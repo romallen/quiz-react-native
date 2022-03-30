@@ -40,22 +40,19 @@ export default function SetupScreen({ navigation }) {
 
   return (
     <Box
-      p={5}
+      p={3}
       height={"100%"}
-      
-      // alignItems="center"
       bg={"primary.900"}
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      <VStack space={1}  alignItems="center">
+      <VStack space={2} alignItems="center">
         <Text fontSize="7xl" textAlign="center" color="primary.50">
           Setup
         </Text>
         <HStack space={3} w="80%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            {"Teams:        "}
-          
+            {"Teams:       "}
           </Text>
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {onChangeTeamValue}
@@ -134,32 +131,7 @@ export default function SetupScreen({ navigation }) {
             <Slider.Thumb />
           </Slider>
         </HStack>
-        {/* <HStack space={3} w="40%" justifyContent="space-between">
-          <Text textAlign="left" fontSize="xl" color="primary.50">
-            Create Board:
-          </Text>
-          <HStack alignItems="center" space={4}>
-            <Text fontSize="lg" color="primary.50">
-              {createB ? "Automatic" : "Manual"}{" "}
-            </Text>
-            <Switch
-              size="sm"
-              onToggle={() => setCreateB(!createB)}
-              defaultIsChecked={true}
-              isChecked={createB}
-            />
-          </HStack>
-        </HStack>
 
-        {createB ? (
-          <Button onPress={handleStartGamePress} size="lg" w="40%">
-            START THE GAME
-          </Button>
-        ) : (
-          <Button onPress={handleCreateBoardPress} size="lg" w="40%">
-            CREATE BOARD
-          </Button>
-        )} */}
         <Button onPress={handleCreateBoardPress} mt="2" w="40%">
           NEXT
         </Button>

@@ -45,9 +45,8 @@ export default function CreateBoardScreen({ navigation }) {
 
   return (
     <Box
-      p={5}
+      p={3}
       height={"100%"}
-      // alignItems="center"
       bg={"primary.900"}
       borderColor="coolGray.500"
       borderWidth="1"
@@ -57,47 +56,40 @@ export default function CreateBoardScreen({ navigation }) {
           Setup
         </Text>
 
-        <VStack
-          space={1}
-          alignItems="center"
-          w="80%"
-          justifyContent="space-between"
-        >
-          <Text textAlign="left" fontSize="xl" color="primary.50">
-            Select Board Creation Method:
-          </Text>
+        <Text textAlign="left" fontSize="xl" color="primary.50">
+          Select Board Creation Method:
+        </Text>
 
-          <Radio.Group
-            name="createBoardGroup"
-            defaultValue="auto"
-            accessibilityLabel="pick a creation method"
-            onChange={(itemValue) => setMethod(itemValue)}
+        <Radio.Group
+          name="createBoardGroup"
+          defaultValue="auto"
+          accessibilityLabel="pick a creation method"
+          onChange={(itemValue) => setMethod(itemValue)}
+        >
+          <Stack
+            direction={{
+              base: "column",
+              md: "row",
+            }}
+            alignItems="left"
+            space={3}
+            w="100%"
           >
-            <Stack
-              direction={{
-                base: "column",
-                md: "row",
-              }}
-              alignItems="left"
-              space={3}
-              w="100%"
-            >
-              <Radio value="auto" size="md" my={1}>
-                <Text pl={2} fontSize="md" color="primary.50">
-                  Automatic
-                </Text>
-              </Radio>
-              <Radio value="blank" size="md" my={1}>
-                <Text pl={2} fontSize="md" color="primary.50">
-                  Blank Slate
-                </Text>
-              </Radio>
-              {/* <Radio value="savedC" size="md" my={1} color="primary.50">
+            <Radio value="auto" size="md" my={1}>
+              <Text pl={2} fontSize="md" color="primary.50">
+                Automatic
+              </Text>
+            </Radio>
+            <Radio value="blank" size="md" my={1}>
+              <Text pl={2} fontSize="md" color="primary.50">
+                Blank Slate
+              </Text>
+            </Radio>
+            {/* <Radio value="savedC" size="md" my={1} color="primary.50">
         Saved Category
         </Radio> */}
-            </Stack>
-          </Radio.Group>
-        </VStack>
+          </Stack>
+        </Radio.Group>
 
         {method === "auto" ? (
           <Button onPress={handleStartGamePress} size="lg" w="40%">

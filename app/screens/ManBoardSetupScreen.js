@@ -37,20 +37,10 @@ export default function ManBoardSetupScreen({ navigation }) {
   const onClose = () => setIsOpen(false);
   const cancelRef = useRef(null);
 
-
   let cardWidth;
   let cardHeight;
-  useEffect(() => {
-    let blankData = new Array(numCategories).fill({
-      category: "",
-      questions: [],
-      _partition: "quizapp",
-    });
-    dispatch(clearBoard(blankData));
-  }, []);
 
   useEffect(() => {
-
     const headerHeight = height * 0.2;
     cardWidth = (width * 0.93) / numCategories;
     cardHeight = (height - headerHeight) / numQuestions;
@@ -109,6 +99,8 @@ export default function ManBoardSetupScreen({ navigation }) {
   };
 
   const handleSavePress = async () => {
+    resetBoard();
+
     let insertCat;
     try {
       const insertCat = await client
@@ -123,6 +115,14 @@ export default function ManBoardSetupScreen({ navigation }) {
     }
 
     setIsOpen(!isOpen);
+  };
+  let resetBoard = () => {
+    let blankData = new Array(numCategories).fill({
+      category: "",
+      questions: [],
+      _partition: "quizapp",
+    });
+    dispatch(clearBoard(blankData));
   };
 
   let saveBoard = async () => {
