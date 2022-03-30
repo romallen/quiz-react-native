@@ -42,16 +42,17 @@ export default function SetupScreen({ navigation }) {
     <Box
       p={5}
       height={"100%"}
+      
       // alignItems="center"
       bg={"primary.900"}
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      <VStack space={1} alignItems="center">
+      <VStack space={1}  alignItems="center">
         <Text fontSize="7xl" textAlign="center" color="primary.50">
           Setup
         </Text>
-        <HStack space={3} w="40%" justifyContent="space-between">
+        <HStack space={3} w="80%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Teams:        "}
           
@@ -79,7 +80,7 @@ export default function SetupScreen({ navigation }) {
             <Slider.Thumb />
           </Slider>
         </HStack>
-        <HStack space={3} w="40%" justifyContent="space-between">
+        <HStack space={3} w="80%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Categories:"}
           </Text>
@@ -106,7 +107,7 @@ export default function SetupScreen({ navigation }) {
             <Slider.Thumb />
           </Slider>
         </HStack>
-        <HStack space={3} w="40%" justifyContent="space-between">
+        <HStack space={3} w="80%" justifyContent="space-between">
           <Text textAlign="left" fontSize="xl" color="primary.50">
             {"Questions: "}
           </Text>

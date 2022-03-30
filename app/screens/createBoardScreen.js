@@ -21,30 +21,22 @@ import {
 } from "native-base";
 
 export default function CreateBoardScreen({ navigation }) {
- 
   const [method, setMethod] = useState("auto");
   const dispatch = useDispatch();
 
-
-
   const handleStartGamePress = () => {
-   
     navigation.navigate("PlayScreen");
-    
   };
 
   const handleCreateSBoardPress = () => {
-   
     navigation.navigate("SelectSavedBoardScreen");
   };
 
   const handleCreateCBoardPress = () => {
-   
     navigation.navigate("ManBoardSetupScreen");
   };
 
   const handleCreateBoardPress = () => {
-   
     navigation.navigate("ManBoardSetupScreen");
   };
   const handleBackPress = () => {
@@ -60,38 +52,51 @@ export default function CreateBoardScreen({ navigation }) {
       borderColor="coolGray.500"
       borderWidth="1"
     >
-      <VStack space={4} alignItems="center">
+      <VStack space={2} alignItems="center">
         <Text fontSize="7xl" textAlign="center" color="primary.50">
           Setup
         </Text>
 
-        <VStack space={3} alignItems="center" w="40%" justifyContent="space-between">
+        <VStack
+          space={1}
+          alignItems="center"
+          w="80%"
+          justifyContent="space-between"
+        >
           <Text textAlign="left" fontSize="xl" color="primary.50">
-            Select Creation Method:
+            Select Board Creation Method:
           </Text>
-          <HStack alignItems="center" space={4}>
-       
 
-            <Select
-            color="primary.50"
-            bold
-              selectedValue={method}
-              minWidth="200"
-              accessibilityLabel="Choose a method"
-            
-              _selectedItem={{
-                bg: "primary.200",
-                endIcon: <CheckIcon size="4" />,
+          <Radio.Group
+            name="createBoardGroup"
+            defaultValue="auto"
+            accessibilityLabel="pick a creation method"
+            onChange={(itemValue) => setMethod(itemValue)}
+          >
+            <Stack
+              direction={{
+                base: "column",
+                md: "row",
               }}
-              mt={1}
-              onValueChange={(itemValue) => setMethod(itemValue)}
+              alignItems="left"
+              space={3}
+              w="100%"
             >
-              <Select.Item label="Auto" value="auto" />
-              {/* <Select.Item label="Saved Board" value="savedB" />
-              <Select.Item label="Saved Categories" value="saveC" /> */}
-              <Select.Item label="Blank Slate" value="blank" />
-            </Select>
-          </HStack>
+              <Radio value="auto" size="md" my={1}>
+                <Text pl={2} fontSize="md" color="primary.50">
+                  Automatic
+                </Text>
+              </Radio>
+              <Radio value="blank" size="md" my={1}>
+                <Text pl={2} fontSize="md" color="primary.50">
+                  Blank Slate
+                </Text>
+              </Radio>
+              {/* <Radio value="savedC" size="md" my={1} color="primary.50">
+        Saved Category
+        </Radio> */}
+            </Stack>
+          </Radio.Group>
         </VStack>
 
         {method === "auto" ? (
