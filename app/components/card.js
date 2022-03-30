@@ -104,7 +104,7 @@ export default function Card(props) {
       >
         <Modal.Content h="100%" background="primary.600">
           <Modal.Body>
-            <Box p={2} background="primary.600" w="100%" h="100%" alignItems={"center"}>
+            <Box background="primary.600" w="100%" h="100%" alignItems={"center"}>
               {props.type === "text" ? (
                 <Heading
                   p={2}
@@ -117,7 +117,7 @@ export default function Card(props) {
               ) : (
                 <Image
                  
-                  size= { height < 450 ? "xl": "2xl"}
+                  size= { height < 450 ? "xl": 330}
                   resizeMode={"contain"}
                   source={{
                     uri: props.question,
@@ -126,9 +126,7 @@ export default function Card(props) {
                 />
               )}
 
-              <Button w={"50%"} onPress={() => setShowAnswer(!showAnswer)}>
-                {showAnswer ? "Hide Answer" : "Show Answer"}
-              </Button>
+              
               <PresenceTransition
                 visible={showAnswer}
                 initial={{
@@ -138,14 +136,14 @@ export default function Card(props) {
                 animate={{
                   opacity: 1,
                   scale: 1.5,
-                  translateY: 10,
+                  translateY: 0,
                   transition: {
                     duration: 300,
                   },
                 }}
               >
                 <Heading
-                  p={2}
+                  p={0}
                   size="2xl"
                   color="primary.50"
                   textAlign={"center"}
@@ -156,7 +154,11 @@ export default function Card(props) {
             </Box>
           </Modal.Body>
           <Modal.Footer background="primary.800">
+          
             <Button.Group space={2}>
+            <Button alignItems={"left"} onPress={() => setShowAnswer(!showAnswer)}>
+                {showAnswer ? "Hide Answer" : "Show Answer"}
+              </Button>
               <Button
                 variant="subtle"
                 colorScheme="blueGray"
