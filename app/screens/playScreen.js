@@ -48,8 +48,11 @@ export default function PlayScreen({ navigation }) {
   let winnerResult = "";
   if (winnerArr.length === 1) {
     winnerResult = winnerArr[0] + " wins!!!";
-  } else {
-    winnerResult = "It's a tie between " + winnerArr.join(", ");
+  } else if(winnerArr.length === 2) {
+    winnerResult = "It's a tie between " + winnerArr.join(" & ") + "!";
+  }
+  else{
+    winnerResult = "It's a tie between more than 2 teams!";
   }
   useEffect(async () => {
     if (loading) {
