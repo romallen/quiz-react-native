@@ -7,6 +7,8 @@ import { useWindowDimensions } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { resetTeams } from "../redux/teamsSlice";
 // import { gameState } from "../redux/gameSettingsSlice";
+import { useBreakpointValue } from "native-base";
+
 import {
   Text,
   Button,
@@ -23,6 +25,8 @@ import ConfettiCannon from "react-native-confetti-cannon";
 
 export default function PlayScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
+  const breakpoint = useBreakpointValue({})
+  const [screenOrientation,setScreenOrientation]=useState(true)
   const [cards, setCards] = useState([]);
   const [catData, setCatData] = useState();
   const currGameState = useSelector((state) => state.gameSettings.cardState);
@@ -39,12 +43,15 @@ export default function PlayScreen({ navigation }) {
     (state) => state.gameSettings.numQuestionsStore
   );
   const gameData = useSelector((state) => state.gameSettings.gameboard);
+ 
+ 
   const turn = useSelector((state) => state.teams.turn);
   const teamScores = useSelector((state) => state.teams.value);
   const topScore = Math.max(...Object.values(teamScores));
   const winnerArr = Object.keys(teamScores).filter((team) => {
     return teamScores[team] === topScore;
   });
+  
   let winnerResult = "";
   if (winnerArr.length === 1) {
     winnerResult = winnerArr[0] + " wins!!!";
@@ -54,6 +61,8 @@ export default function PlayScreen({ navigation }) {
   else{
     winnerResult = "It's a tie between more than 2 teams!";
   }
+  
+  
   useEffect(async () => {
     if (loading) {
       let shuffledData = arrayShuffle(gameData).splice(0, numCategories);
@@ -103,16 +112,22 @@ export default function PlayScreen({ navigation }) {
       );
     }
     setCards(card);
+   
   };
+
+
+
+
 
   return (
     <Box
-      pr={1}
-      pl={1}
+      pr={.5}
+      pl={.5}
       w={width}
       h={height}
       alignItems="center"
       bg="primary.600"
+      safeArea
     >
       {loading ? (
         <HStack>
@@ -181,6 +196,7 @@ export default function PlayScreen({ navigation }) {
                     onPress={() => {
                       onClose();
                       dispatch(resetTeams());
+                
                       navigation.navigate("HomeScreen");
                     }}
                   >

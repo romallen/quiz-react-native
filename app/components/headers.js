@@ -7,11 +7,11 @@ export default function Header(props) {
 
 
   let headers = props.data.map((category, index) => (
-    <HStack key={index} bg="primary.800">
+    <Box key={index} bg="primary.800">
       {/* <Divider orientation="vertical"  backgroundColor={"primary.600"}/> */}
   
       <Heading
-        w={props.headerWidth}
+        w={props.headerWidth - 0.01}
         fontSize={width < 400 ? "xs":"xl"}
         textAlign="center"
         alignSelf="center"
@@ -22,11 +22,11 @@ export default function Header(props) {
       >
         {category.category}
       </Heading>
-    </HStack>
+    </Box>
   ));
 
   return (
-    <HStack  backgroundColor={"primary.600"}>
+    <HStack  backgroundColor={"primary.800"}>
       {headers}
     </HStack>
   );

@@ -96,8 +96,8 @@ export default function Sidebar(props) {
             );
           }}
         >
-          <Menu.Item>Toggle Timer</Menu.Item>
-          <Menu.Item>Toggle Sound</Menu.Item>
+          <Menu.Item isDisabled={true}>Toggle Timer</Menu.Item>
+          <Menu.Item isDisabled={true}>Toggle Sound</Menu.Item>
           <Menu.Item onPress={handleQuitClick}>Quit Game</Menu.Item>
         </Menu>
 
