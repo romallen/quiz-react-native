@@ -102,7 +102,7 @@ export default function Card(props) {
         size="full"
      
       >
-        <Modal.Content h={height} background="primary.600">
+        <Modal.Content h="100%" background="primary.600">
           <Modal.Body>
             <Box p={2} background="primary.600" w="100%" h="100%" alignItems={"center"}>
               {props.type === "text" ? (
@@ -116,13 +116,12 @@ export default function Card(props) {
                 </Heading>
               ) : (
                 <Image
-                  p={2}
-                  size="2xl"
+                 
+                  size= { height < 450 ? "xl": "2xl"}
                   resizeMode={"contain"}
                   source={{
                     uri: props.question,
-                  }}
-                  
+                  }}   
                   alt="image"
                 />
               )}

@@ -223,7 +223,7 @@ const data = [
                 "question": "This is the color of a clear sky.",
                 "answer": "Blue",
                 "points": 500,
-        "type": "text",
+                "type": "text",
     }
         ],
       

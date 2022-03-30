@@ -34,15 +34,15 @@ export default function ManualCard(props) {
   const [answer, setAnswer] = useState([]);
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    try {
-      const data = await s3Client.send(new ListBucketsCommand({}));
-      console.log("Success", data.Buckets);
-      return data; // For unit tests.
-    } catch (err) {
-      console.log("Error", err);
-    }
-  }, []);
+  // useEffect(async () => {
+  //   try {
+  //     const data = await s3Client.send(new ListBucketsCommand({}));
+  //     console.log("Success", data.Buckets);
+  //     return data; // For unit tests.
+  //   } catch (err) {
+  //     console.log("Error", err);
+  //   }
+  // }, []);
 
 
   const convertToBase64 = (file) => {
@@ -60,7 +60,7 @@ export default function ManualCard(props) {
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
-    console.log(base64);
+   
     setQuestion(base64)
    
   };
@@ -77,6 +77,7 @@ export default function ManualCard(props) {
           question: question,
           answer: answer,
           points: props.points,
+          type: (question.slice(0,10)=== "data:image") ? "image" : "text",
         },
         index: props.index,
       })
