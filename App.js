@@ -33,42 +33,42 @@ export default function App() {
             <Stack.Screen
               name="HomeScreen"
               component={HomeScreen}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Home" }}
             />
             <Stack.Screen
               name="SignInScreen"
               component={SignInScreen}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Sign In" } }
             />
             <Stack.Screen
               name="SignUpScreen"
               component={SignUpScreen}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Sign  Up" } }
             />
             <Stack.Screen
               name="SetupScreen"
               component={SetupScreen}
-              options={{ headerShown: false }}
+              options={{ headerShown: false , title: "Setup" }}
             />
               <Stack.Screen
               name="CreateBoardScreen"
               component={CreateBoardScreen}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Setup" } }
             />
              <Stack.Screen
               name="SelectSavedBoardScreen"
               component={SelectSavedBoardScreen}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Setup" } }
             />
             <Stack.Screen
               name="ManBoardSetupScreen"
               component={ManBoardSetupScreen}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Setup" } }
             />
             <Stack.Screen
               name="PlayScreen"
               component={PlayScreen}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Play" } }
             />
             <Stack.Screen
               name="QuestionBankScreen"
