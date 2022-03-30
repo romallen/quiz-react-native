@@ -42,12 +42,12 @@ export default function HomeScreen({ navigation }) {
       try {
         const client = realmApp.currentUser.mongoClient("mongodb-atlas");
 
-        // const cat = await client
-        //   .db("quizapp")
-        //   .collection("categories")
-        //   .find({}, { projection: { _id: false } });
+        const cat = await client
+          .db("quizapp")
+          .collection("categories")
+          .find({}, { projection: { _id: false } });
 
-        // setData(cat);
+        setData(cat);
       } catch (err) {
         console.error("Failed to log in", err);
       }

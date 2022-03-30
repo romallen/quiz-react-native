@@ -54,7 +54,7 @@ export default function PlayScreen({ navigation }) {
 
   let winnerResult = "";
   if (winnerArr.length === 1) {
-    winnerResult = winnerArr[0] + " wins!!!";
+    winnerResult = winnerArr[0] + " is the winner!";
   } else if (winnerArr.length === 2) {
     winnerResult = "It's a tie between " + winnerArr.join(" & ") + "!";
   } else {
