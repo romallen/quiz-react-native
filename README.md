@@ -46,11 +46,12 @@ To create a deployable bundle use `npm run build`. This create creates a web-bui
 1. On the home screen select play.
 2. Select the number of teams, categories & questions.
 3. Select the method of populating questions on the game board.
-  a. If "automatic" is selected the app will pick categories at random to use on the game board.
   
-  b. If "Blank Slate" is selected you will be presented with an empty game board. Simply add the categories and questions to it. You can choose to save the gameboard you just create and/or start playing the game. (N.B. points are assigned to each question based on its position on the game board)
+      a. If "automatic" is selected the app will pick categories at random to use on the game board.
   
-  c. If  "Saved Board/Categories" is selected, you will be taken to a screen where you can search by board or by category name. You can then choose which one of the results you want to add and then start playing. 
+      b. If "Blank Slate" is selected you will be presented with an empty game board. Simply add the categories and questions to it. You can choose to save the gameboard you just create and/or start playing the game. (N.B. points are assigned to each question based on its position on the game board)
+  
+      c. If  "Saved Board/Categories" is selected, you will be taken to a screen where you can search by board or by category name. You can then choose which one of the results you want to add and then start playing. 
   
 4. During the game select a card and the question will be displayed. Once the question is answered you can click the show answer button to reveal the answer and then select whether the team answered correctly/incorrectly.
 
