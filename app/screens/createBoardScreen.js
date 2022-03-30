@@ -85,9 +85,11 @@ export default function CreateBoardScreen({ navigation }) {
                 Blank Slate
               </Text>
             </Radio>
-            {/* <Radio value="savedC" size="md" my={1} color="primary.50">
-        Saved Category
-        </Radio> */}
+            <Radio value="savedC" size="md" my={1} isDisabled>
+              <Text pl={2} fontSize="md" color="primary.50">
+                Saved Categories/GameBoards
+              </Text>
+            </Radio>
           </Stack>
         </Radio.Group>
 
