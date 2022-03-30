@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { incrementScore, incrementTurn } from "../redux/teamsSlice";
 import {
   Text,
   Box,
+  Button,
   Actionsheet,
   HamburgerIcon,
   Pressable,
   Icon,
   HStack,
   VStack,
+  Menu,
   Heading,
   Center,
+  AlertDialog,
   useDisclose,
 } from "native-base";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
@@ -20,8 +23,10 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function Sidebar(props) {
   const navigation = useNavigation();
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => setIsOpen(false);
+  const cancelRef = useRef(null);
 
-  const { isOpen, onOpen, onClose } = useDisclose();
   const [showMenu, setShowMenu] = useState(false);
   const teamsStore = useSelector((state) => state.teams.value);
   const teamNumber = Object.keys(teamsStore).length;
@@ -30,6 +35,7 @@ export default function Sidebar(props) {
 
   let teams = [];
   let i = 0;
+
   for (let team in teamsStore) {
     teams.push(
       <VStack
@@ -61,6 +67,10 @@ export default function Sidebar(props) {
     );
     i++;
   }
+
+  const handleQuitClick = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <VStack
       py="2"
@@ -71,62 +81,60 @@ export default function Sidebar(props) {
       bg="primary.900"
     >
       <Box h="10%">
-        <Pressable onPress={onOpen} alignItems="center">
-          <HamburgerIcon />
-        </Pressable>
-        <Actionsheet isOpen={isOpen} onClose={onClose} size="lg">
-          <Actionsheet.Content>
-            <Box w="100%" h={60} px={4} justifyContent="center">
-              <Text
-                fontSize="md"
-                color="gray.500"
-                _dark={{
-                  color: "gray.300",
-                }}
+        <Menu
+          w="190"
+          trigger={(triggerProps) => {
+            return (
+              <Pressable
+                accessibilityLabel="More options menu"
+                {...triggerProps}
               >
-                Menu
-              </Text>
-            </Box>
+                <HamburgerIcon />
+              </Pressable>
+            );
+          }}
+        >
+          <Menu.Item>Toggle Timer</Menu.Item>
+          <Menu.Item>Toggle Sound</Menu.Item>
+          <Menu.Item onPress={handleQuitClick}>Quit Game</Menu.Item>
+        </Menu>
 
-            <Actionsheet.Item
-              startIcon={
-                <Icon
-                  as={Ionicons}
-                  name="play-circle"
-                  color="trueGray.400"
-                  mr="1"
-                  size="6"
-                />
-              }
-            >
-              Play
-            </Actionsheet.Item>
-            <Actionsheet.Item
-              onPress={() => navigation.goBack()}
-              p={3}
-              startIcon={
-                <Icon
-                  color="trueGray.400"
-                  mr="1"
-                  h="24"
-                  w="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
+        <AlertDialog
+          leastDestructiveRef={cancelRef}
+          isOpen={isOpen}
+          onClose={onClose}
+        >
+          <AlertDialog.Content>
+            <AlertDialog.CloseButton />
+            <AlertDialog.Header>Quit Game?</AlertDialog.Header>
+            <AlertDialog.Body>
+              Are you sure you want to quit the game? You will lose all
+              progress.
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <Button.Group space={2}>
+                <Button
+                  variant="unstyled"
+                  colorScheme="coolGray"
+                  onPress={onClose}
+                  ref={cancelRef}
                 >
-                  <Path
-                    d="M12.0007 10.5862L16.9507 5.63623L18.3647 
-                  7.05023L13.4147 12.0002L18.3647 16.9502L16.9507 
-                  18.3642L12.0007 13.4142L7.05072 18.3642L5.63672 
-                  16.9502L10.5867 12.0002L5.63672 7.05023L7.05072 
-                  5.63623L12.0007 10.5862Z"
-                  />
-                </Icon>
-              }
-            >
-              Quit
-            </Actionsheet.Item>
-          </Actionsheet.Content>
-        </Actionsheet>
+                  No
+                </Button>
+                <Button
+                  colorScheme="danger"
+                  onPress={() => {
+                    onClose;
+                    navigation.goBack();
+                  }}
+                >
+                  Yes
+                </Button>
+              </Button.Group>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog>
+       
       </Box>
       <Box h="90%" minW={60}>
         <VStack space={4}>{teams}</VStack>
