@@ -18,10 +18,14 @@ export const teamsSlice = createSlice({
     incrementTurn: (state, action) => {
       state.turn += 1;
     },
+    resetTeams: (state, action) => {
+      state.turn = 0;
+      state.value = {};
+    },
   },
 });
 
-export const { createTeams, incrementScore, incrementTurn } =
+export const { createTeams, incrementScore, incrementTurn, resetTeams } =
   teamsSlice.actions;
 
 export default teamsSlice.reducer;

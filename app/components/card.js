@@ -17,7 +17,6 @@ import {
 export default function Card(props) {
   const { height, width } = useWindowDimensions();
   const [cardState, setCardState] = useState({
-    view: "points",
     completed: false,
   });
   const cardRef = createRef(null);
