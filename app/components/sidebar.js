@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useWindowDimensions } from "react-native";
 import { incrementScore, incrementTurn } from "../redux/teamsSlice";
 import {
   Text,
@@ -27,7 +28,8 @@ export default function Sidebar(props) {
   const onClose = () => setIsOpen(false);
   const cancelRef = useRef(null);
 
-  const [showMenu, setShowMenu] = useState(false);
+  const { height, width } = useWindowDimensions();
+
   const teamsStore = useSelector((state) => state.teams.value);
   const teamNumber = Object.keys(teamsStore).length;
   const turn = useSelector((state) => state.teams.turn);
@@ -35,7 +37,7 @@ export default function Sidebar(props) {
 
   let teams = [];
   let i = 0;
-
+console.log(height,width)
   for (let team in teamsStore) {
     teams.push(
       <VStack
@@ -57,10 +59,10 @@ export default function Sidebar(props) {
             : null
         }
       >
-        <Text fontSize={"xl"} textAlign="center" color="primary.50">
+        <Text fontSize={ height < 400 ? "xs":"xl"} textAlign="center" color="primary.50">
           {teamsStore[team]}
         </Text>
-        <Text fontSize={"lg"} textAlign="center" color="primary.50">
+        <Text fontSize={ height < 400 ? "xs":"lg"} textAlign="center" color="primary.50">
           {team}
         </Text>
       </VStack>
