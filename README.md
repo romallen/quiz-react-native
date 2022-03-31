@@ -14,6 +14,7 @@ I created this app because of a personal need in my job as an ALT. I often play 
 <b>Built with:</b>
 
 - [React Native](https://reactnative.dev/)
+- [NativeBase](https://nativebase.io/)
 - [MongoDB Realm](https://www.mongodb.com/realm)
 - [AWS](https://aws.amazon.com)
 
@@ -56,7 +57,9 @@ To create a deployable bundle use `npm run build`. This create creates a web-bui
 4. During the game select a card and the question will be displayed. Once the question is answered you can click the show answer button to reveal the answer and then select whether the team answered correctly/incorrectly.
 
 
+## Future Features
 
+In the near future I will be adding the ability for users to login to the app. This will give them the ability to save and retrieve private gameboards.
 
 ## License
 
