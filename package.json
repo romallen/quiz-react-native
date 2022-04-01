@@ -36,6 +36,7 @@
     "react-native-reanimated-carousel": "^2.3.2",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
+    "react-native-sectioned-multi-select": "^0.9.1",
     "react-native-super-grid": "^4.2.0",
     "react-native-svg": "12.1.1",
     "react-native-vector-icons": "^9.1.0",
