@@ -26,20 +26,60 @@ export default function SelSavedCatScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selected, setSelected] = useState("");
+
+  const numCategories = useSelector(
+    (state) => state.gameSettings.numCategoriesStore
+  );
+  const numQuestions = useSelector(
+    (state) => state.gameSettings.numQuestionsStore
+  );
   //const gameData = useSelector((state) => state.gameSettings.gameboard);
   //const gameData = useSelector((state) => state.questions.categories);
-  const gameData = data1
+  const gameData = data1;
   const handleBackPress = () => {
     navigation.navigate("CreateBoardScreen");
   };
 
+  const skeletons = [];
+  for (let i = 0; i < numCategories; i++) {
+    let skeletonRow = [];
+    for (let j = 0; j < numQuestions; j++) {
+      skeletonRow.push(
+        <Skeleton
+          key={j}
+          
+          style={{
+            width: (width * 0.7) / numCategories,
+            height: (height * 0.8) / numQuestions,
+            borderRadius: 2,
+          }}
+        />
+      );
+    }
 
-
+    skeletons.push(
+      <VStack 
+      space={1}
+      key={i}>
+        <Skeleton
+        startColor={"primary.100"}
+          style={{
+            width: (width * 0.7) / numCategories,
+            height: (height * 0.05) ,
+            borderRadius: 10,
+          }}
+        />
+        {skeletonRow}
+      </VStack>
+    );
+  }
   const categoryName = [];
   gameData.forEach((el, index) =>
     categoryName.push(
-      <Pressable onPress={(e) => handleClick(el)} key={index} >
-        <Text fontSize="lg" color="primary.50">{el.category}</Text>
+      <Pressable onPress={(e) => handleClick(el)} key={index}>
+        <Text fontSize="lg" color="primary.50">
+          {el.category}
+        </Text>
         <Divider orientation="horizontal" />
       </Pressable>
     )
@@ -98,7 +138,7 @@ export default function SelSavedCatScreen({ navigation }) {
 
   return (
     <Box
-      p={4}
+      p={1}
       height={"100%"}
       alignItems="center"
       borderColor="coolGray.500"
@@ -106,22 +146,24 @@ export default function SelSavedCatScreen({ navigation }) {
       bg={"primary.900"}
     >
       <VStack space={2} alignItems="center">
-        <Text fontSize="6xl" textAlign="center" color="primary.50">
+        {/* <Text fontSize="6xl" textAlign="center" color="primary.50">
           Question Bank
         </Text>
         {selected ? (
           <Text fontSize="xl" color="primary.50">{selected}</Text>
         ) : (
           <Text fontSize="xl" color="primary.50">Select a Category</Text>
-        )}
+        )} */}
         <HStack space={1}>
           <VStack space={4}>
-            <Text fontSize="3xl" color="primary.50">Categories</Text>
+            <Text fontSize="3xl" color="primary.50">
+              Categories
+            </Text>
             <ScrollView>{categoryName}</ScrollView>
           </VStack>
-          <Divider orientation="vertical" mx="1" background="primary.300"/>
+          <Divider orientation="vertical" mx="1" background="primary.300" />
           <Box alignItems="center">
-            <Carousel
+            {/* <Carousel
               width={(width - 100) / 2}
               height={(height - 200) / 2}
               mode="parallax"
@@ -131,10 +173,14 @@ export default function SelSavedCatScreen({ navigation }) {
               loop={false}
               data={selectedCategory}
               renderItem={({ item }) => item}
-            />
+            /> */}
+            <HStack space={1}>
+            {skeletons}
+              </HStack>
           </Box>
+          <HStack></HStack>
         </HStack>
-        <Spacer background="primary.300"/>
+        <Spacer background="primary.300" />
         <Button onPress={handleBackPress} w="50%" size="lg">
           RETURN TO HOME SCREEN
         </Button>
