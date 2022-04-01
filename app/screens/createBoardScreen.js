@@ -32,8 +32,8 @@ export default function CreateBoardScreen({ navigation }) {
     navigation.navigate("SelectSavedBoardScreen");
   };
 
-  const handleCreateCBoardPress = () => {
-    navigation.navigate("ManBoardSetupScreen");
+  const handleSavedCatPress = () => {
+    navigation.navigate("SelSavedCatScreen");
   };
 
   const handleCreateBoardPress = () => {
@@ -85,9 +85,9 @@ export default function CreateBoardScreen({ navigation }) {
                 Blank Slate
               </Text>
             </Radio>
-            <Radio value="savedC" size="md" my={1} isDisabled>
+            <Radio value="savedC" size="md" my={1}>
               <Text pl={2} fontSize="md" color="primary.50">
-                Saved Categories/GameBoards
+                Saved Categories
               </Text>
             </Radio>
           </Stack>
@@ -98,22 +98,21 @@ export default function CreateBoardScreen({ navigation }) {
             PLAY
           </Button>
         ) : null}
-        {method === "savedB" ? (
+        {/* {method === "savedB" ? (
           <Button onPress={handleCreateSBoardPress} size="lg" w="40%">
             NEXT
           </Button>
-        ) : null}
-        {method === "saveC" ? (
-          <Button onPress={handleCreateCBoardPress} size="lg" w="40%">
-            NEXT
-          </Button>
-        ) : null}
+        ) : null} */}
         {method === "blank" ? (
           <Button onPress={handleCreateBoardPress} size="lg" w="40%">
             NEXT
           </Button>
         ) : null}
-
+        {method === "savedC" ? (
+          <Button onPress={handleSavedCatPress} size="lg" w="40%">
+            NEXT
+          </Button>
+        ) : null}
         <Button onPress={handleBackPress} size="lg" w="40%">
           Back
         </Button>

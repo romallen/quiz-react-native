@@ -6,12 +6,11 @@ import { NativeBaseProvider, extendTheme } from "native-base";
 import HomeScreen from "./app/screens/homeScreen";
 import PlayScreen from "./app/screens/playScreen";
 import SetupScreen from "./app/screens/setupScreen";
+import CreateBoardScreen from "./app/screens/createBoardScreen";
 import ManBoardSetupScreen from "./app/screens/manBoardSetupScreen";
-import QuestionBankScreen from "./app/screens/questionBankScreen";
+import SelSavedCatScreen from "./app/screens/selSavedCatScreen";
 import SignInScreen from "./app/screens/signInScreen";
 import SignUpScreen from "./app/screens/signUpScreen";
-import CreateBoardScreen from "./app/screens/createBoardScreen";
-import SelectSavedBoardScreen from "./app/screens/selectSavedBoardScreen";
 
 import { Provider } from "react-redux";
 import store from "./app/redux/store";
@@ -56,8 +55,8 @@ export default function App() {
               options={{ headerShown: false, title: "Setup" } }
             />
              <Stack.Screen
-              name="SelectSavedBoardScreen"
-              component={SelectSavedBoardScreen}
+              name="SelSavedCatScreen"
+              component={SelSavedCatScreen}
               options={{ headerShown: false, title: "Setup" } }
             />
             <Stack.Screen
@@ -70,11 +69,7 @@ export default function App() {
               component={PlayScreen}
               options={{ headerShown: false, title: "Play" } }
             />
-            <Stack.Screen
-              name="QuestionBankScreen"
-              component={QuestionBankScreen}
-              options={{ headerShown: false }}
-            />
+        
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

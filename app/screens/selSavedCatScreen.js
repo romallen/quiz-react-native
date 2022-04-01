@@ -19,7 +19,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import data1 from "../data";
 
-export default function QuestionBankScreen({ navigation }) {
+export default function SelSavedCatScreen({ navigation }) {
   //state
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -30,7 +30,7 @@ export default function QuestionBankScreen({ navigation }) {
   //const gameData = useSelector((state) => state.questions.categories);
   const gameData = data1
   const handleBackPress = () => {
-    navigation.navigate("HomeScreen");
+    navigation.navigate("CreateBoardScreen");
   };
 
 
