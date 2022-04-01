@@ -1,13 +1,14 @@
-import React, { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useWindowDimensions } from "react-native";
 import {
+  AlertDialog,
   Text,
   Box,
   Button,
   Divider,
   Flex,
   Skeleton,
-  Slider,
+  Input,
   Stack,
   VStack,
   Spacer,
@@ -21,15 +22,20 @@ import axios from "axios";
 import data1 from "../data";
 import SectionedMultiSelect from "react-native-sectioned-multi-select";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { saveBoard } from "../realm/mongoSave";
 
 export default function SelSavedCatScreen({ navigation }) {
   //state
   const [board, setBoard] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false);
   const { height, width } = useWindowDimensions();
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selected, setSelected] = useState(0);
+  const [boardName, setBoardName] = useState("");
+
+  const [isOpen, setIsOpen] = useState(false);
+  const onClose = () => setIsOpen(false);
+  const cancelRef = useRef(null);
 
   const numCategories = useSelector(
     (state) => state.gameSettings.numCategoriesStore
@@ -169,6 +175,13 @@ export default function SelSavedCatScreen({ navigation }) {
   const handleBackPress = () => {
     navigation.navigate("CreateBoardScreen");
   };
+  const handleSavePress = () => {
+    setIsOpen(!isOpen);
+    saveBoard();
+  };
+  const handlePlayPress = () => {
+    navigation.navigate("PlayScreen");
+  };
 
   return (
     <Box
@@ -202,22 +215,63 @@ export default function SelSavedCatScreen({ navigation }) {
             {/* <Divider /> */}
           </VStack>
           {/* <Divider orientation="vertical" mx="1" background="primary.300" /> */}
-          {/* <Box alignItems="center">
-            {selectedCategory.length >1  ? (
-              selectedCategory
-            ) : (
-              )}
-          </Box> */}
-          
+
           <HStack space={1}>
             {Object.values(selectedCategory)}
             {board}
           </HStack>
         </Stack>
-
-        <Button onPress={handleBackPress} size="md">
-          BACK
-        </Button>
+        <AlertDialog
+          leastDestructiveRef={cancelRef}
+          isOpen={isOpen}
+          onClose={onClose}
+        >
+          <AlertDialog.Content>
+            <AlertDialog.CloseButton />
+            <AlertDialog.Header>Save Board</AlertDialog.Header>
+            <AlertDialog.Body>
+              Please give this board a name
+              <Input
+                value={boardName}
+                onChangeText={(text) => setBoardName(text)}
+                size="lg"
+                placeholder={"Board Name "}
+              ></Input>
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <Button.Group space={2}>
+                <Button
+                  variant="unstyled"
+                  colorScheme="coolGray"
+                  onPress={onClose}
+                  ref={cancelRef}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  colorScheme="danger"
+                  onPress={() => {
+                    onClose();
+                    saveBoard(Object.keys(selectedCategory), boardName);
+                  }}
+                >
+                  Save
+                </Button>
+              </Button.Group>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog>
+        <HStack space={4} justifyContent="space-around">
+          <Button onPress={handleBackPress} size="md">
+            BACK
+          </Button>
+          <Button onPress={handleSavePress} size="md">
+            SAVE
+          </Button>
+          <Button onPress={handlePlayPress} size="md">
+            PLAY
+          </Button>
+        </HStack>
       </VStack>
     </Box>
   );
