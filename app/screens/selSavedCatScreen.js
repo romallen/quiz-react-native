@@ -82,15 +82,16 @@ export default function SelSavedCatScreen({ navigation }) {
   gameData.forEach((el, index) =>
     categoryName.push(
       <Pressable onPress={(e) => handleClick(el, index)} key={index}>
-        <Text fontSize="lg" color="primary.50">
+        <Text
+          fontSize="md"
+          color="primary.50"
+          bg={(index + 2) % 2 === 0 ? "primary.700" : null}
+        >
           {el.category}
         </Text>
-        <Divider orientation="horizontal" />
       </Pressable>
     )
   );
-
-
 
   const handleClick = (val, index) => {
     let questions = [];
@@ -113,8 +114,7 @@ export default function SelSavedCatScreen({ navigation }) {
           p="1"
           rounded="4"
         >
-      
-          <Text color="primary.50" mt="1" fontSize="sm" noOfLines={2}>
+          <Text color="primary.50" mt="1" fontSize="sm" noOfLines={3}>
             Question: {element["question"]}
           </Text>
           {/* <Spacer />
@@ -137,24 +137,31 @@ export default function SelSavedCatScreen({ navigation }) {
       );
     });
 
-
     let cat = (
       <VStack space={1}>
-        <Box>
-          <Text fontSize={"md"} textAlign="center" color="primary.50">
-            {val.category}
-          </Text>
-        </Box>
+        <Text
+          fontSize={"sm"}
+          textAlign="center"
+          w={(width * 0.7) / numCategories}
+          isTruncated={true}
+          color="primary.50"
+        >
+          {val.category}
+        </Text>
+
         <VStack space={1}>{questions}</VStack>
       </VStack>
     );
-
-    if (selectedCategory.includes(cat)) {
-      let tmp = selectedCategory.filter((el) => el !== val.category);
+    console.log("test", val.category in selectedCategory);
+    if (val.category in selectedCategory) {
+      let tmp = selectedCategory;
+      delete tmp[val.category];
       setSelectedCategory(tmp);
       setSelected(selected - 1);
-    } else {
-      setSelectedCategory((selectedCategory) => [...selectedCategory, cat]);
+    } else if (selected < numCategories) {
+      let tmp = selectedCategory;
+      tmp[val.category] = cat;
+      setSelectedCategory(tmp);
       setSelected(selected + 1);
     }
   };
@@ -165,14 +172,14 @@ export default function SelSavedCatScreen({ navigation }) {
 
   return (
     <Box
-      p={1}
+      p={2}
       h={height}
       alignItems="center"
       borderColor="coolGray.500"
       borderWidth="1"
       bg={"primary.900"}
     >
-      <VStack space={2} alignItems="center">
+      <VStack space={4} alignItems="center">
         <Stack
           direction={{
             base: "column",
@@ -181,13 +188,18 @@ export default function SelSavedCatScreen({ navigation }) {
           w="100%"
           space={1}
         >
-          <VStack space={4} borderColor="primary.300">
+          <VStack space={1} borderColor="primary.300">
             <Text fontSize="3xl" textAlign={"center"} color="primary.50">
               Categories
             </Text>
-            <ScrollView maxH={height > width ? height * 0.3 : height * 0.6}>
+            <Divider />
+            <ScrollView
+              maxH={height > width ? height * 0.2 : height * 0.6}
+              persistentScrollbar={true}
+            >
               {categoryName}
             </ScrollView>
+            {/* <Divider /> */}
           </VStack>
           {/* <Divider orientation="vertical" mx="1" background="primary.300" /> */}
           {/* <Box alignItems="center">
@@ -196,13 +208,13 @@ export default function SelSavedCatScreen({ navigation }) {
             ) : (
               )}
           </Box> */}
-
+          
           <HStack space={1}>
-            {selectedCategory}
+            {Object.values(selectedCategory)}
             {board}
           </HStack>
         </Stack>
-        <Spacer background="primary.300" />
+
         <Button onPress={handleBackPress} size="md">
           BACK
         </Button>
