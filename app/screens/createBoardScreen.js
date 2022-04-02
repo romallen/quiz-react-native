@@ -20,15 +20,19 @@ import {
   Radio,
   Switch,
 } from "native-base";
+import arrayShuffle from "array-shuffle";
 
 export default function CreateBoardScreen({ navigation }) {
   const [method, setMethod] = useState("auto");
   const gameData = useSelector((state) => state.questions.categories);
   
   const dispatch = useDispatch();
-
+  const numCategories = useSelector(
+    (state) => state.gameSettings.numCategoriesStore
+  );
+  
   const handleStartGamePress = () => {
-    dispatch(makeGameboard(gameData))
+    dispatch(makeGameboard( arrayShuffle(gameData).splice(0, numCategories)))
     navigation.navigate("PlayScreen");
   };
 

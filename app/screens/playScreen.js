@@ -3,11 +3,10 @@ import Header from "../components/headers";
 import Sidebar from "../components/sidebar";
 import { useState, useEffect, useRef } from "react";
 import { useWindowDimensions } from "react-native";
-// import data1 from "../data";
+
 import { useSelector, useDispatch } from "react-redux";
 import { resetTeams } from "../redux/teamsSlice";
-// import { gameState } from "../redux/gameSettingsSlice";
-import { useBreakpointValue } from "native-base";
+
 
 import {
   Text,
@@ -21,13 +20,11 @@ import {
   ZStack,
   Divider,
 } from "native-base";
-import arrayShuffle from "array-shuffle";
+
 import ConfettiCannon from "react-native-confetti-cannon";
 
 export default function PlayScreen({ navigation }) {
   const { height, width } = useWindowDimensions();
-  const breakpoint = useBreakpointValue({});
-  const [screenOrientation, setScreenOrientation] = useState(true);
   const [cards, setCards] = useState([]);
   const [catData, setCatData] = useState();
   const currGameState = useSelector((state) => state.gameSettings.cardState);
@@ -54,7 +51,7 @@ export default function PlayScreen({ navigation }) {
 
   let winnerResult = "";
   if (winnerArr.length === 1) {
-    winnerResult = winnerArr[0] + " is the winner!";
+    winnerResult = winnerArr[0] + " are the winners!";
   } else if (winnerArr.length === 2) {
     winnerResult = "It's a tie between " + winnerArr.join(" & ") + "!";
   } else {
@@ -63,8 +60,8 @@ export default function PlayScreen({ navigation }) {
 
   useEffect(async () => {
     if (loading) {
-      let shuffledData = arrayShuffle(gameData).splice(0, numCategories);
-      setCatData(shuffledData);
+      
+      setCatData(gameData);
       setLoading(false);
     }
   }, []);
@@ -99,7 +96,7 @@ export default function PlayScreen({ navigation }) {
             question={catData[categoryIndex].questions[questionIndex].question}
             answer={catData[categoryIndex].questions[questionIndex].answer}
             points={(questionIndex + 1) * 100}
-            type={catData[categoryIndex].type}
+            type={catData[categoryIndex].questions[questionIndex].type}
           />
         );
       }
