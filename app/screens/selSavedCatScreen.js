@@ -219,8 +219,8 @@ export default function SelSavedCatScreen({ navigation }) {
               persistentScrollbar={true}
             >
               {categoryName}
-            </ScrollView>
             <Divider />
+            </ScrollView>
           </VStack>
           <VStack>
             <HStack space={1}>
