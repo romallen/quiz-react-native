@@ -19,7 +19,7 @@ import {
 import Carousel from "react-native-reanimated-carousel";
 import { useSelector, useDispatch } from "react-redux";
 
-import data1 from "../data";s
+import data1 from "../data";
 import { saveBoard } from "../realm/mongoSave";
 
 export default function SelSavedCatScreen({ navigation }) {

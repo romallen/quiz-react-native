@@ -18,7 +18,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getQuestions } from "../redux/questionsSlice";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 export default function HomeScreen({ navigation }) {
   const [data, setData] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,35 +34,42 @@ export default function HomeScreen({ navigation }) {
       const jsonUser = JSON.stringify(anonUser);
       await AsyncStorage.setItem("currentUser", jsonUser);
     }
-  }, [user, navigation]);
+  }, []);
 
   useEffect(async () => {
-    if (loading) {
+    const localData = await AsyncStorage.getItem("localData");
+
+    if (loading && !localData) {
       try {
         const client = realmApp.currentUser.mongoClient("mongodb-atlas");
 
-        const cat = await client
+        const catData = await client
           .db("quizapp")
           .collection("categories")
           .find({}, { projection: { _id: false } });
 
-        setData(cat);
+        setData(catData);
+        const jsonData = JSON.stringify(catData);
+        await AsyncStorage.setItem("localData", jsonData);
       } catch (err) {
         console.error("Failed to log in", err);
       }
 
       setLoading(false);
+    } else if (localData) {
+      setData(JSON.parse(localData));
+      setLoading(false);
     }
   }, [loading]);
 
   useEffect(() => {
-    // console.log(data);
-    // dispatch(getQuestions(data));
+    console.log(data);
+    dispatch(getQuestions(data));
   }, [data]);
 
   useEffect(async () => {
     const currentUserVal = await AsyncStorage.getItem("currentUser");
-    currentUserVal != null ? setIsLoggedIn(true) : null;
+    currentUserVal !== null ? setIsLoggedIn(true) : null;
   }, []);
 
   const handleLoginPress = () => {
