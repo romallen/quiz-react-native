@@ -44,7 +44,7 @@ export default function PlayScreen({ navigation }) {
     (state) => state.gameSettings.numQuestionsStore
   );
   const gameData = useSelector((state) => state.gameSettings.gameboard);
-console.log(gameData)
+
   const turn = useSelector((state) => state.teams.turn);
   const teamScores = useSelector((state) => state.teams.value);
   const topScore = Math.max(...Object.values(teamScores));

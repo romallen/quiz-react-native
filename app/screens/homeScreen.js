@@ -63,7 +63,7 @@ export default function HomeScreen({ navigation }) {
   }, [loading]);
 
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
     dispatch(getQuestions(data));
   }, [data]);
 
