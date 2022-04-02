@@ -18,14 +18,12 @@ import {
 } from "native-base";
 import Carousel from "react-native-reanimated-carousel";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import data1 from "../data";
-import SectionedMultiSelect from "react-native-sectioned-multi-select";
-import Icon from "react-native-vector-icons/MaterialIcons";
+
+import data1 from "../data";s
 import { saveBoard } from "../realm/mongoSave";
 
 export default function SelSavedCatScreen({ navigation }) {
-  //state
+
   const [board, setBoard] = useState([]);
   const [visible, setVisible] = useState(false);
   const { height, width } = useWindowDimensions();
@@ -180,6 +178,16 @@ export default function SelSavedCatScreen({ navigation }) {
     saveBoard();
   };
   const handlePlayPress = () => {
+    let resetBoard = () => {
+      let blankData = new Array(numCategories).fill({
+        category: "",
+        questions: [],
+        _partition: "quizapp",
+      });
+      dispatch(clearBoard(blankData));
+    };
+
+
     navigation.navigate("PlayScreen");
   };
 
