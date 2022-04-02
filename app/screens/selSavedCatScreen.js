@@ -19,8 +19,8 @@ import {
 import Carousel from "react-native-reanimated-carousel";
 import { useSelector, useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import data1 from "../data";
-import { clearBoard, makeGameboard } from "../redux/gameSettingsSlice";
+
+import { makeGameboard } from "../redux/gameSettingsSlice";
 import { saveBoard } from "../realm/mongoSave";
 
 export default function SelSavedCatScreen({ navigation }) {
@@ -81,12 +81,12 @@ export default function SelSavedCatScreen({ navigation }) {
       );
     }
     setBoard(skeletons);
-  }, [selected]);
+  }, [selected,  height, width]);
 
   const categoryName = [];
   gameData.forEach((el, index) =>
     categoryName.push(
-      <Pressable onPress={(e) => handleClick(el)} key={index}>
+      <Pressable onPress={(e) => handleClick(el, index)} key={index}>
         <Text
           fontSize="md"
           color="primary.50"
@@ -98,11 +98,11 @@ export default function SelSavedCatScreen({ navigation }) {
     )
   );
 
-  const handleClick = (val) => {
-    let questions = [];
+  const handleClick = (val, index) => {
+    let catQuestions = [];
 
     val.questions.forEach((element, idx) => {
-      questions.push(
+      catQuestions.push(
         <Box
           key={idx}
           size="sm"
@@ -120,7 +120,7 @@ export default function SelSavedCatScreen({ navigation }) {
           rounded="4"
         >
           <Text color="primary.50" mt="1" fontSize="sm" noOfLines={3}>
-            Question: {element["question"]}
+            {element["question"]}
           </Text>
           {/* <Spacer />
             <Text mt="2" fontSize="md" color="primary.50">
@@ -142,8 +142,8 @@ export default function SelSavedCatScreen({ navigation }) {
       );
     });
 
-    let cat = (
-      <VStack space={1}>
+    let catego = (
+      <VStack key={index} space={1}>
         <Text
           fontSize={"sm"}
           textAlign="center"
@@ -154,7 +154,7 @@ export default function SelSavedCatScreen({ navigation }) {
           {val.category}
         </Text>
 
-        {questions}
+        {catQuestions}
       </VStack>
     );
 
@@ -165,11 +165,10 @@ export default function SelSavedCatScreen({ navigation }) {
       setSelected(selected - 1);
     } else if (selected < numCategories) {
       let tmp = selectedCategory;
-      tmp[val.category] = cat;
+      tmp[val.category] = catego;
       setSelectedCategory(tmp);
       setSelected(selected + 1);
     }
-    // console.log(selectedCategory)
   };
 
   const handleBackPress = () => {
