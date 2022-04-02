@@ -12,6 +12,7 @@ import {
   Stack,
   VStack,
   Spacer,
+  Image,
   Pressable,
   HStack,
   ScrollView,
@@ -33,7 +34,7 @@ export default function SelSavedCatScreen({ navigation }) {
   const onClose = () => setIsOpen(false);
   const cancelRef = useRef(null);
   const categoryRef = createRef(null);
- 
+
   const numCategories = useSelector(
     (state) => state.gameSettings.numCategoriesStore
   );
@@ -89,12 +90,10 @@ export default function SelSavedCatScreen({ navigation }) {
         ref={categoryRef}
         onPress={(e) => handleClick(el, index)}
         key={index}
-        >
+      >
         {({ isHovered, isFocused, isPressed }) => {
           return (
             <Box
-            
-             
               bg={
                 isPressed
                   ? "primary.500"
@@ -114,7 +113,6 @@ export default function SelSavedCatScreen({ navigation }) {
             >
               <Text
                 fontSize="md"
-          
                 color="primary.50"
                 // bg={(index + 2) % 2 === 0 ? "primary.800" : null}
               >
@@ -148,9 +146,22 @@ export default function SelSavedCatScreen({ navigation }) {
           p="1"
           rounded="4"
         >
-          <Text color="primary.50" mt="1" fontSize="sm" noOfLines={3}>
-            {element["question"]}
-          </Text>
+          {element["question"].slice(0, 10) === "data:image" ? (
+            <Image
+            alignSelf={"center"}
+              size="lg"
+              resizeMode={"contain"}
+              source={{
+                uri: element["question"],
+              }}
+              alt="image"
+            />
+          ) : (
+            <Text color="primary.50" mt="1" fontSize="sm" noOfLines={3}>
+              {element["question"]}
+            </Text>
+          )}
+
           {/* <Spacer />
             <Text mt="2" fontSize="md" color="primary.50">
               Answer: {element["answer"]}

@@ -9,11 +9,11 @@ import {
   Button,
   Pressable,
   Center,
-  Slider,
   Modal,
   Heading,
   WarningOutlineIcon,
   FormControl,
+  Image,
   Input,
   KeyboardAvoidingView,
   Stack,
@@ -21,17 +21,15 @@ import {
   HStack,
 } from "native-base";
 
-
 export default function ManualCard(props) {
   const { height, width } = useWindowDimensions();
   const [cardState, setCardState] = useState({
-    view: "points",
     completed: false,
   });
   const cardRef = createRef(null);
   const [visible, setVisible] = useState(false);
-  const [question, setQuestion] = useState([]);
-  const [answer, setAnswer] = useState([]);
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
   const dispatch = useDispatch();
 
   // useEffect(async () => {
@@ -43,7 +41,6 @@ export default function ManualCard(props) {
   //     console.log("Error", err);
   //   }
   // }, []);
-
 
   const convertToBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -60,9 +57,8 @@ export default function ManualCard(props) {
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
-   
-    setQuestion(base64)
-   
+
+    setQuestion(base64);
   };
 
   const handleClick = () => {
@@ -77,7 +73,7 @@ export default function ManualCard(props) {
           question: question,
           answer: answer,
           points: props.points,
-          type: (question.slice(0,10) === "data:image") ? "image" : "text",
+          type: question.slice(0, 10) === "data:image" ? "image" : "text",
         },
         index: props.index,
       })
@@ -99,9 +95,21 @@ export default function ManualCard(props) {
   }
 
   let front = cardState.completed ? (
-    <Heading p={2} size={"md"} isTruncated="true" bold>
-      {question}
-    </Heading>
+    question.slice(0, 10) === "data:image" ? (
+      <Image
+      alignSelf={"center"}
+      size="2xl"
+        resizeMode={"contain"}
+        source={{
+          uri: question,
+        }}
+        alt="image"
+      />
+    ) : (
+      <Heading p={2} size={"md"} isTruncated="true" bold>
+        {question}
+      </Heading>
+    )
   ) : (
     <Heading size={"md"} bold>
       Add Question
@@ -146,7 +154,6 @@ export default function ManualCard(props) {
                     <HStack>
                       <TextArea
                         size="lg"
-                        
                         isFullWidth={true}
                         value={question}
                         onChangeText={(text) => setQuestion(text)}

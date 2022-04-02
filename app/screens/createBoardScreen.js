@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createTeams } from "../redux/teamsSlice";
+import { makeGameboard } from "../redux/gameSettingsSlice";
 import {
   gameState,
   numCategoriesStore,
@@ -22,9 +23,12 @@ import {
 
 export default function CreateBoardScreen({ navigation }) {
   const [method, setMethod] = useState("auto");
+  const gameData = useSelector((state) => state.questions.categories);
+  
   const dispatch = useDispatch();
 
   const handleStartGamePress = () => {
+    dispatch(makeGameboard(gameData))
     navigation.navigate("PlayScreen");
   };
 
