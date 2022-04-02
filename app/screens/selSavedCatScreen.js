@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, createRef } from "react";
 import { useWindowDimensions } from "react-native";
 import {
   AlertDialog,
@@ -16,10 +16,8 @@ import {
   HStack,
   ScrollView,
 } from "native-base";
-import Carousel from "react-native-reanimated-carousel";
-import { useSelector, useDispatch } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
+import { useSelector, useDispatch } from "react-redux";
 import { makeGameboard } from "../redux/gameSettingsSlice";
 import { saveBoard } from "../realm/mongoSave";
 
@@ -34,7 +32,8 @@ export default function SelSavedCatScreen({ navigation }) {
   const [isOpen, setIsOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = useRef(null);
-
+  const categoryRef = createRef(null);
+ 
   const numCategories = useSelector(
     (state) => state.gameSettings.numCategoriesStore
   );
@@ -72,8 +71,8 @@ export default function SelSavedCatScreen({ navigation }) {
             startColor={"primary.100"}
             style={{
               width: (width * 0.7) / numCategories,
-              height: height * 0.05,
-              borderRadius: 10,
+              height: height * 0.02,
+              borderRadius: 8,
             }}
           />
           {skeletonRow}
@@ -81,19 +80,49 @@ export default function SelSavedCatScreen({ navigation }) {
       );
     }
     setBoard(skeletons);
-  }, [selected,  height, width]);
+  }, [selected, height, width]);
 
   const categoryName = [];
   gameData.forEach((el, index) =>
     categoryName.push(
-      <Pressable onPress={(e) => handleClick(el, index)} key={index}>
-        <Text
-          fontSize="md"
-          color="primary.50"
-          bg={(index + 2) % 2 === 0 ? "primary.700" : null}
+      <Pressable
+        ref={categoryRef}
+        onPress={(e) => handleClick(el, index)}
+        key={index}
         >
-          {el.category}
-        </Text>
+        {({ isHovered, isFocused, isPressed }) => {
+          return (
+            <Box
+            
+             
+              bg={
+                isPressed
+                  ? "primary.500"
+                  : isHovered
+                  ? "primary.600"
+                  : (index + 2) % 2 === 0
+                  ? "primary.800"
+                  : null
+              }
+              style={{
+                transform: [
+                  {
+                    scale: isPressed ? 0.96 : 1,
+                  },
+                ],
+              }}
+            >
+              <Text
+                fontSize="md"
+          
+                color="primary.50"
+                // bg={(index + 2) % 2 === 0 ? "primary.800" : null}
+              >
+                {el.category}
+              </Text>
+            </Box>
+          );
+        }}
       </Pressable>
     )
   );
@@ -185,7 +214,7 @@ export default function SelSavedCatScreen({ navigation }) {
         selCat.push(el);
       }
     });
-    console.log(selCat);
+
     dispatch(makeGameboard(selCat));
 
     navigation.navigate("PlayScreen");
@@ -215,11 +244,12 @@ export default function SelSavedCatScreen({ navigation }) {
             </Text>
             <Divider />
             <ScrollView
+              space={0.5}
               maxH={height > width ? height * 0.2 : height * 0.6}
               persistentScrollbar={true}
             >
               {categoryName}
-            <Divider />
+              <Divider />
             </ScrollView>
           </VStack>
           <VStack>
