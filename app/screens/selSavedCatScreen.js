@@ -18,12 +18,12 @@ import {
 } from "native-base";
 import Carousel from "react-native-reanimated-carousel";
 import { useSelector, useDispatch } from "react-redux";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import data1 from "../data";
+import { clearBoard, makeGameboard } from "../redux/gameSettingsSlice";
 import { saveBoard } from "../realm/mongoSave";
 
 export default function SelSavedCatScreen({ navigation }) {
-
   const [board, setBoard] = useState([]);
   const [visible, setVisible] = useState(false);
   const { height, width } = useWindowDimensions();
@@ -42,8 +42,9 @@ export default function SelSavedCatScreen({ navigation }) {
     (state) => state.gameSettings.numQuestionsStore
   );
   //const gameData = useSelector((state) => state.gameSettings.gameboard);
-  //const gameData = useSelector((state) => state.questions.categories);
-  const gameData = data1;
+  const gameData = useSelector((state) => state.questions.categories);
+  // const gameData = data1;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let skeletons = [];
@@ -85,7 +86,7 @@ export default function SelSavedCatScreen({ navigation }) {
   const categoryName = [];
   gameData.forEach((el, index) =>
     categoryName.push(
-      <Pressable onPress={(e) => handleClick(el, index)} key={index}>
+      <Pressable onPress={(e) => handleClick(el)} key={index}>
         <Text
           fontSize="md"
           color="primary.50"
@@ -97,13 +98,13 @@ export default function SelSavedCatScreen({ navigation }) {
     )
   );
 
-  const handleClick = (val, index) => {
+  const handleClick = (val) => {
     let questions = [];
 
-    val.questions.forEach((element, index) => {
+    val.questions.forEach((element, idx) => {
       questions.push(
         <Box
-          key={index}
+          key={idx}
           size="sm"
           w={(width * 0.7) / numCategories}
           h={
@@ -153,10 +154,10 @@ export default function SelSavedCatScreen({ navigation }) {
           {val.category}
         </Text>
 
-        <VStack space={1}>{questions}</VStack>
+        {questions}
       </VStack>
     );
-    console.log("test", val.category in selectedCategory);
+
     if (val.category in selectedCategory) {
       let tmp = selectedCategory;
       delete tmp[val.category];
@@ -168,6 +169,7 @@ export default function SelSavedCatScreen({ navigation }) {
       setSelectedCategory(tmp);
       setSelected(selected + 1);
     }
+    // console.log(selectedCategory)
   };
 
   const handleBackPress = () => {
@@ -175,18 +177,17 @@ export default function SelSavedCatScreen({ navigation }) {
   };
   const handleSavePress = () => {
     setIsOpen(!isOpen);
-    saveBoard();
   };
   const handlePlayPress = () => {
-    let resetBoard = () => {
-      let blankData = new Array(numCategories).fill({
-        category: "",
-        questions: [],
-        _partition: "quizapp",
-      });
-      dispatch(clearBoard(blankData));
-    };
-
+    let selCat = [];
+    selectedCategory.map((el) => {});
+    gameData.map((el) => {
+      if (el.category in selectedCategory) {
+        selCat.push(el);
+      }
+    });
+    console.log(selCat);
+    dispatch(makeGameboard(selCat));
 
     navigation.navigate("PlayScreen");
   };
@@ -200,7 +201,7 @@ export default function SelSavedCatScreen({ navigation }) {
       borderWidth="1"
       bg={"primary.900"}
     >
-      <VStack space={4} alignItems="center">
+      <VStack space={2} alignItems="center">
         <Stack
           direction={{
             base: "column",
@@ -209,7 +210,7 @@ export default function SelSavedCatScreen({ navigation }) {
           w="100%"
           space={1}
         >
-          <VStack space={1} borderColor="primary.300">
+          <VStack>
             <Text fontSize="3xl" textAlign={"center"} color="primary.50">
               Categories
             </Text>
@@ -220,14 +221,14 @@ export default function SelSavedCatScreen({ navigation }) {
             >
               {categoryName}
             </ScrollView>
-            {/* <Divider /> */}
+            <Divider />
           </VStack>
-          {/* <Divider orientation="vertical" mx="1" background="primary.300" /> */}
-
-          <HStack space={1}>
-            {Object.values(selectedCategory)}
-            {board}
-          </HStack>
+          <VStack>
+            <HStack space={1}>
+              {Object.values(selectedCategory)}
+              {board}
+            </HStack>
+          </VStack>
         </Stack>
         <AlertDialog
           leastDestructiveRef={cancelRef}

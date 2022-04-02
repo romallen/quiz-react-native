@@ -7,7 +7,7 @@ export const gameSettingsSlice = createSlice({
     numCategoriesStore: 0,
     numQuestionsStore: 0,
     timer: null,
-    gameboard: data,
+    gameboard: [],
     cardState: [],
   },
   reducers: {
@@ -34,6 +34,9 @@ export const gameSettingsSlice = createSlice({
         action.payload.value
       );
     },
+    makeGameboard: (state, action) => {
+      state.gameboard = action.payload;
+    },
   },
 });
 
@@ -44,6 +47,7 @@ export const {
   clearBoard,
   makeGameboardCat,
   makeGameboardQues,
+  makeGameboard,
 } = gameSettingsSlice.actions;
 
 export default gameSettingsSlice.reducer;

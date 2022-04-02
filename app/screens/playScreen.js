@@ -44,7 +44,7 @@ export default function PlayScreen({ navigation }) {
     (state) => state.gameSettings.numQuestionsStore
   );
   const gameData = useSelector((state) => state.gameSettings.gameboard);
-
+console.log(gameData)
   const turn = useSelector((state) => state.teams.turn);
   const teamScores = useSelector((state) => state.teams.value);
   const topScore = Math.max(...Object.values(teamScores));
@@ -99,7 +99,7 @@ export default function PlayScreen({ navigation }) {
             question={catData[categoryIndex].questions[questionIndex].question}
             answer={catData[categoryIndex].questions[questionIndex].answer}
             points={(questionIndex + 1) * 100}
-            type={catData[categoryIndex].questions[questionIndex].type}
+            type={catData[categoryIndex].type}
           />
         );
       }
