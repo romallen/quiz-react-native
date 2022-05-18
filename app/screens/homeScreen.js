@@ -39,7 +39,7 @@ export default function HomeScreen({ navigation }) {
   useEffect(async () => {
     const localData = await AsyncStorage.getItem("localData");
 
-    if (loading ) {
+    if (!localData) {
       try {
         const client = realmApp.currentUser.mongoClient("mongodb-atlas");
 
@@ -60,10 +60,9 @@ export default function HomeScreen({ navigation }) {
       setData(JSON.parse(localData));
       setLoading(false);
     }
-  }, [loading]);
+  }, []);
 
   useEffect(() => {
-    // console.log(data);
     dispatch(getQuestions(data));
   }, [data]);
 
