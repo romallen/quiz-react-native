@@ -1,4 +1,4 @@
-import ManualCard from "../components/manualCard";
+import ManualCard from "../components/ManualCard";
 
 import { useState, useEffect, useRef } from "react";
 import { useWindowDimensions } from "react-native";
