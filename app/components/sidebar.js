@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useWindowDimensions } from "react-native";
-import { incrementScore, incrementTurn } from "../redux/teamsSlice";
+import { resetTeams } from "../redux/teamsSlice";
 import {
   Text,
   Box,
@@ -29,7 +29,8 @@ export default function Sidebar(props) {
   const cancelRef = useRef(null);
 
   const { height, width } = useWindowDimensions();
-
+  
+  const dispatch = useDispatch();
   const teamsStore = useSelector((state) => state.teams.value);
   const teamNumber = Object.keys(teamsStore).length;
   const turn = useSelector((state) => state.teams.turn);
@@ -127,7 +128,8 @@ export default function Sidebar(props) {
                   colorScheme="danger"
                   onPress={() => {
                     onClose;
-                    navigation.goBack();
+                    dispatch(resetTeams());
+                    navigation.navigate("SetupScreen");
                   }}
                 >
                   Yes
