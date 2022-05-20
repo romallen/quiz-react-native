@@ -1,6 +1,12 @@
 import { realmApp } from "./realm";
 
-const client = realmApp.currentUser.mongoClient("mongodb-atlas");
+let client;
+try {
+  client = realmApp.currentUser.mongoClient("mongodb-atlas");
+} catch (err) {
+  console.error("Failed to log in", err);
+}
+
 
 let saveCategories = async (categories) => {
   try {

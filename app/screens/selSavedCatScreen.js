@@ -148,7 +148,7 @@ export default function SelSavedCatScreen({ navigation }) {
         >
           {element["question"].slice(0, 10) === "data:image" ? (
             <Image
-            alignSelf={"center"}
+              alignSelf={"center"}
               size="lg"
               resizeMode={"contain"}
               source={{
