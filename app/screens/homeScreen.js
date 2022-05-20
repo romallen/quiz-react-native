@@ -34,11 +34,8 @@ export default function HomeScreen({ navigation }) {
       const jsonUser = JSON.stringify(anonUser);
       await AsyncStorage.setItem("currentUser", jsonUser);
     }
-  }, []);
 
-  useEffect(async () => {
     const localData = await AsyncStorage.getItem("localData");
-
     if (!localData) {
       try {
         const client = realmApp.currentUser.mongoClient("mongodb-atlas");
@@ -56,20 +53,21 @@ export default function HomeScreen({ navigation }) {
       }
 
       setLoading(false);
-    } else if (localData) {
+    } 
+    else if (localData) {
       setData(JSON.parse(localData));
       setLoading(false);
     }
   }, []);
 
-  useEffect(() => {
-    dispatch(getQuestions(data));
-  }, [data]);
-
   useEffect(async () => {
     const currentUserVal = await AsyncStorage.getItem("currentUser");
     currentUserVal !== null ? setIsLoggedIn(true) : null;
   }, []);
+
+  useEffect(() => {
+    dispatch(getQuestions(data));
+  }, [data]);
 
   const handleLoginPress = () => {
     setIsLoggedIn(true);
